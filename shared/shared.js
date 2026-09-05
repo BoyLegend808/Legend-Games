@@ -201,6 +201,7 @@ const LegendCart = {
         if (item.capacity) msg += `   • Disk Size: ${item.capacity}\n`;
         if (item.purpose) msg += `   • Disk Purpose: ${item.purpose.toUpperCase()}\n`;
         if (item.wrap) msg += `   • Wrap Skin: ${item.wrap}\n`;
+        if (item.customGameRequest) msg += `   • Requested Titles (not in list): ${item.customGameRequest}\n`;
         if (item.notes) msg += `   • Note: ${item.notes}\n`;
         msg += `   • Subtotal: ${formatNaira(price * qty)}\n\n`;
       });
@@ -282,6 +283,11 @@ function initAppNavigation(options = {}) {
   const path = window.location.pathname.replace(/\\/g, '/');
   const isHome = path.includes('/home/') || path.endsWith('/index.html') || path.endsWith('/Legend%20Games/');
 
+  // Page name falls back to the part of the document title before the brand suffix.
+  const docTitle = document.title.split(/[—|]/)[0].trim();
+  const pageTitle = options.title || document.body.dataset.pageTitle || (isHome ? 'NaijaPlay' : (docTitle || 'Store'));
+  const pageSub = options.subtitle || document.body.dataset.pageSub || (isHome ? 'Consoles & Games' : 'Legend Games Lagos');
+
   // Inject Header
   if (!document.querySelector('.app-header')) {
     const headerHtml = `
@@ -294,10 +300,8 @@ function initAppNavigation(options = {}) {
               </button>
             ` : ''}
             <div class="header-brand-wrap">
-              <span class="header-brand-title">
-                ${options.title || (isHome ? 'NaijaPlay' : 'Store')}
-              </span>
-              <span class="header-brand-sub">${options.subtitle || (isHome ? 'Consoles & Games' : 'Quote Request')}</span>
+              <span class="header-brand-title" title="${pageTitle}">${pageTitle}</span>
+              <span class="header-brand-sub">${pageSub}</span>
             </div>
           </div>
 
@@ -378,7 +382,7 @@ function initFloatingWhatsApp() {
         bottom: calc(var(--nav-height-btm) + 16px);
         right: 18px;
         z-index: 9000;
-        background: #25d366;
+        background: var(--whatsapp-color);
         color: #fff;
         border: none;
         border-radius: 50px;

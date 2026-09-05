@@ -71,6 +71,7 @@ const CartController = {
             ${item.installedGames && item.installedGames.length ? `<span class="spec-key">Installed:</span><span class="spec-val">${item.installedGames.map(g => typeof g === 'string' ? g : g.title).join(', ')}</span>` : ''}
             ${item.capacity ? `<span class="spec-key">Capacity:</span><span class="spec-val">${item.capacity}</span>` : ''}
             ${item.wrap ? `<span class="spec-key">Wrap:</span><span class="spec-val">${item.wrap}</span>` : ''}
+            ${item.customGameRequest ? `<span class="spec-key">Requested:</span><span class="spec-val">${item.customGameRequest}</span>` : ''}
             ${item.notes ? `<span class="spec-key">Notes:</span><span class="spec-val">${item.notes}</span>` : ''}
           </div>
 
@@ -158,7 +159,7 @@ const CartController = {
     const summaryContainer = document.getElementById('submitted-items-summary');
     if (summaryContainer) {
       summaryContainer.innerHTML = `
-        <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase;">
+        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase;">
           Requested Items (${items.length})
         </div>
         ${items.map(item => `

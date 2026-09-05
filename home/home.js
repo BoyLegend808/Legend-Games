@@ -17,6 +17,16 @@ function handleHomeSearch(query) {
     card.style.display = matches ? 'flex' : 'none';
     if (matches) hasMatches = true;
   });
+
+  const empty = document.getElementById('home-search-empty');
+  if (empty) empty.hidden = hasMatches || term === '';
+}
+
+function askAboutSearch() {
+  const term = document.getElementById('home-search-input')?.value.trim();
+  openWhatsApp(term
+    ? `Hi Legend Games, do you have "${term}" available? What is the price?`
+    : 'Hi Legend Games, I am looking for an item I could not find on the site.');
 }
 
 function filterHomeCategory(category, btn) {

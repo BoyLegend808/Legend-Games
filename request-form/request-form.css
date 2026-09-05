@@ -39,7 +39,7 @@
 
 .service-tab-btn span {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.2;
 }
@@ -51,7 +51,7 @@
 }
 
 .service-tab-btn.active strong {
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
 }
 
 .condition-grid {

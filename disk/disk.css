@@ -44,7 +44,7 @@
 }
 
 .purpose-info span {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
@@ -102,7 +102,7 @@
 }
 
 .cap-desc {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
@@ -123,7 +123,7 @@
 }
 
 .storage-meter-label {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -141,7 +141,7 @@
   font-family: var(--font-heading);
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
 }
 
 .storage-meter-values span {
@@ -150,7 +150,7 @@
 }
 
 .buffer-badge {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent-green);
   background: var(--accent-green-bg);

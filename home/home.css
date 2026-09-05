@@ -36,7 +36,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -91,7 +91,7 @@
 }
 
 .b-stat span {
-  font-size: 0.70rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 600;
 }
@@ -119,6 +119,29 @@
 .banner-action-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5);
+}
+
+.search-empty-state {
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.search-empty-state strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.search-empty-state p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 14px;
 }
 
 .naira-notice {

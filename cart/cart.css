@@ -10,7 +10,7 @@
 }
 
 .cart-count-badge {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 700;
 }
@@ -71,7 +71,7 @@
   display: grid;
   grid-template-columns: 80px 1fr;
   gap: 4px 10px;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   background: var(--bg-card-subtle);
   border-radius: var(--radius-sm);
   padding: 8px 10px;
@@ -164,7 +164,7 @@
 .contact-method-opt.active {
   border-color: var(--accent-primary);
   background: rgba(99, 102, 241, 0.1);
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
 }
 
 /* Breakdown Card */
@@ -238,7 +238,7 @@
   font-family: var(--font-heading);
   font-size: 1.05rem;
   font-weight: 800;
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
   letter-spacing: 0.04em;
 }
 

@@ -12,6 +12,8 @@ const ConsoleEngine = {
   selectedWrap: 'none',
   selectedBundle: 'none',
   customGameRequest: '',
+  gameSearch: { physical: '', installed: '' },
+  GAMES_PREVIEW_COUNT: 8,
 
   init(platformKey) {
     this.activePlatform = platformKey || 'ps4';
@@ -31,6 +33,7 @@ const ConsoleEngine = {
     this.activeVariant = CONSOLES_DATA[platformKey].variants.find(v => v.popular) || CONSOLES_DATA[platformKey].variants[0];
     this.selectedPhysicalGames = [];
     this.selectedInstalledGames = [];
+    this.gameSearch = { physical: '', installed: '' };
     this.render();
   },
 
@@ -42,10 +45,48 @@ const ConsoleEngine = {
   setVariant(variantId) {
     const consoleData = CONSOLES_DATA[this.activePlatform];
     const found = consoleData.variants.find(v => v.id === variantId);
-    if (found) {
-      this.activeVariant = found;
-      this.updateTotal();
-    }
+    if (!found) return;
+
+    this.activeVariant = found;
+    document.querySelectorAll('.variant-select-card').forEach(card => {
+      const isActive = card.dataset.variantId === variantId;
+      card.classList.toggle('active', isActive);
+      card.setAttribute('aria-checked', isActive ? 'true' : 'false');
+      const radio = card.querySelector('.v-radio');
+      if (radio) radio.textContent = isActive ? '✓' : '';
+    });
+    this.updateTotal();
+  },
+
+  setWrap(wrapId) {
+    this.selectedWrap = wrapId;
+    this.updateTotal();
+  },
+
+  selectedWrapName() {
+    if (this.selectedWrap === 'none' || !window.WRAPS_DATA) return null;
+    const wrap = WRAPS_DATA.find(w => w.id === this.selectedWrap);
+    return wrap ? wrap.name : null;
+  },
+
+  wrapAddonPrice() {
+    if (this.selectedWrap === 'none' || !window.WRAPS_DATA) return 0;
+    const wrap = WRAPS_DATA.find(w => w.id === this.selectedWrap);
+    return wrap ? Number(wrap.addonPrice || 0) : 0;
+  },
+
+  gamesAddonTotal() {
+    if (!window.GAMES_CATALOG) return 0;
+    let total = 0;
+    this.selectedPhysicalGames.forEach(gid => {
+      const g = GAMES_CATALOG.find(item => item.id === gid);
+      if (g) total += Number(g.cdPrice || 0);
+    });
+    this.selectedInstalledGames.forEach(gid => {
+      const g = GAMES_CATALOG.find(item => item.id === gid);
+      if (g) total += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000));
+    });
+    return total;
   },
 
   togglePhysicalGame(gameId) {
@@ -70,32 +111,7 @@ const ConsoleEngine = {
 
   calculateTotal() {
     if (!this.activeVariant) return 0;
-    let total = Number(this.activeVariant.basePrice || 0);
-
-    // Physical games pricing
-    if (window.GAMES_CATALOG) {
-      this.selectedPhysicalGames.forEach(gid => {
-        const g = GAMES_CATALOG.find(item => item.id === gid);
-        if (g) total += Number(g.cdPrice || 0);
-      });
-
-      // Installed games pricing (depends on modded vs online)
-      this.selectedInstalledGames.forEach(gid => {
-        const g = GAMES_CATALOG.find(item => item.id === gid);
-        if (g) {
-          const gamePrice = this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000);
-          total += Number(gamePrice);
-        }
-      });
-    }
-
-    // Wrap pricing
-    if (this.selectedWrap !== 'none' && window.WRAPS_DATA) {
-      const wrap = WRAPS_DATA.find(w => w.id === this.selectedWrap);
-      if (wrap) total += Number(wrap.addonPrice || 15000);
-    }
-
-    return total;
+    return Number(this.activeVariant.basePrice || 0) + this.gamesAddonTotal() + this.wrapAddonPrice();
   },
 
   updateTotal() {
@@ -112,18 +128,7 @@ const ConsoleEngine = {
     }
     const gamesDisplay = document.getElementById('bd-games-price');
     if (gamesDisplay) {
-      let gamesTotal = 0;
-      if (window.GAMES_CATALOG) {
-        this.selectedPhysicalGames.forEach(gid => {
-          const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(g.cdPrice || 0);
-        });
-        this.selectedInstalledGames.forEach(gid => {
-          const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000));
-        });
-      }
-      gamesDisplay.textContent = gamesTotal > 0 ? formatNaira(gamesTotal) : '₦0';
+      gamesDisplay.textContent = formatNaira(this.gamesAddonTotal() + this.wrapAddonPrice());
     }
   },
 
@@ -153,7 +158,7 @@ const ConsoleEngine = {
       totalPrice: this.calculateTotal(),
       physicalGames: physGameObjects,
       installedGames: instGameObjects,
-      wrap: this.selectedWrap !== 'none' ? this.selectedWrap : null,
+      wrap: this.selectedWrapName(),
       customGameRequest: this.customGameRequest || null,
       quantity: 1,
       image: consoleData.image
@@ -167,7 +172,6 @@ const ConsoleEngine = {
     if (!mount) return;
 
     const consoleData = CONSOLES_DATA[this.activePlatform];
-    const games = window.GAMES_CATALOG ? GAMES_CATALOG.filter(g => g.platforms.includes(this.activePlatform)) : [];
 
     mount.innerHTML = `
       <div class="studio-card card-elevated card">
@@ -216,7 +220,7 @@ const ConsoleEngine = {
           <label class="section-label">2. Select a variant</label>
           <div class="variant-cards-list">
             ${consoleData.variants.map(v => `
-              <div class="variant-select-card ${this.activeVariant && this.activeVariant.id === v.id ? 'active' : ''}" onclick="ConsoleEngine.setVariant('${v.id}')">
+              <div class="variant-select-card ${this.activeVariant && this.activeVariant.id === v.id ? 'active' : ''}" data-variant-id="${v.id}" role="radio" aria-checked="${this.activeVariant && this.activeVariant.id === v.id}" onclick="ConsoleEngine.setVariant('${v.id}')">
                 <div class="v-card-left">
                   <div class="v-name-row">
                     <strong>${v.name}</strong>
@@ -253,17 +257,7 @@ const ConsoleEngine = {
           <div class="search-mini-wrap">
             <input type="text" class="search-input-mini" placeholder="Search titles (e.g. GTA, Spider-Man)..." oninput="ConsoleEngine.filterGamesList('physical', this.value)">
           </div>
-          <div class="games-check-list" id="physical-games-list">
-            ${games.slice(0, 8).map(g => `
-              <label class="game-check-row">
-                <div class="game-check-left">
-                  <input type="checkbox" ${this.selectedPhysicalGames.includes(g.id) ? 'checked' : ''} onchange="ConsoleEngine.togglePhysicalGame('${g.id}')">
-                  <span class="game-title">${g.title}</span>
-                </div>
-                <span class="game-price">${formatNaira(g.cdPrice)}</span>
-              </label>
-            `).join('')}
-          </div>
+          <div class="games-check-list" id="physical-games-list">${this.gamesListHtml('physical')}</div>
         </div>
 
         <!-- 4. Add Installed Digital Games -->
@@ -276,37 +270,23 @@ const ConsoleEngine = {
           <div class="search-mini-wrap">
             <input type="text" class="search-input-mini" placeholder="Search digital titles..." oninput="ConsoleEngine.filterGamesList('installed', this.value)">
           </div>
-          <div class="games-check-list" id="installed-games-list">
-            ${games.slice(0, 8).map(g => {
-              const p = this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000);
-              return `
-                <label class="game-check-row">
-                  <div class="game-check-left">
-                    <input type="checkbox" ${this.selectedInstalledGames.includes(g.id) ? 'checked' : ''} onchange="ConsoleEngine.toggleInstalledGame('${g.id}')">
-                    <span class="game-title">${g.title}</span>
-                  </div>
-                  <span class="game-price">${formatNaira(p)}</span>
-                </label>
-              `;
-            }).join('')}
-          </div>
+          <div class="games-check-list" id="installed-games-list">${this.gamesListHtml('installed')}</div>
 
           <!-- Request a game not listed -->
           <div class="custom-game-input-wrap">
             <label class="form-label" style="font-size:0.76rem;">Request any game not on this list:</label>
-            <input type="text" class="form-input" placeholder="Enter game name (e.g. Mortal Kombat 1, Tekken 8)..." oninput="ConsoleEngine.customGameRequest = this.value">
+            <input type="text" class="form-input" placeholder="Enter game name (e.g. Mortal Kombat 1, Tekken 8)..." value="${this.customGameRequest}" oninput="ConsoleEngine.customGameRequest = this.value">
           </div>
         </div>
 
         <!-- 5. Finish Setup / Custom Wrap -->
         <div class="form-section">
-          <label class="section-label">5. Custom wrap skin (Optional)</label>
-          <select class="form-select" onchange="ConsoleEngine.selectedWrap = this.value; ConsoleEngine.updateTotal();">
+          <label class="section-label" for="engine-wrap-select">5. Custom wrap skin (Optional)</label>
+          <select class="form-select" id="engine-wrap-select" onchange="ConsoleEngine.setWrap(this.value)">
             <option value="none">No wrap (Default console chassis)</option>
-            <option value="spider-man">Spider-Man Edition Skin (+₦15,000)</option>
-            <option value="god-of-war">God of War Ragnarök Wrap (+₦15,000)</option>
-            <option value="cyberpunk">Cyberpunk Neon Skin (+₦15,000)</option>
-            <option value="carbon-black">Carbon Matte Stealth Wrap (+₦15,000)</option>
+            ${(window.WRAPS_DATA || []).map(w => `
+              <option value="${w.id}" ${this.selectedWrap === w.id ? 'selected' : ''}>${w.name} (+${formatNaira(w.addonPrice)})</option>
+            `).join('')}
           </select>
         </div>
 
@@ -324,7 +304,7 @@ const ConsoleEngine = {
           ` : ''}
           <div class="bd-row">
             <span>Games & Add-ons</span>
-            <strong id="bd-games-price">₦0</strong>
+            <strong id="bd-games-price">${formatNaira(this.gamesAddonTotal() + this.wrapAddonPrice())}</strong>
           </div>
           <div class="bd-divider"></div>
           <div class="bd-row total-row">
@@ -335,7 +315,7 @@ const ConsoleEngine = {
         </div>
 
         <!-- Action Button -->
-        <button class="btn btn-primary btn-full btn-lg" onclick="ConsoleEngine.addToCart()">
+        <button class="btn btn-primary btn-full btn-lg" id="engine-primary-cta" onclick="ConsoleEngine.addToCart()">
           <span>Add configuration to request</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
@@ -425,12 +405,12 @@ const ConsoleEngine = {
           margin-bottom: 4px;
         }
         .mode-card p {
-          font-size: 0.72rem;
+          font-size: 0.78rem;
           color: var(--text-muted);
           line-height: 1.3;
         }
         .mode-check {
-          color: var(--accent-primary);
+          color: var(--accent-primary-text);
           font-weight: 900;
         }
         .variant-cards-list {
@@ -462,7 +442,7 @@ const ConsoleEngine = {
           gap: 8px;
         }
         .v-blurb {
-          font-size: 0.74rem;
+          font-size: 0.78rem;
           color: var(--text-muted);
           margin-top: 2px;
           max-width: 320px;
@@ -487,7 +467,7 @@ const ConsoleEngine = {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--accent-primary);
+          color: var(--accent-primary-text);
           font-size: 0.8rem;
           font-weight: 900;
         }
@@ -515,7 +495,7 @@ const ConsoleEngine = {
           color: var(--accent-green);
         }
         .fc-content p {
-          font-size: 0.74rem;
+          font-size: 0.78rem;
           color: var(--text-secondary);
         }
         .checklist-header {
@@ -525,7 +505,7 @@ const ConsoleEngine = {
           margin-bottom: 8px;
         }
         .checklist-tag {
-          font-size: 0.72rem;
+          font-size: 0.78rem;
           font-weight: 700;
           color: var(--text-muted);
           text-transform: uppercase;
@@ -626,27 +606,157 @@ const ConsoleEngine = {
           color: var(--accent-gold);
         }
         .bd-note {
-          font-size: 0.74rem;
+          font-size: 0.78rem;
           color: var(--text-muted);
           line-height: 1.35;
           margin-top: 8px;
         }
+        .engine-sticky-bar {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: var(--nav-height-btm);
+          z-index: 90;
+          padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+          background: var(--bg-elevated, #171928);
+          border-top: 1px solid var(--border-subtle);
+          box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+          transform: translateY(140%);
+          transition: transform 0.22s ease;
+          pointer-events: none;
+        }
+        .engine-sticky-bar.visible {
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+        .sticky-bar-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+          max-width: var(--site-max-width);
+          margin: 0 auto;
+        }
+        .sticky-bar-total {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+        }
+        .sticky-bar-total span {
+          font-size: 0.78rem;
+          font-weight: 600;
+          color: var(--text-muted);
+        }
+        .sticky-bar-total strong {
+          font-family: var(--font-heading);
+          font-size: 1.05rem;
+          color: var(--accent-gold);
+        }
+        .sticky-bar-inner .btn {
+          white-space: nowrap;
+        }
+        body.engine-cta-visible #float-wa-btn {
+          transform: translateY(-72px);
+        }
+        .games-empty-state,
+        .games-list-hint {
+          font-size: 0.76rem;
+          color: var(--text-muted);
+          line-height: 1.4;
+          padding: 10px 4px 2px;
+        }
+        .games-empty-state {
+          text-align: center;
+          padding: 18px 12px;
+        }
       `;
       document.head.appendChild(style);
     }
+
+    this.mountStickyBar();
+  },
+
+  mountStickyBar() {
+    let bar = document.getElementById('engine-sticky-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'engine-sticky-bar';
+      bar.className = 'engine-sticky-bar';
+      bar.innerHTML = `
+        <div class="sticky-bar-inner">
+          <div class="sticky-bar-total">
+            <span>Estimated total</span>
+            <strong id="engine-sticky-total">${formatNaira(this.calculateTotal())}</strong>
+          </div>
+          <button class="btn btn-primary" onclick="ConsoleEngine.addToCart()">Add to request</button>
+        </div>
+      `;
+      document.body.appendChild(bar);
+    }
+
+    // Only surface the sticky bar while the in-page CTA is scrolled out of view.
+    const cta = document.getElementById('engine-primary-cta');
+    if (this.ctaObserver) this.ctaObserver.disconnect();
+    if (cta && 'IntersectionObserver' in window) {
+      this.ctaObserver = new IntersectionObserver(entries => {
+        const show = !entries[0].isIntersecting;
+        bar.classList.toggle('visible', show);
+        document.body.classList.toggle('engine-cta-visible', show);
+      }, { threshold: 0.05 });
+      this.ctaObserver.observe(cta);
+    } else {
+      bar.classList.add('visible');
+      document.body.classList.add('engine-cta-visible');
+    }
+  },
+
+  platformGames() {
+    return window.GAMES_CATALOG
+      ? GAMES_CATALOG.filter(g => g.platforms.includes(this.activePlatform))
+      : [];
+  },
+
+  gamesListHtml(type) {
+    const term = (this.gameSearch[type] || '').trim().toLowerCase();
+    const all = this.platformGames();
+    const matches = term ? all.filter(g => g.title.toLowerCase().includes(term)) : all;
+    const selected = type === 'physical' ? this.selectedPhysicalGames : this.selectedInstalledGames;
+    const toggleFn = type === 'physical' ? 'togglePhysicalGame' : 'toggleInstalledGame';
+
+    if (matches.length === 0) {
+      return `<p class="games-empty-state">No titles match “${term}”. Type it into “Request any game not on this list” below and we will source it.</p>`;
+    }
+
+    // Without a search term the list is capped to a preview; searching reveals the whole catalogue.
+    const visible = term ? matches : matches.slice(0, this.GAMES_PREVIEW_COUNT);
+    const hidden = matches.length - visible.length;
+
+    const rows = visible.map(g => {
+      const price = type === 'physical'
+        ? Number(g.cdPrice || 0)
+        : Number(this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000));
+      return `
+        <label class="game-check-row">
+          <div class="game-check-left">
+            <input type="checkbox" ${selected.includes(g.id) ? 'checked' : ''} onchange="ConsoleEngine.${toggleFn}('${g.id}')">
+            <span class="game-title">${g.title}</span>
+          </div>
+          <span class="game-price">${formatNaira(price)}</span>
+        </label>
+      `;
+    }).join('');
+
+    const more = hidden > 0
+      ? `<p class="games-list-hint">Search above to see ${hidden} more ${hidden === 1 ? 'title' : 'titles'}.</p>`
+      : '';
+
+    return rows + more;
   },
 
   filterGamesList(type, query) {
-    const term = (query || '').toLowerCase();
-    const listId = type === 'physical' ? 'physical-games-list' : 'installed-games-list';
-    const container = document.getElementById(listId);
-    if (!container) return;
-
-    const rows = container.querySelectorAll('.game-check-row');
-    rows.forEach(row => {
-      const title = row.querySelector('.game-title')?.textContent.toLowerCase() || '';
-      row.style.display = title.includes(term) ? 'flex' : 'none';
-    });
+    this.gameSearch[type] = query || '';
+    const container = document.getElementById(type === 'physical' ? 'physical-games-list' : 'installed-games-list');
+    if (container) container.innerHTML = this.gamesListHtml(type);
   }
 };
 

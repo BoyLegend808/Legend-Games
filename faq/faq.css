@@ -56,7 +56,7 @@
 
 .faq-icon {
   font-size: 1.3rem;
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
   font-weight: 700;
   transition: transform 0.28s var(--ease-out-cubic);
 }

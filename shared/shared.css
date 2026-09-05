@@ -15,14 +15,15 @@
   --bg-elevated:     #21253b;
 
   --text-primary:    #f8fafc;
-  --text-secondary:  #94a3b8;
-  --text-muted:      #64748b;
+  --text-secondary:  #b4c0d0;
+  --text-muted:      #94a3b8;
   --text-inverse:    #090a10;
 
   /* ── Accent Colors ── */
-  --accent-primary:      #6366f1; /* Indigo */
-  --accent-primary-hover:#4f46e5;
-  --accent-purple:       #8b5cf6;
+  --accent-primary:      #4f46e5; /* Indigo — carries white text at AA */
+  --accent-primary-hover:#4338ca;
+  --accent-primary-text: #a5b4fc; /* Indigo tint for accent text on dark surfaces */
+  --accent-purple:       #7c3aed;
   --accent-gold:         #f59e0b; /* Amber/Gold */
   --accent-gold-light:   #fde68a;
   --accent-gold-dark:    #b45309;
@@ -31,8 +32,9 @@
   --accent-red:          #ef4444; /* Alert Red */
   --accent-red-bg:       rgba(239, 68, 68, 0.12);
   --accent-cyan:         #06b6d4;
-  --whatsapp-color:      #25d366;
-  --whatsapp-hover:      #20ba5a;
+  --whatsapp-color:      #15803d;
+  --whatsapp-hover:      #126b33;
+  --whatsapp-brand:      #25d366;
 
   /* ── Borders & Outlines ── */
   --border-subtle:   rgba(255, 255, 255, 0.07);
@@ -87,8 +89,9 @@ html[data-theme="light"] {
 
   --text-primary:    #0f172a;
   --text-secondary:  #475569;
-  --text-muted:      #64748b;
+  --text-muted:      #576677;
   --text-inverse:    #ffffff;
+  --accent-primary-text: #4338ca;
 
   --border-subtle:   rgba(15, 23, 42, 0.08);
   --border-light:    rgba(15, 23, 42, 0.12);
@@ -261,11 +264,13 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .header-brand-wrap {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .header-brand-title {
@@ -274,16 +279,20 @@ img {
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-brand-sub {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-title-block {
@@ -292,7 +301,7 @@ img {
 }
 
 .header-subtitle {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -343,7 +352,7 @@ img {
   border-radius: var(--radius-full);
   background: var(--accent-gold);
   color: #000;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -412,7 +421,7 @@ img {
   justify-content: center;
   gap: 4px;
   color: var(--text-muted);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
   transition: var(--transition-fast);
   position: relative;
@@ -452,7 +461,7 @@ img {
   border-radius: var(--radius-full);
   background: var(--accent-gold);
   color: #000;
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   font-weight: 800;
   display: none;
   align-items: center;
@@ -588,7 +597,7 @@ img {
   gap: 5px;
   padding: 4px 10px;
   border-radius: var(--radius-full);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
@@ -680,7 +689,7 @@ img {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 16px;
@@ -855,7 +864,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-primary);
+  color: var(--accent-primary-text);
   flex-shrink: 0;
 }
 
@@ -873,7 +882,7 @@ img {
 }
 
 .cat-sub {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
@@ -970,7 +979,7 @@ img {
 }
 
 .product-mini-sub {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
@@ -1056,7 +1065,7 @@ img {
 }
 
 .menu-item-sub {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
@@ -1117,7 +1126,7 @@ img {
 }
 
 .wa-strip-arrow {
-  color: var(--whatsapp-color);
+  color: var(--whatsapp-brand);
   font-size: 1.4rem;
   font-weight: 700;
 }
@@ -1261,7 +1270,7 @@ img {
   border-radius: var(--radius-full);
   background: var(--bg-card-subtle);
   border: 1px solid var(--border-subtle);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -1270,7 +1279,7 @@ img {
   border-top: 1px solid var(--border-subtle);
   padding-top: 14px;
   text-align: center;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 

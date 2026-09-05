@@ -24,7 +24,7 @@ const OrderTracker = {
 
       wrap.style.display = 'block';
       pills.innerHTML = pastOrders.map(o => `
-        <button class="chip" style="padding:4px 10px; font-size:0.75rem;" onclick="OrderTracker.lookup('${o.ref}')">
+        <button class="chip" style="padding:4px 10px; font-size:0.78rem;" onclick="OrderTracker.lookup('${o.ref}')">
           ${o.ref}
         </button>
       `).join('');
@@ -55,8 +55,8 @@ const OrderTracker = {
       <div class="card card-elevated">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div>
-            <span style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Reference</span>
-            <h3 style="font-family:var(--font-heading); font-size:1.2rem; color:var(--accent-primary);">${ref}</h3>
+            <span style="font-size:0.78rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Reference</span>
+            <h3 style="font-family:var(--font-heading); font-size:1.2rem; color: var(--accent-primary-text);">${ref}</h3>
           </div>
           <span class="badge badge-green">IN PROGRESS</span>
         </div>

@@ -16,6 +16,9 @@ try {
     Write-Host " Serving files from: $baseDir"
     Write-Host "======================================================"
 
+    # Launch browser only AFTER listener is active
+    Start-Process "http://localhost:$port/home/home.html"
+
     while ($true) {
         $client = $listener.AcceptTcpClient()
         $stream = $client.GetStream()

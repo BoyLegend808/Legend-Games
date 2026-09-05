@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hard Disk Game Loader Studio — Legend Games Lagos</title>
+  <meta name="description" content="Load 1TB to 4TB of games onto an external hard drive for PS4 or PC. Live storage buffer calculations and safe meetup handover in Lagos.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="disk.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Safety Notice -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Plug &amp; Play Setup
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">10% Safe Buffer Reserved</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Pay on Meetup in Lagos</span>
+      </div>
+
+      <section class="card card-elevated disk-studio-card">
+        <div class="studio-header">
+          <span class="badge badge-purple">PS4 &amp; PC GAME LOADING</span>
+          <h2 class="studio-title">External Hard Disk Game Loader</h2>
+          <p class="studio-sub">Pick your drive capacity and load it up with blockbuster games.</p>
+        </div>
+
+        <!-- 1. Disk Purpose Toggle (PS4 vs PC) -->
+        <div class="form-section">
+          <label class="section-label">1. Select drive target platform</label>
+          <div class="purpose-toggle-grid">
+            <button class="purpose-card active" id="purpose-ps4" onclick="DiskLoader.setPurpose('ps4')">
+              <div class="purpose-icon">🎮</div>
+              <div class="purpose-info">
+                <strong>PlayStation 4 Hard Disk</strong>
+                <span>Formatted for PS4 jailbreak &amp; external loading</span>
+              </div>
+            </button>
+
+            <button class="purpose-card" id="purpose-pc" onclick="DiskLoader.setPurpose('pc')">
+              <div class="purpose-icon">💻</div>
+              <div class="purpose-info">
+                <strong>PC &amp; Laptop Game Drive</strong>
+                <span>Pre-installed Windows PC games ready to play</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Select Disk Capacity -->
+        <div class="form-section">
+          <label class="section-label">2. Select hard disk capacity</label>
+          <div class="capacity-cards-grid" id="capacity-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3. Live Storage Progress Bar & Safe Buffer -->
+        <div class="storage-meter-card">
+          <div class="storage-meter-header">
+            <div>
+              <span class="storage-meter-label">Live Storage Usage</span>
+              <div class="storage-meter-values">
+                <strong id="storage-used-display">0 GB</strong>
+                <span id="storage-max-display">/ 900 GB usable</span>
+              </div>
+            </div>
+            <div class="buffer-badge" id="buffer-badge">
+              <span>🛡️ 10% System Buffer Safe</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar Container -->
+          <div class="storage-progress-bar-bg">
+            <div class="storage-progress-bar-fill" id="storage-progress-fill" style="width: 0%;"></div>
+          </div>
+
+          <div class="storage-meter-footer">
+            <span id="storage-remaining-text">900 GB space remaining</span>
+            <span id="storage-games-count">0 games selected</span>
+          </div>
+
+          <!-- Upgrade Suggestion Box (Shown when near or over capacity) -->
+          <div class="upgrade-suggestion-box" id="upgrade-suggestion" style="display:none;">
+            <span>⚠️ Storage is almost full! Consider upgrading to a larger drive size for more games.</span>
+          </div>
+        </div>
+
+        <!-- 4. Select Games Checklist -->
+        <div class="form-section">
+          <div class="checklist-header">
+            <label class="section-label" style="margin-bottom:0;">3. Pick games to load on this drive</label>
+            <span class="checklist-tag" id="disk-platform-tag">PS4 Games</span>
+          </div>
+
+          <div class="search-mini-wrap">
+            <input type="text" class="search-input-mini" placeholder="Search games catalog..." oninput="DiskLoader.filterGames(this.value)">
+          </div>
+
+          <div class="games-check-list" id="disk-games-list" style="max-height: 280px;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 5. Itemized Breakdown & Add to Request -->
+        <div class="studio-breakdown-card">
+          <div class="bd-row">
+            <span>Selected Drive: <strong id="bd-drive-name">1TB Hard Drive</strong></span>
+            <strong id="bd-drive-price">₦35,000</strong>
+          </div>
+          <div class="bd-row">
+            <span>Games Loaded (<span id="bd-game-count">0</span> titles)</span>
+            <strong>Included in loading</strong>
+          </div>
+          <div class="bd-divider"></div>
+          <div class="bd-row total-row">
+            <span>Estimated total</span>
+            <strong id="disk-total-display">₦35,000</strong>
+          </div>
+          <p class="bd-note">💬 Handover arranged at a safe public meetup location in Lagos. No advance payment.</p>
+        </div>
+
+        <button class="btn btn-primary btn-full btn-lg" onclick="DiskLoader.addToCart()">
+          <span>Add loaded drive to request basket</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="disk.js"></script>
+</body>
+</html>

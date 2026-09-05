@@ -1,0 +1,62 @@
+/* How It Works Styles (Impeccable Edition) */
+.hiw-main-card {
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.hiw-full-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hiw-step-card {
+  display: flex;
+  gap: 16px;
+  padding: 18px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-fast);
+}
+
+.hiw-step-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.hiw-step-num {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+.hiw-step-body {
+  flex: 1;
+}
+
+.hiw-step-title {
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.hiw-step-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}

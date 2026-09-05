@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Game Discs (PS4 &amp; PS5) — Legend Games Lagos</title>
+  <meta name="description" content="Shop physical PS4, PS5, Xbox, and PC game discs in Lagos. Neutral catalog, custom game sourcing, no advance payment.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="discs-only.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Original Physical Discs
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Custom Titles Sourced</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Safe Meetup Handover</span>
+      </div>
+
+      <!-- Studio Header -->
+      <div class="discs-header">
+        <h2 class="section-heading" style="font-size:1.35rem; margin-bottom:4px;">Buy Game Discs</h2>
+        <p class="section-sub">Original physical CD/Blu-ray discs for PS4, PS5 &amp; PC. No console required.</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-bar-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" id="discs-search-input"
+          placeholder="Search games (e.g. Spider-Man, GTA V, FC26)..."
+          oninput="DiscsCatalog.filterGames(this.value)">
+      </div>
+
+      <!-- Platform Filter Chips -->
+      <div class="filter-chips">
+        <button class="chip active" onclick="DiscsCatalog.setPlatformFilter('all', this)">All Platforms</button>
+        <button class="chip" onclick="DiscsCatalog.setPlatformFilter('ps5', this)">PS5 Discs</button>
+        <button class="chip" onclick="DiscsCatalog.setPlatformFilter('ps4', this)">PS4 Discs</button>
+        <button class="chip" onclick="DiscsCatalog.setPlatformFilter('xbox', this)">Xbox Discs</button>
+      </div>
+
+      <!-- Games Grid -->
+      <div class="discs-grid" id="discs-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Request Custom Game Card -->
+      <section class="card card-elevated request-custom-card">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+          <span class="badge badge-gold">CUSTOM SOURCING</span>
+          <strong style="font-size:0.95rem;">Can't find a game?</strong>
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:14px;">
+          Tell us the title and platform you are looking for. We can source virtually any game in Lagos!
+        </p>
+        <div class="form-group">
+          <input type="text" class="form-input" id="custom-game-name" placeholder="Game title (e.g. UFC 5, Resident Evil 4)...">
+        </div>
+        <div class="form-group">
+          <select class="form-select" id="custom-game-platform">
+            <option value="PS5">PlayStation 5 Disc</option>
+            <option value="PS4">PlayStation 4 Disc</option>
+            <option value="Xbox">Xbox Disc</option>
+            <option value="PC">PC Title</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary btn-full" onclick="DiscsCatalog.addCustomGameRequest()">
+          + Add custom game inquiry to request
+        </button>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="discs-only.js"></script>
+</body>
+</html>

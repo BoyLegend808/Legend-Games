@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Order / Request — Legend Games Lagos</title>
+  <meta name="description" content="Track your console, game loading or accessory quote request using your order reference code (e.g. NG-REQ-XXXXX).">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="order-tracking.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Live Request Tracking
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">WhatsApp Direct Verification</span>
+      </div>
+
+      <div class="card card-elevated tracking-search-card">
+        <div class="studio-header">
+          <span class="badge badge-purple">STATUS LOOKUP</span>
+          <h2 class="studio-title">Track your request</h2>
+          <p class="studio-sub">Enter your 5-digit order reference number below.</p>
+        </div>
+
+        <div class="tracking-input-row">
+          <input type="text" class="form-input tracking-input" id="tracking-input" placeholder="e.g. NG-REQ-48291 or 48291">
+          <button class="btn btn-primary" onclick="OrderTracker.lookup()">Search</button>
+        </div>
+
+        <!-- Recent Orders from LocalStorage -->
+        <div id="recent-orders-wrap" style="margin-top:14px; display:none;">
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Recent Orders:</span>
+          <div id="recent-orders-pills" style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;"></div>
+        </div>
+      </div>
+
+      <!-- Result Card Container -->
+      <div id="tracking-result-container">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="order-tracking.js"></script>
+</body>
+</html>

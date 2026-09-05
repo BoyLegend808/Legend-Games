@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Request: Repair, Game Install &amp; Sell Console — Legend Games Lagos</title>
+  <meta name="description" content="Submit console repair inquiries, game installation requests, or sell your used PlayStation or Xbox console in Lagos. Instant WhatsApp review.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="request-form.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> In-Shop Technicians
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Fast Valuation for Sellers</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">WhatsApp Status Updates</span>
+      </div>
+
+      <div class="card card-elevated service-form-card">
+        <div class="studio-header">
+          <span class="badge badge-purple">SHOP SERVICES</span>
+          <h2 class="studio-title">Console Services &amp; Selling</h2>
+          <p class="studio-sub">Select your request type below and we will follow up with you directly.</p>
+        </div>
+
+        <!-- Request Type Tabs -->
+        <div class="form-section">
+          <label class="section-label">1. Request Type</label>
+          <div class="service-type-grid">
+            <button class="service-tab-btn active" id="tab-repair" onclick="ServiceRequest.setType('repair')">
+              <strong>🔧 Repair Issue</strong>
+              <span>Fix HDMI, power, fan, overheating</span>
+            </button>
+            <button class="service-tab-btn" id="tab-install" onclick="ServiceRequest.setType('install')">
+              <strong>💿 Install Games</strong>
+              <span>Add games to your existing console</span>
+            </button>
+            <button class="service-tab-btn" id="tab-sell" onclick="ServiceRequest.setType('sell')">
+              <strong>💰 Sell Console</strong>
+              <span>Get an instant cash offer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Form Fields -->
+        <div id="service-dynamic-fields">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Add to Cart or Submit via WhatsApp -->
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+          <button class="btn btn-primary btn-full btn-lg" onclick="ServiceRequest.addToBasket()">
+            + Add this service to my request basket
+          </button>
+          <button class="btn btn-whatsapp btn-full" onclick="ServiceRequest.submitDirectWhatsApp()">
+            💬 Send directly via WhatsApp
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="request-form.js"></script>
+</body>
+</html>

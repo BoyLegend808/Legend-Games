@@ -1,0 +1,209 @@
+/* ==========================================================================
+   HARD DISK LOADER SPECIFIC STYLING
+   ========================================================================== */
+
+.disk-studio-card {
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.purpose-toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.purpose-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: left;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.purpose-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.purpose-icon {
+  font-size: 1.6rem;
+}
+
+.purpose-info strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.purpose-info span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.capacity-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.capacity-card {
+  padding: 16px 14px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.capacity-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+
+.capacity-card:active {
+  transform: scale(0.97);
+}
+
+.capacity-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.2);
+}
+
+.cap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.cap-size {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.cap-price {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.cap-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* Storage Meter */
+.storage-meter-card {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 22px;
+}
+
+.storage-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.storage-meter-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.storage-meter-values {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.storage-meter-values strong {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+.storage-meter-values span {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.buffer-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  background: var(--accent-green-bg);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+}
+
+.storage-progress-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: var(--bg-input);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-subtle);
+}
+
+.storage-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.storage-progress-bar-fill.warning {
+  background: linear-gradient(90deg, var(--accent-gold), #d97706);
+}
+
+.storage-progress-bar-fill.danger {
+  background: linear-gradient(90deg, var(--accent-red), #b91c1c);
+}
+
+.storage-meter-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.upgrade-suggestion-box {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+
+@media (min-width: 768px) {
+  .capacity-cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

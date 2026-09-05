@@ -1,0 +1,60 @@
+/* Price List Styles (Impeccable Edition) */
+.price-list-header {
+  margin-bottom: 16px;
+}
+
+.price-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.price-row-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.price-row-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.price-row-card:active {
+  transform: scale(0.98);
+}
+
+.price-row-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.price-row-title {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.price-row-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.price-row-val {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-left: 14px;
+  font-variant-numeric: tabular-nums;
+}

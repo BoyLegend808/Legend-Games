@@ -1,0 +1,94 @@
+/* Service Request Form Styles (Impeccable Edition) */
+.service-form-card {
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.service-type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.service-tab-btn {
+  padding: 12px 8px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  min-height: 54px;
+}
+
+.service-tab-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-strong);
+}
+
+.service-tab-btn:active {
+  transform: scale(0.97);
+}
+
+.service-tab-btn strong {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.service-tab-btn span {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.service-tab-btn.active {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.18);
+}
+
+.service-tab-btn.active strong {
+  color: var(--accent-primary);
+}
+
+.condition-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.condition-pill {
+  padding: 12px 10px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.condition-pill:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+}
+
+.condition-pill:active {
+  transform: scale(0.97);
+}
+
+.condition-pill.active {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.12);
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.16);
+}

@@ -1,0 +1,82 @@
+/* PC Games Catalog Styles (Impeccable Edition) */
+.pc-header {
+  margin-bottom: 16px;
+}
+
+.pc-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.pc-game-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-fast);
+}
+
+.pc-game-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pc-game-card:active {
+  transform: scale(0.98);
+}
+
+.pc-thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card-subtle);
+  flex-shrink: 0;
+}
+
+.pc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-title {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+
+.pc-meta {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.pc-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pc-price {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  font-variant-numeric: tabular-nums;
+}

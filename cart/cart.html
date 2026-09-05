@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Request Basket — Legend Games Lagos</title>
+  <meta name="description" content="Review your console, games, hard disk loading and accessory request. Confirm final pricing and arrange a safe public meetup in Lagos.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- View State: Active Basket -->
+      <div id="cart-active-view">
+
+        <!-- Safe Meetup in Lagos Banner (Matching Mockup) -->
+        <div class="meetup-alert-banner">
+          <div class="meetup-alert-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <div class="meetup-alert-content">
+            <strong>Safe meetup in Lagos</strong>
+            <p>We confirm the price and arrange a neutral public meetup before handover. Pay on meetup, after confirmation. No home delivery.</p>
+          </div>
+        </div>
+
+        <!-- Request Items Header -->
+        <div class="cart-items-header">
+          <h3 class="section-heading" style="margin-bottom:0;">Request items</h3>
+          <span class="cart-count-badge" id="cart-items-count-text">0 items</span>
+        </div>
+
+        <!-- Items List Container -->
+        <div class="cart-items-list" id="cart-items-list">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Customer Contact Details Form -->
+        <section class="card card-elevated customer-details-card">
+          <div style="margin-bottom:14px;">
+            <h3 class="section-heading" style="margin-bottom:2px; font-size:1.05rem;">Your contact details</h3>
+            <p class="section-sub">We only use these details to confirm your request on WhatsApp.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" id="cust-name" placeholder="e.g. Tunde Williams" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">WhatsApp Phone Number</label>
+            <input type="tel" class="form-input" id="cust-phone" placeholder="e.g. 08012345678" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Preferred Contact Method</label>
+            <div class="contact-method-toggle">
+              <label class="contact-method-opt active" id="opt-whatsapp" onclick="CartController.setContactMethod('whatsapp')">
+                <input type="radio" name="contact-method" checked>
+                <span>WhatsApp (Fastest)</span>
+              </label>
+              <label class="contact-method-opt" id="opt-phone" onclick="CartController.setContactMethod('phone')">
+                <input type="radio" name="contact-method">
+                <span>Phone Call</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Preferred Safe Meetup Location in Lagos</label>
+            <input type="text" class="form-input" id="cust-location" placeholder="e.g. Ikeja City Mall, Lekki Phase 1, Surulere...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Optional Notes or Special Requests</label>
+            <textarea class="form-textarea" id="cust-notes" placeholder="e.g. Need extra controller, specific game version, preferred meetup time..."></textarea>
+          </div>
+        </section>
+
+        <!-- Estimated Breakdown Card (Matching Reference Screen) -->
+        <section class="card card-elevated cart-breakdown-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 class="section-heading" style="margin-bottom:0; font-size:1.05rem;">Estimated breakdown</h3>
+            <span class="badge badge-gold">QUOTE</span>
+          </div>
+
+          <div class="bd-row">
+            <span>Base items &amp; consoles</span>
+            <strong id="bd-base-total">₦0</strong>
+          </div>
+          <div class="bd-row">
+            <span>Installed games &amp; add-ons</span>
+            <strong id="bd-addons-total">₦0</strong>
+          </div>
+          <div class="bd-row highlight-green">
+            <span>Free FC 26 inclusion</span>
+            <strong>Included</strong>
+          </div>
+          <div class="bd-row">
+            <span>Meetup arrangement</span>
+            <strong style="color:var(--text-secondary);">To confirm</strong>
+          </div>
+          <div class="bd-divider"></div>
+          <div class="bd-row total-row">
+            <span>Estimated total</span>
+            <strong id="cart-total-display">₦0</strong>
+          </div>
+          <p class="bd-note">
+            Final availability, game sourcing, meetup location, and any delivery or service fee are confirmed by WhatsApp before payment.
+          </p>
+        </section>
+
+        <!-- Submit Button (Vibrant WhatsApp Action) -->
+        <div class="cart-submit-bar">
+          <button class="btn btn-whatsapp btn-full btn-lg" onclick="CartController.submitRequest()">
+            <span>Submit request via WhatsApp</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <p style="font-size:0.74rem; color:var(--text-muted); text-align:center; margin-top:8px;">
+            💬 No payment now. We will confirm availability and final pricing before meetup.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- View State: Request Submitted Successfully (Matching Screen 6) -->
+      <div id="cart-submitted-view" style="display:none;">
+        <div class="card card-elevated submitted-success-card">
+          <div class="submitted-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h2 class="submitted-title">Request submitted</h2>
+          <p class="submitted-sub">We have your request. We will confirm availability and final pricing with you on WhatsApp.</p>
+
+          <!-- Reference Card -->
+          <div class="submitted-ref-box">
+            <div class="ref-row">
+              <span class="ref-label">Request Reference</span>
+              <strong class="ref-code" id="success-ref-code">NG-REQ-48291</strong>
+            </div>
+            <div class="ref-row">
+              <span class="ref-label">Submitted</span>
+              <span id="success-time-text">Just now</span>
+            </div>
+            <div class="ref-row">
+              <span class="ref-label">Status</span>
+              <span class="badge badge-green">Submitted</span>
+            </div>
+          </div>
+
+          <!-- Items Summary List -->
+          <div class="submitted-items-summary" id="submitted-items-summary">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Next Steps Card -->
+          <div class="next-steps-card">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <span class="badge badge-purple">WHAT HAPPENS NEXT</span>
+            </div>
+            <p style="font-size:0.8rem; color:var(--text-secondary); line-height:1.45;">
+              We will message you on WhatsApp to confirm availability and final pricing, then arrange a safe neutral meetup for handover and payment.
+            </p>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+            <button class="btn btn-whatsapp btn-full" id="btn-followup-wa">
+              💬 Follow up on WhatsApp
+            </button>
+            <a href="../order-tracking/order-tracking.html" class="btn btn-secondary btn-full">
+              🔍 Track request
+            </a>
+            <a href="../home/home.html" class="btn btn-outline btn-full" style="margin-top:4px;">
+              Back to home
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

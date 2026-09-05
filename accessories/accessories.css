@@ -1,0 +1,85 @@
+/* Accessories Catalog Styles (Impeccable Edition) */
+.acc-header {
+  margin-bottom: 16px;
+}
+
+.accessories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.acc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.acc-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.acc-card:active {
+  transform: scale(0.98);
+}
+
+.acc-thumb {
+  width: 100%;
+  height: 135px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-card-subtle);
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.acc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-out-cubic);
+}
+
+.acc-card:hover .acc-thumb img {
+  transform: scale(1.05);
+}
+
+.acc-title {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.acc-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.acc-price {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 768px) {
+  .accessories-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}

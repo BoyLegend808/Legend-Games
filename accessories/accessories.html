@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming Equipment &amp; Accessories — Legend Games Lagos</title>
+  <meta name="description" content="Shop DualSense controllers, Pulse 3D headsets, gaming laptops, charging docks, and HDMI cables in Lagos.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="accessories.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Original Verified Hardware
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">100% Tested Prior to Handover</span>
+      </div>
+
+      <div class="acc-header">
+        <h2 class="section-heading" style="font-size:1.35rem; margin-bottom:4px;">Gaming Equipment &amp; Accessories</h2>
+        <p class="section-sub">Official controllers, headsets, cables, and gaming gear.</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-bar-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" id="acc-search-input"
+          placeholder="Search controllers, headsets, laptops..."
+          oninput="AccessoriesCatalog.filterItems(this.value)">
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="filter-chips">
+        <button class="chip active" onclick="AccessoriesCatalog.setCategory('all', this)">All Gear</button>
+        <button class="chip" onclick="AccessoriesCatalog.setCategory('controllers', this)">Controllers</button>
+        <button class="chip" onclick="AccessoriesCatalog.setCategory('audio', this)">Headsets</button>
+        <button class="chip" onclick="AccessoriesCatalog.setCategory('power', this)">Cables &amp; Docks</button>
+        <button class="chip" onclick="AccessoriesCatalog.setCategory('laptops', this)">Gaming Laptops</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="accessories-grid" id="accessories-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="accessories.js"></script>
+</body>
+</html>

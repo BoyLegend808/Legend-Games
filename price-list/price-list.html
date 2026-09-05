@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Price List (2026) — Legend Games Lagos</title>
+  <meta name="description" content="Official price list for PlayStation, Xbox, game discs, hard disk loading and accessories in Nigerian Naira.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="price-list.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Verified 2026 Price List
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">All Prices in Naira (₦)</span>
+      </div>
+
+      <div class="price-list-header">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <h2 class="section-heading" style="font-size:1.35rem; margin-bottom:4px;">Master Price List</h2>
+            <p class="section-sub">Transparent pricing across consoles, game discs, and services.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="PriceListController.sharePriceList()" title="Share Price List">
+            📤 Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-bar-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" id="price-search-input"
+          placeholder="Search price list (e.g. PS5, 1TB HDD, DualSense)..."
+          oninput="PriceListController.filter(this.value)">
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="filter-chips">
+        <button class="chip active" onclick="PriceListController.setCategory('all', this)">All Items</button>
+        <button class="chip" onclick="PriceListController.setCategory('consoles', this)">Consoles</button>
+        <button class="chip" onclick="PriceListController.setCategory('games', this)">Game Discs</button>
+        <button class="chip" onclick="PriceListController.setCategory('disks', this)">Hard Disks</button>
+        <button class="chip" onclick="PriceListController.setCategory('accessories', this)">Accessories</button>
+      </div>
+
+      <!-- Price List Table / Cards -->
+      <div class="price-items-container" id="price-items-container">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Script Imports -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="price-list.js"></script>
+</body>
+</html>

@@ -1,8 +1,7 @@
 /**
  * Legend Games — Master Storefront & Command Center Stylesheet (home.css)
  * Luxury Console UI & High-Energy Marketplace for Nigerian Gamers.
- * Built according to the Impeccable Design System standards.
- * Complete Mobile-First & Multi-Breakpoint Responsive Architecture.
+ * Complete Mobile-First, Tablet & Desktop Responsive Architecture.
  */
 
 :root {
@@ -49,9 +48,6 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.6);
-  --shadow-glow-cyan: 0 0 24px rgba(0, 212, 255, 0.16);
-  --shadow-glow-orange: 0 0 24px rgba(255, 85, 0, 0.16);
-  --shadow-glow-emerald: 0 0 24px rgba(0, 255, 136, 0.16);
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --transition-fast: 0.15s var(--ease-spring);
@@ -59,25 +55,35 @@
 }
 
 /* =========================================================
-   BASE GLOBAL RESET & CONTAINER
+   BASE RESET & VIEWPORT LOCKS
    ========================================================= */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-.legend-storefront-body {
-  background-color: var(--bg-space);
+html {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+body.legend-storefront-body {
+  display: block !important;
+  background-color: var(--bg-space) !important;
   background-image: 
     radial-gradient(circle at 15% 15%, rgba(0, 212, 255, 0.05) 0%, transparent 45%),
-    radial-gradient(circle at 85% 65%, rgba(255, 85, 0, 0.04) 0%, transparent 45%);
-  color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+    radial-gradient(circle at 85% 65%, rgba(255, 85, 0, 0.04) 0%, transparent 45%) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 130px !important; /* Prevents floating deck overlap */
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 120px; /* Safe padding for bottom floating loadout deck */
 }
 
 .site-container {
@@ -85,6 +91,7 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 16px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
@@ -112,7 +119,7 @@
 /* Standard Section Headings */
 .section-eyebrow-tag {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(0.68rem, 2vw, 0.74rem);
+  font-size: clamp(0.66rem, 2vw, 0.74rem);
   font-weight: 800;
   letter-spacing: 0.12em;
   color: var(--accent-orange);
@@ -123,7 +130,7 @@
 
 .section-main-heading {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
   font-weight: 800;
   color: #ffffff;
   margin: 0;
@@ -135,6 +142,7 @@
    1. LUXURY SLIM MARQUEE TICKER BAR
    ========================================================= */
 .legend-marquee-bar {
+  width: 100%;
   background: #05070d;
   border-bottom: 1px solid rgba(0, 212, 255, 0.2);
   overflow: hidden;
@@ -206,7 +214,8 @@
    2. MASTER COMMAND HEADER & UNIVERSAL SEARCH
    ========================================================= */
 .legend-master-header {
-  background: rgba(14, 20, 34, 0.92);
+  width: 100%;
+  background: rgba(14, 20, 34, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -220,8 +229,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  min-height: 64px;
+  gap: 12px;
+  min-height: 60px;
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -278,8 +287,8 @@
 .legend-search-hub {
   position: relative;
   flex: 1;
-  max-width: 540px;
-  margin: 0 8px;
+  max-width: 520px;
+  margin: 0 4px;
 }
 
 .search-input-wrapper {
@@ -291,6 +300,7 @@
   padding: 3px 6px 3px 12px;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   min-height: 42px;
+  width: 100%;
 }
 
 .search-input-wrapper:focus-within {
@@ -307,7 +317,7 @@
   font-weight: 800;
   cursor: pointer;
   outline: none;
-  padding-right: 4px;
+  padding-right: 2px;
 }
 
 .search-platform-selector select option {
@@ -332,6 +342,7 @@
   font-size: 0.84rem;
   outline: none;
   min-width: 0;
+  width: 100%;
 }
 
 .search-field::placeholder {
@@ -438,8 +449,8 @@
 }
 
 .icon-action-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: 50%;
@@ -470,7 +481,7 @@
   padding: 4px 12px 4px 8px;
   text-decoration: none;
   cursor: pointer;
-  min-height: 40px;
+  min-height: 38px;
   transition: all var(--transition-fast);
   flex-shrink: 0;
 }
@@ -514,7 +525,7 @@
 }
 
 .cart-text-lbl {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: uppercase;
   font-weight: 700;
@@ -534,7 +545,7 @@
   .header-inner {
     flex-wrap: wrap;
     row-gap: 8px;
-    padding-top: 8px;
+    padding-top: 6px;
     padding-bottom: 8px;
   }
 
@@ -572,6 +583,7 @@
    3. CATEGORY QUICK-ACCESS BAR (LUXURY CONSOLE PILLS)
    ========================================================= */
 .legend-category-strip {
+  width: 100%;
   background: rgba(10, 14, 24, 0.95);
   border-bottom: 1px solid var(--border-subtle);
   padding: 8px 0;
@@ -649,7 +661,9 @@
    4. MAIN STOREFRONT VIEWPORT
    ========================================================= */
 .legend-main-viewport {
-  padding: 24px 0 60px 0;
+  width: 100%;
+  padding: 20px 0 50px 0;
+  box-sizing: border-box;
 }
 
 /* =========================================================
@@ -659,7 +673,8 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 @media (min-width: 992px) {
@@ -674,13 +689,15 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: clamp(20px, 4vw, 32px);
+  padding: clamp(18px, 3.5vw, 30px);
   overflow: hidden;
-  min-height: 400px;
+  min-height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: var(--shadow-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-backdrop-layer {
@@ -707,7 +724,7 @@
 
 @media (max-width: 680px) {
   .hero-console-svg-layer {
-    opacity: 0.18;
+    opacity: 0.16;
     right: -40px;
     bottom: -20px;
   }
@@ -721,8 +738,8 @@
 /* Promo Pill Badge */
 .hero-promo-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
   background: rgba(0, 212, 255, 0.12);
   border: 1px solid rgba(0, 212, 255, 0.35);
   border-radius: var(--radius-full);
@@ -791,7 +808,7 @@
 
 .hero-headline {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-size: clamp(1.5rem, 5vw, 2.3rem);
   font-weight: 900;
   line-height: 1.1;
   color: #ffffff;
@@ -802,8 +819,8 @@
 .hero-synopsis {
   font-size: clamp(0.82rem, 2vw, 0.92rem);
   color: var(--text-secondary);
-  margin: 0 0 18px 0;
-  line-height: 1.5;
+  margin: 0 0 16px 0;
+  line-height: 1.45;
 }
 
 /* Hero Pricing Telemetry */
@@ -815,7 +832,7 @@
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
   padding: 10px 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   width: fit-content;
   flex-wrap: wrap;
   box-shadow: var(--shadow-sm);
@@ -856,8 +873,8 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 6px;
+    padding: 10px 8px;
   }
   
   .telemetry-sep {
@@ -865,7 +882,7 @@
   }
 
   .telemetry-val {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
 }
 
@@ -945,7 +962,7 @@
 .hero-thumbnail-nav {
   display: flex;
   gap: 8px;
-  margin-top: 20px;
+  margin-top: 18px;
   position: relative;
   z-index: 2;
   overflow-x: auto;
@@ -993,6 +1010,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  width: 100%;
 }
 
 @media (min-width: 640px) and (max-width: 991px) {
@@ -1006,14 +1024,16 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 22px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 190px;
+  min-height: 180px;
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-fast), border-color var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .studio-tile:hover {
@@ -1074,7 +1094,7 @@
   font-family: 'Outfit', sans-serif;
   font-size: 0.84rem;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .studio-price-row strong {
@@ -1102,7 +1122,8 @@
    MODULE 1.5: FEATURED COMBO DEAL & BUNDLE SPOTLIGHT
    ========================================================= */
 .legend-featured-bundle-arena {
-  margin-bottom: 36px;
+  margin-bottom: 34px;
+  width: 100%;
 }
 
 .bundle-spotlight-card {
@@ -1111,11 +1132,14 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bundle-poster-inner {
   display: grid;
   grid-template-columns: 1fr;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
@@ -1127,7 +1151,8 @@
 .bundle-left-visual {
   position: relative;
   background: #000000;
-  min-height: 220px;
+  min-height: 200px;
+  width: 100%;
 }
 
 .bundle-img {
@@ -1138,23 +1163,25 @@
 
 .bundle-discount-badge {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 14px;
+  left: 14px;
   background: var(--accent-orange);
   color: #ffffff;
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   padding: 5px 12px;
   border-radius: var(--radius-full);
   box-shadow: 0 4px 12px rgba(255, 85, 0, 0.4);
 }
 
 .bundle-right-info {
-  padding: clamp(20px, 3.5vw, 32px);
+  padding: clamp(18px, 3.5vw, 30px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bundle-badge-strip {
@@ -1187,7 +1214,7 @@
 
 .bundle-title {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
   font-weight: 900;
   color: #ffffff;
   margin: 0 0 6px 0;
@@ -1195,9 +1222,9 @@
 }
 
 .bundle-subtitle {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
-  margin: 0 0 16px 0;
+  margin: 0 0 14px 0;
   line-height: 1.4;
 }
 
@@ -1205,14 +1232,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .manifest-item {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
@@ -1230,10 +1257,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
-  padding-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
+  width: 100%;
 }
 
 .bundle-price-block {
@@ -1246,7 +1274,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
@@ -1263,7 +1291,7 @@
 
 .bundle-deal-price {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
   font-weight: 900;
   color: var(--accent-emerald);
 }
@@ -1293,7 +1321,7 @@
   border-radius: var(--radius-sm);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   padding: 10px 18px;
   display: inline-flex;
   align-items: center;
@@ -1352,22 +1380,24 @@
    MODULE 2: 24-HOUR NAIJA DAILY DROP & GAME VAULT
    ========================================================= */
 .legend-vault-section {
-  margin-bottom: 40px;
+  margin-bottom: 38px;
+  width: 100%;
 }
 
 .vault-section-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .header-telemetry-tools {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
@@ -1379,7 +1409,7 @@
   border: 1px solid rgba(255, 85, 0, 0.35);
   border-radius: var(--radius-full);
   padding: 5px 12px;
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: #ffffff;
 }
@@ -1406,7 +1436,7 @@
 }
 
 .vault-items-counter {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
@@ -1427,13 +1457,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 8px 12px;
   margin-bottom: 16px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .vault-category-tabs {
@@ -1456,12 +1488,13 @@
   color: var(--text-secondary);
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 0.78rem;
-  padding: 6px 14px;
+  font-size: 0.76rem;
+  padding: 6px 12px;
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
   min-height: 36px;
+  flex-shrink: 0;
 }
 
 .v-tab-btn:hover {
@@ -1510,16 +1543,18 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 14px 18px;
-  margin-bottom: 24px;
+  padding: 14px 16px;
+  margin-bottom: 22px;
   box-shadow: var(--shadow-sm);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .rack-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
@@ -1618,7 +1653,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   font-size: 0.74rem;
   color: var(--text-secondary);
   flex-wrap: wrap;
@@ -1638,8 +1673,9 @@
 .legend-game-matrix {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 28px;
+  gap: 10px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -1666,6 +1702,8 @@
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .legend-game-card:hover {
@@ -1679,6 +1717,7 @@
   aspect-ratio: 3/4;
   background: #000000;
   overflow: hidden;
+  width: 100%;
 }
 
 .g2a-card-cover {
@@ -1694,9 +1733,9 @@
 
 .g2a-card-badge-row {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
+  top: 6px;
+  left: 6px;
+  right: 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1710,9 +1749,9 @@
   border: 1px solid var(--border-subtle);
   color: #ffffff;
   font-family: 'Outfit', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  padding: 3px 7px;
+  padding: 2px 6px;
   border-radius: var(--radius-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1725,8 +1764,8 @@
 }
 
 .g2a-wishlist-toggle {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   border: 1px solid var(--border-subtle);
@@ -1736,7 +1775,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   pointer-events: auto;
   transition: all var(--transition-fast);
 }
@@ -1760,11 +1799,11 @@
   left: 0;
   right: 0;
   background: linear-gradient(0deg, rgba(7, 10, 17, 0.95) 0%, transparent 100%);
-  padding: 16px 8px 6px 8px;
+  padding: 14px 6px 4px 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: var(--text-secondary);
   z-index: 2;
@@ -1783,26 +1822,22 @@
 
 /* Card Body & Controls */
 .g2a-card-body {
-  padding: 10px 10px 12px 10px;
+  padding: 8px 8px 10px 8px;
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: space-between;
-}
-
-@media (max-width: 420px) {
-  .g2a-card-body {
-    padding: 8px 8px 10px 8px;
-  }
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .g2a-card-top-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   color: var(--text-muted);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .g2a-card-genre {
@@ -1821,26 +1856,27 @@
 .g2a-card-title {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: clamp(0.78rem, 2.5vw, 0.92rem);
-  line-height: 1.25;
+  font-size: clamp(0.76rem, 2.5vw, 0.9rem);
+  line-height: 1.2;
   color: #ffffff;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.5em;
+  min-height: 2.4em;
 }
 
 /* Dual Format Selector Pills on Card */
 .g2a-card-format-selector {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
   padding: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  width: 100%;
 }
 
 .card-format-pill {
@@ -1849,7 +1885,7 @@
   border: none;
   color: var(--text-muted);
   font-family: 'Outfit', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 800;
   padding: 4px 2px;
   border-radius: 2px;
@@ -1874,9 +1910,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   padding-top: 6px;
   border-top: 1px solid var(--border-subtle);
+  width: 100%;
 }
 
 .g2a-card-price-block {
@@ -1885,7 +1922,7 @@
 }
 
 .g2a-active-price-type {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   color: var(--text-muted);
   text-transform: uppercase;
   font-weight: 700;
@@ -1895,7 +1932,7 @@
 .g2a-active-price-val {
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: clamp(0.85rem, 2.8vw, 1.02rem);
+  font-size: clamp(0.82rem, 2.6vw, 0.98rem);
   color: #ffffff;
   line-height: 1.2;
 }
@@ -1911,11 +1948,11 @@
   border-radius: var(--radius-xs);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.74rem;
-  padding: 6px 10px;
+  font-size: 0.72rem;
+  padding: 5px 8px;
   cursor: pointer;
-  min-height: 34px;
-  min-width: 52px;
+  min-height: 32px;
+  min-width: 46px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1939,7 +1976,8 @@
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 18px;
+  width: 100%;
 }
 
 .btn-load-more {
@@ -2005,10 +2043,12 @@
 /* Empty State */
 .vault-empty-notice {
   text-align: center;
-  padding: 48px 16px;
+  padding: 40px 16px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .empty-icon-cell {
@@ -2018,13 +2058,13 @@
 
 .vault-empty-notice h3 {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #ffffff;
   margin: 0 0 6px 0;
 }
 
 .vault-empty-notice p {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
   margin: 0 0 16px 0;
 }
@@ -2033,13 +2073,15 @@
    MODULE 3: HARDWARE PACKAGES & ACCREDITED CONSOLES
    ========================================================= */
 .legend-hardware-showcase {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 .hardware-card-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -2065,6 +2107,8 @@
   flex-direction: column;
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-fast), border-color var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hw-deck-card:hover {
@@ -2093,6 +2137,7 @@
   aspect-ratio: 16/10;
   overflow: hidden;
   background: #000000;
+  width: 100%;
 }
 
 .hw-image-wrap img {
@@ -2185,24 +2230,28 @@
    MODULE 4: SELL OR TRADE-IN YOUR CONSOLE (CONDITION STRIP)
    ========================================================= */
 .legend-tradein-section {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 .tradein-card-deck {
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: clamp(18px, 3.5vw, 30px);
+  padding: clamp(16px, 3.5vw, 28px);
   box-shadow: var(--shadow-lg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tradein-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 14px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .tradein-title-group {
@@ -2210,7 +2259,7 @@
 }
 
 .tradein-desc {
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   margin: 6px 0 0 0;
   line-height: 1.45;
@@ -2223,7 +2272,7 @@
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 0.72rem;
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -2241,12 +2290,13 @@
 .condition-grading-module {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  width: 100%;
 }
 
 .grading-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
@@ -2255,13 +2305,14 @@
 .condition-chips-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
   .condition-chips-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    gap: 12px;
   }
 }
 
@@ -2269,14 +2320,16 @@
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 10px 12px;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   transition: all var(--transition-fast);
   min-height: 44px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .condition-chip:hover {
@@ -2295,13 +2348,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
 }
 
 .chip-grade {
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--accent-cyan);
   background: var(--bg-input);
   padding: 2px 6px;
@@ -2311,20 +2364,20 @@
 .chip-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: #ffffff;
 }
 
 .chip-sub {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   line-height: 1.3;
 }
 
 .chip-estimate {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .chip-estimate strong {
@@ -2336,14 +2389,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
   padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .condition-summary-text {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
@@ -2354,7 +2408,7 @@
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 0.86rem;
-  padding: 10px 18px;
+  padding: 10px 16px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -2385,54 +2439,59 @@
    MODULE 5: TRANSPARENT ORDER WORKFLOW & WHATSAPP CHAT
    ========================================================= */
 .legend-workflow-section {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 .workflow-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
+  width: 100%;
 }
 
 @media (min-width: 992px) {
   .workflow-grid {
     grid-template-columns: 1.2fr 1fr;
-    gap: 32px;
+    gap: 30px;
   }
 }
 
 .workflow-intro-p {
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  margin: 6px 0 20px 0;
+  margin: 6px 0 16px 0;
   line-height: 1.45;
 }
 
 .order-steps-deck {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  width: 100%;
 }
 
 .step-card {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 12px 14px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .step-badge {
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--accent-orange);
   background: rgba(255, 85, 0, 0.12);
   border: 1px solid rgba(255, 85, 0, 0.3);
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2447,13 +2506,13 @@
 .step-title {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: #ffffff;
   margin: 0 0 2px 0;
 }
 
 .step-desc {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.4;
@@ -2471,6 +2530,7 @@
   max-width: 440px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .phone-chat-header {
@@ -2483,13 +2543,13 @@
 }
 
 .phone-avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   background: var(--whatsapp-color);
   color: #ffffff;
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2505,7 +2565,7 @@
 .phone-contact-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: #e9edef;
   display: block;
   white-space: nowrap;
@@ -2514,7 +2574,7 @@
 }
 
 .phone-status {
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: #8696a0;
   display: flex;
   align-items: center;
@@ -2533,14 +2593,14 @@
   border: 1px solid rgba(0, 168, 132, 0.4);
   color: #00a884;
   font-family: 'Outfit', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   font-weight: 800;
-  padding: 2px 7px;
+  padding: 2px 6px;
   border-radius: var(--radius-full);
 }
 
 .phone-messages-body {
-  padding: 14px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2549,10 +2609,10 @@
 }
 
 .chat-bubble {
-  max-width: 82%;
-  padding: 8px 12px;
+  max-width: 84%;
+  padding: 8px 10px;
   border-radius: var(--radius-md);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   line-height: 1.4;
   position: relative;
 }
@@ -2576,7 +2636,7 @@
 }
 
 .bubble-time {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: rgba(233, 237, 239, 0.6);
   display: block;
   text-align: right;
@@ -2592,8 +2652,8 @@
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 0.65rem;
+  padding: 3px 10px;
+  font-size: 0.62rem;
   font-weight: 800;
   color: var(--accent-cyan);
   font-family: 'Outfit', sans-serif;
@@ -2602,7 +2662,7 @@
 }
 
 .phone-chat-footer {
-  padding: 10px 14px;
+  padding: 10px 12px;
   background: #202c33;
 }
 
@@ -2612,7 +2672,7 @@
   border-radius: var(--radius-sm);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -2632,23 +2692,25 @@
    MODULE 6: TRUST & SAFETY DECK
    ========================================================= */
 .legend-trust-deck {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 .trust-deck-header {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .trust-cards-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 10px;
+  width: 100%;
 }
 
 @media (min-width: 600px) {
   .trust-cards-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
   }
 }
 
@@ -2663,25 +2725,27 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 18px 16px;
+  padding: 16px 14px;
   box-shadow: var(--shadow-sm);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .trust-icon-box {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 1.4rem;
+  margin-bottom: 8px;
 }
 
 .trust-card h4 {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #ffffff;
   margin: 0 0 4px 0;
 }
 
 .trust-card p {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.4;
@@ -2700,7 +2764,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 14px;
 }
 
 .legend-modal-window {
@@ -2713,13 +2777,14 @@
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-lg), 0 0 32px rgba(0, 212, 255, 0.15);
-  padding: 24px;
+  padding: clamp(16px, 3vw, 24px);
+  box-sizing: border-box;
 }
 
 .modal-close-trigger {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   width: 36px;
   height: 36px;
   background: var(--bg-input);
@@ -2744,13 +2809,14 @@
 .modal-layout-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 16px;
+  width: 100%;
 }
 
 @media (min-width: 680px) {
   .modal-layout-grid {
-    grid-template-columns: 240px 1fr;
-    gap: 24px;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
   }
 }
 
@@ -2760,7 +2826,8 @@
   overflow: hidden;
   aspect-ratio: 3/4;
   background: #000000;
-  max-height: 320px;
+  max-height: 280px;
+  width: 100%;
 }
 
 .modal-cover-graphic {
@@ -2771,14 +2838,14 @@
 
 .modal-platform-pill {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 8px;
+  left: 8px;
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid var(--border-subtle);
   color: var(--accent-cyan);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   padding: 3px 8px;
   border-radius: var(--radius-xs);
 }
@@ -2815,7 +2882,7 @@
 
 .modal-title-text {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(1.2rem, 3vw, 1.55rem);
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
   font-weight: 900;
   color: #ffffff;
   margin: 0 0 2px 0;
@@ -2823,36 +2890,36 @@
 }
 
 .modal-genre-text {
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
 }
 
 .modal-desc-text {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   line-height: 1.45;
-  margin: 0 0 14px 0;
+  margin: 0 0 12px 0;
 }
 
 .modal-specs-rack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
 .spec-tile {
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
-  padding: 6px 10px;
+  padding: 6px 8px;
   display: flex;
   flex-direction: column;
 }
 
 .spec-k {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: uppercase;
 }
@@ -2860,26 +2927,26 @@
 .spec-v {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #ffffff;
 }
 
 .modal-format-toggle-deck {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
 .modal-format-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 8px 10px;
   cursor: pointer;
   min-height: 44px;
   transition: all var(--transition-fast);
@@ -2893,18 +2960,18 @@
 .format-card-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .format-card-left strong {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: #ffffff;
   display: block;
 }
 
 .format-card-left span {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   display: block;
 }
@@ -2912,7 +2979,7 @@
 .format-card-price {
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #ffffff;
 }
 
@@ -2926,7 +2993,7 @@
   border: none;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   padding: 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -2948,27 +3015,29 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(14, 20, 34, 0.94);
+  background: rgba(14, 20, 34, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-medium);
   box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.6);
   z-index: 99;
-  padding: 10px 0;
-  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  padding: 8px 0;
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
+  width: 100%;
 }
 
 .loadout-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
 }
 
 .loadout-summary {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 
 .loadout-count-badge {
@@ -2977,7 +3046,7 @@
   gap: 6px;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: #ffffff;
   white-space: nowrap;
 }
@@ -2986,14 +3055,14 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  min-width: 130px;
+  min-width: 120px;
 }
 
 .loadout-drive-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--text-muted);
 }
 
@@ -3015,7 +3084,7 @@
 .loadout-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .loadout-price-box {
@@ -3025,7 +3094,7 @@
 }
 
 .loadout-price-lbl {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: uppercase;
 }
@@ -3033,7 +3102,7 @@
 .loadout-price-val {
   font-family: 'Outfit', sans-serif;
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--accent-emerald);
 }
 
@@ -3045,14 +3114,14 @@
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 0.84rem;
-  padding: 8px 16px;
+  font-size: 0.82rem;
+  padding: 8px 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   cursor: pointer;
-  min-height: 44px;
+  min-height: 42px;
   transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -3064,7 +3133,7 @@
 .loadout-review-link {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--accent-cyan);
   text-decoration: none;
   white-space: nowrap;
@@ -3079,7 +3148,7 @@
   .loadout-inner {
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
+    gap: 6px;
   }
 
   .loadout-summary {
@@ -3089,7 +3158,7 @@
 
   .loadout-drive-meter {
     flex: 1;
-    max-width: 200px;
+    max-width: 50%;
   }
 
   .loadout-actions {
@@ -3099,7 +3168,7 @@
 
   .loadout-whatsapp-btn {
     flex: 1;
-    padding: 8px 12px;
+    padding: 8px 10px;
     font-size: 0.8rem;
   }
 }

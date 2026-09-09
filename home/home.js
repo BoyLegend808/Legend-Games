@@ -905,10 +905,10 @@ function selectConditionGrade(condition, btnElement) {
   if (btnElement) btnElement.classList.add('active');
 
   const notesMap = {
-    'like-new': '"Mint PS4/PS5 units get top cash payout at Ikeja City Mall!"',
-    'good': '"Tested 100% working consoles get instant payout up to 75% market value."',
-    'fair': '"Working consoles with cosmetic scuffs accepted. Meetup testing in Lagos."',
-    'for-parts': '"Loud fan, disk drive issues, or bricked units bought for hardware scrap parts."'
+    'like-new': 'Mint PS4 and PS5 units receive top cash payouts on the spot at our safe meetup locations.',
+    'good': 'Tested 100% functional consoles with light cosmetic wear get payouts up to 75% market value.',
+    'fair': 'Consoles with scuffs or scratches accepted. Inspected and paid on the spot.',
+    'for-parts': 'Loud fan, disk drive issues, or unbootable hardware accepted for parts scrap valuation.'
   };
 
   const textMap = {

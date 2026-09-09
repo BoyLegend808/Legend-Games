@@ -2,77 +2,68 @@
    LEGEND GAMES / NAIJAPLAY — MASTER LUXURY DESIGN SYSTEM & CORE ENGINE
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* ── Clean Marketplace Dark Palette (G2A-inspired) ── */
-  --bg-app:          #080b11; /* Deep shop dark background */
-  --bg-surface:      #111622; /* Surface background */
-  --bg-card:         #182030; /* Card background */
-  --bg-card-hover:   #202a3f; /* Card hover state */
-  --bg-card-subtle:  #141a26; /* Subtle card background */
-  --bg-input:        #0d121c; /* Input field background */
-  --bg-elevated:     #242e44; /* Elevated surface */
+  /* ── Deep Luxury Console Dark Palette ── */
+  --bg-app:          #070a11; /* Deep midnight canvas */
+  --bg-surface:      #0e1422; /* Rich dark panel */
+  --bg-card:         #141c2c; /* Elevated card surface */
+  --bg-card-hover:   #1a253a; /* Card hover state */
+  --bg-card-subtle:  #101624; /* Subtle surface */
+  --bg-input:        #0a0f1a; /* Input field background */
+  --bg-elevated:     #1e2a42; /* Elevated floating surface */
 
   --text-primary:    #ffffff; /* Primary text */
-  --text-secondary:  #b8c5d6; /* Secondary text */
-  --text-muted:      #7a8a9e; /* Muted text */
-  --text-inverse:    #111111; /* Inverse text for light mode */
+  --text-secondary:  #b4c3d8; /* Secondary soft blue-gray */
+  --text-muted:      #6e7f98; /* Muted metadata text */
+  --text-inverse:    #070a11; /* Inverse text for light mode */
 
-  /* ── Physical Shop-Wall Collage Tokens ── */
-  --kraft-tan:       #d4a373;
-  --kraft-dark:      #b07d48;
-  --paper-white:     #f8f6f0;
-  --paper-dark:      #1c1815;
-  --marker-red:      #e63946;
-  --marker-black:    #111111;
-  --starburst-yellow:#ffe600;
-  --tape-color:      rgba(255, 235, 170, 0.45);
-  --ps-blue:         #0070d1;
-  --xbox-green:      #107c10;
-
-  /* ── Marketplace Accent Colors ── */
-  --accent-primary:      #ff5500; /* Vibrant gaming orange */
+  /* ── Luminous Gaming Accent Colors ── */
+  --accent-primary:      #ff5500; /* High-energy gaming orange */
   --accent-primary-hover:#ff7326;
   --accent-secondary:    #ff8800; /* Secondary orange */
-  --accent-cyan:         #00f0ff; /* Electric Cyan */
-  --accent-cyan-hover:   #00d4e6;
-  --accent-gold:         #ffd700; /* Gold for premium */
+  --accent-cyan:         #00d4ff; /* PlayStation Electric Cyan */
+  --accent-cyan-hover:   #00b8e6;
+  --accent-gold:         #ffd700; /* Premium gold */
   --accent-gold-light:   #ffe44d;
   --accent-gold-dark:    #ccac00;
-  --accent-green:        #00ff88; /* Success green */
-  --accent-green-bg:     rgba(0, 255, 136, 0.1);
-  --accent-red:          #ff3d00; /* Alert red */
-  --accent-red-bg:       rgba(255, 61, 0, 0.1);
+  --accent-green:        #00ff88; /* Success emerald */
+  --accent-green-bg:     rgba(0, 255, 136, 0.12);
+  --accent-red:          #ff4757; /* Alert red */
+  --accent-red-bg:       rgba(255, 71, 87, 0.12);
   --whatsapp-color:      #25d366;
   --whatsapp-hover:      #20ba5a;
 
-  /* ── Borders & Outlines ── */
+  /* ── Subtle Luminous Borders ── */
   --border-subtle:   rgba(255, 255, 255, 0.08);
   --border-light:    rgba(255, 255, 255, 0.14);
   --border-strong:   rgba(255, 255, 255, 0.22);
   --border-active:   var(--accent-primary);
-  --border-gold:     rgba(255, 215, 0, 0.4);
-  --border-orange:   rgba(255, 85, 0, 0.4);
-  --border-cyan:     rgba(0, 240, 255, 0.4);
-  --border-poster:   2px solid #000000;
+  --border-cyan:     rgba(0, 212, 255, 0.35);
+  --border-orange:   rgba(255, 85, 0, 0.35);
+  --border-gold:     rgba(255, 215, 0, 0.35);
 
-  /* ── Hard-Edged Poster Shadows (Zero Blur Arcade System) ── */
-  --shadow-sm:       2px 2px 0px #000000;
-  --shadow-md:       4px 4px 0px #000000;
-  --shadow-lg:       6px 6px 0px #000000;
-  --shadow-xl:       8px 8px 0px #000000;
-  --shadow-poster-sm:2px 2px 0px #000000;
-  --shadow-poster-md:4px 4px 0px #000000;
-  --shadow-poster-lg:6px 6px 0px #000000;
-  --shadow-poster-orange: 4px 4px 0px #ff5500;
-  --shadow-poster-cyan:   4px 4px 0px #00f0ff;
+  /* ── Smooth Layered Depth Shadows & Glows (No Harsh Comic Shadows) ── */
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md:       0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg:       0 12px 36px rgba(0, 0, 0, 0.6);
+  --shadow-glow-cyan:   0 0 24px rgba(0, 212, 255, 0.18);
+  --shadow-glow-orange: 0 0 24px rgba(255, 85, 0, 0.18);
+  --shadow-glow-emerald:0 0 24px rgba(0, 255, 136, 0.18);
 
   /* ── Typography (Impeccable Design Directives) ── */
   --font-body:       'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display:    'Archivo Black', 'Outfit', sans-serif;
-  --font-handwritten:'Caveat', cursive, sans-serif;
+  --font-display:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* ── Refined Radii ── */
+  --radius-xs:       4px;
+  --radius-sm:       6px;
+  --radius-md:       10px;
+  --radius-lg:       14px;
+  --radius-xl:       20px;
+  --radius-full:     9999px;
 
   /* ── Marketplace Radii ── */
   --radius-xs:       2px;
@@ -1307,129 +1298,76 @@ img {
 }
 
 /* ==========================================================================
-   PHYSICAL SHOP-WALL COLLAGE & CONSOLE UI UTILITIES
+   LUXURY CONSOLE UI & STOREFRONT UTILITY SYSTEM
    ========================================================================== */
 
-/* Kraft Paper Price Tags */
-.kraft-tag {
+/* Modern Console Card Base */
+.console-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.console-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-cyan);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-cyan);
+}
+
+.console-card:active {
+  transform: scale(0.98);
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: rgba(14, 20, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Modern Pill Badges */
+.badge-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--kraft-tan);
-  color: var(--marker-black);
   font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 0.78rem;
-  padding: 4px 10px;
-  border-radius: 3px;
-  border: 1px solid var(--kraft-dark);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
-  position: relative;
-  letter-spacing: 0.02em;
-}
-
-.kraft-tag::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: #ffffff;
-  border-radius: 50%;
-  border: 1px solid var(--kraft-dark);
-  margin-right: 2px;
-}
-
-/* Tape Tab Visual Artifact */
-.tape-tab {
-  position: relative;
-}
-
-.tape-tab::after {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1.5deg);
-  width: 48px;
-  height: 14px;
-  background: var(--tape-color);
-  backdrop-filter: blur(1px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* Starburst Deal Badge (CSS Clip-Path) */
-.starburst-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--starburst-yellow);
-  color: var(--marker-black);
-  font-family: 'Archivo Black', 'Outfit', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 900;
-  padding: 12px;
-  text-align: center;
-  line-height: 1.1;
-  text-transform: uppercase;
-  clip-path: polygon(
-    50% 0%, 63% 15%, 82% 7%, 85% 26%, 100% 35%, 91% 50%, 
-    100% 65%, 85% 74%, 82% 93%, 63% 85%, 50% 100%, 37% 85%, 
-    18% 93%, 15% 74%, 0% 65%, 9% 50%, 0% 35%, 15% 26%, 18% 7%, 37% 15%
-  );
-  box-shadow: var(--shadow-sm);
-  letter-spacing: 0.04em;
-}
-
-/* Handwritten Style Notes */
-.marker-handwritten {
-  font-family: 'Caveat', cursive;
-  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--marker-red);
-  transform: rotate(-2deg);
-  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
 }
 
-/* Poster Flat Shadows */
-.poster-card {
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0px #000000;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+.badge-pill.orange {
+  background: rgba(255, 85, 0, 0.15);
+  color: var(--accent-primary);
+  border: 1px solid rgba(255, 85, 0, 0.35);
 }
 
-.poster-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 6px 6px 0px #000000;
+.badge-pill.cyan {
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 212, 255, 0.35);
 }
 
-.poster-card:active {
-  transform: scale(0.97) translateY(0);
-  box-shadow: 2px 2px 0px #000000;
+.badge-pill.green {
+  background: rgba(0, 255, 136, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 255, 136, 0.35);
 }
 
-/* Torn Receipt Edge Effect */
-.torn-receipt-edge {
-  position: relative;
-  background: var(--paper-white);
-  color: var(--marker-black);
-}
-
-.torn-receipt-edge::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  right: 0;
-  height: 10px;
-  background: linear-gradient(135deg, var(--paper-white) 5px, transparent 0),
-              linear-gradient(-135deg, var(--paper-white) 5px, transparent 0);
-  background-size: 14px 10px;
-  background-repeat: repeat-x;
+.badge-pill.gold {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(255, 215, 0, 0.35);
 }
 
 /* ==========================================================================
-   DESKTOP RESPONSIVE ENHANCEMENT
+   DESKTOP & TABLET RESPONSIVE ENHANCEMENTS
    ========================================================================== */
 @media (min-width: 768px) {
   .category-grid {
@@ -1442,4 +1380,3 @@ img {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-

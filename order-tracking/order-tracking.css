@@ -58,13 +58,13 @@
 .timeline-step.completed .timeline-dot {
   background: var(--accent-green);
   border-color: var(--accent-green);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.25);
 }
 
 .timeline-step.active .timeline-dot {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
   animation: pulse-active-step 2s infinite ease-in-out;
 }
 

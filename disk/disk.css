@@ -75,7 +75,7 @@
 .capacity-card.active {
   border-color: var(--accent-primary);
   background: rgba(99, 102, 241, 0.12);
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
 }
 
 .cap-header {
@@ -170,17 +170,17 @@
 
 .storage-progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+  background: var(--accent-primary);
   border-radius: var(--radius-full);
   transition: width 0.3s ease, background 0.3s ease;
 }
 
 .storage-progress-bar-fill.warning {
-  background: linear-gradient(90deg, var(--accent-gold), #d97706);
+  background: var(--accent-gold);
 }
 
 .storage-progress-bar-fill.danger {
-  background: linear-gradient(90deg, var(--accent-red), #b91c1c);
+  background: var(--accent-red);
 }
 
 .storage-meter-footer {

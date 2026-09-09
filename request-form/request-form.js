@@ -93,10 +93,10 @@ const ServiceRequest = {
         <div class="form-group">
           <label class="form-label">Condition Grading</label>
           <div class="condition-grid">
-            <div class="condition-pill active" id="cond-like-new" onclick="ServiceRequest.setCondition('Like New')">✨ Like New (Pristine)</div>
-            <div class="condition-pill" id="cond-good" onclick="ServiceRequest.setCondition('Good')">👍 Good (Minor wear)</div>
-            <div class="condition-pill" id="cond-fair" onclick="ServiceRequest.setCondition('Fair')">👌 Fair (Visible scratches)</div>
-            <div class="condition-pill" id="cond-for-parts" onclick="ServiceRequest.setCondition('For Parts')">⚠️ For Parts / Faulty</div>
+            <div class="condition-pill active" id="cond-like-new" onclick="ServiceRequest.setCondition('Like New')">Like New (Pristine)</div>
+            <div class="condition-pill" id="cond-good" onclick="ServiceRequest.setCondition('Good')">Good (Minor wear)</div>
+            <div class="condition-pill" id="cond-fair" onclick="ServiceRequest.setCondition('Fair')">Fair (Visible scratches)</div>
+            <div class="condition-pill" id="cond-for-parts" onclick="ServiceRequest.setCondition('For Parts')">For Parts / Faulty</div>
           </div>
         </div>
 

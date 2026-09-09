@@ -30,7 +30,7 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+  background: var(--accent-primary);
   color: #fff;
   font-family: var(--font-heading);
   font-size: 1.15rem;
@@ -39,7 +39,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
   font-variant-numeric: tabular-nums;
 }
 

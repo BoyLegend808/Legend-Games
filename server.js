@@ -4,6 +4,7 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 const BASE_DIR = __dirname;
+const DB_GAMES_PATH = path.join(BASE_DIR, 'db', 'games.json');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -18,9 +19,75 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+function getGamesData() {
+  try {
+    if (fs.existsSync(DB_GAMES_PATH)) {
+      return JSON.parse(fs.readFileSync(DB_GAMES_PATH, 'utf8'));
+    }
+  } catch (e) {
+    console.error('Error reading games db:', e);
+  }
+  return [];
+}
+
 const server = http.createServer((req, res) => {
-  let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  
+  const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+  let urlPath = decodeURIComponent(parsedUrl.pathname);
+
+  // Set CORS headers for API calls
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  // --- API REST ENDPOINTS ---
+  if (urlPath === '/api/games' || urlPath === '/api/games/') {
+    const platform = parsedUrl.searchParams.get('platform');
+    const genre = parsedUrl.searchParams.get('genre');
+    const search = parsedUrl.searchParams.get('q');
+    
+    let games = getGamesData();
+    if (platform) {
+      games = games.filter(g => g.platforms && g.platforms.includes(platform.toLowerCase()));
+    }
+    if (genre) {
+      games = games.filter(g => g.genre && g.genre.toLowerCase().includes(genre.toLowerCase()));
+    }
+    if (search) {
+      const q = search.toLowerCase();
+      games = games.filter(g => g.title.toLowerCase().includes(q) || (g.description && g.description.toLowerCase().includes(q)));
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ success: true, count: games.length, data: games }, null, 2));
+    return;
+  }
+
+  if (urlPath.startsWith('/api/games/')) {
+    const gameId = urlPath.replace('/api/games/', '').trim();
+    const games = getGamesData();
+    const found = games.find(g => g.id === gameId);
+    if (found) {
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: true, data: found }, null, 2));
+    } else {
+      res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: false, error: 'Game not found' }, null, 2));
+    }
+    return;
+  }
+
+  if (urlPath === '/api/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(JSON.stringify({ status: 'healthy', timestamp: new Date().toISOString(), dbItems: getGamesData().length }));
+    return;
+  }
+
   // Route aliases
   if (urlPath === '/' || urlPath === '') {
     urlPath = '/home/home.html';
@@ -85,9 +152,9 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);
-  console.log(` LEGEND GAMES LOCALHOST SERVER IS LIVE!`);
+  console.log(` LEGEND GAMES DATABASE & SERVER IS LIVE!`);
   console.log(`======================================================`);
-  console.log(` http://localhost:${PORT}`);
-  console.log(` http://127.0.0.1:${PORT}`);
+  console.log(` Web App:   http://localhost:${PORT}`);
+  console.log(` Games API: http://localhost:${PORT}/api/games`);
   console.log(`======================================================\n`);
 });

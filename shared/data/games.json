@@ -1,0 +1,1461 @@
+﻿[
+    {
+        "id":  "a-way-out",
+        "title":  "A Way Out",
+        "genre":  "Co-op / Action Adventure",
+        "rating":  8.8,
+        "year":  2018,
+        "badge":  "Best Co-op",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  18,
+        "pcSizeGB":  25,
+        "cdPrice":  15000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/a-way-out.jpg",
+        "description":  "A cinematic split-screen co-op adventure about two prisoners escaping together."
+    },
+    {
+        "id":  "bloodborne",
+        "title":  "Bloodborne (PlayStation Hits)",
+        "genre":  "Action RPG / Souls-like",
+        "rating":  9.7,
+        "year":  2015,
+        "badge":  "PlayStation Hit",
+        "platforms":  [
+                          "ps4"
+                      ],
+        "ps4SizeGB":  30,
+        "pcSizeGB":  0,
+        "cdPrice":  16000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/bloodborne.jpg",
+        "description":  "Hunt your nightmares in the gothic city of Yharnam. FromSoftware classic."
+    },
+    {
+        "id":  "cod-mw2",
+        "title":  "Call of Duty: Modern Warfare II",
+        "genre":  "FPS / Action",
+        "rating":  9.2,
+        "year":  2022,
+        "badge":  "Blockbuster",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  75,
+        "pcSizeGB":  85,
+        "cdPrice":  28000,
+        "onlinePrice":  7000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/cod-mw2.jpg",
+        "description":  "Task Force 141 returns with intense tactical campaigns and Warzone firefights."
+    },
+    {
+        "id":  "pes-2021",
+        "title":  "eFootball PES 2021 Season Update",
+        "genre":  "Sports / Football",
+        "rating":  8.9,
+        "year":  2020,
+        "badge":  "Football Classic",
+        "platforms":  [
+                          "ps4",
+                          "pc",
+                          "ps3"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  42,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/pes-2021.jpg",
+        "description":  "Master League, iconic football gameplay, and realistic stadium atmospheres."
+    },
+    {
+        "id":  "cod-cold-war",
+        "title":  "Call of Duty: Black Ops Cold War",
+        "genre":  "FPS / Action",
+        "rating":  9,
+        "year":  2020,
+        "badge":  "Zombies \u0026 Campaign",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  95,
+        "pcSizeGB":  110,
+        "cdPrice":  22000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/cod-cold-war.jpg",
+        "description":  "Gripping Cold War conspiracies, intense multiplayer, and classic Round-based Zombies."
+    },
+    {
+        "id":  "cod-vanguard",
+        "title":  "Call of Duty: Vanguard",
+        "genre":  "FPS / WWII Action",
+        "rating":  8.5,
+        "year":  2021,
+        "badge":  "WWII Shooter",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  60,
+        "pcSizeGB":  70,
+        "cdPrice":  20000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/cod-vanguard.jpg",
+        "description":  "Experience pivotal WWII battles across the Eastern, Western, Pacific, and North African fronts."
+    },
+    {
+        "id":  "ac-mirage",
+        "title":  "",
+        "genre":  "Action / Stealth",
+        "rating":  8.9,
+        "year":  2023,
+        "badge":  "Back to Roots",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  38,
+        "pcSizeGB":  40,
+        "cdPrice":  25000,
+        "onlinePrice":  6500,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/ac-mirage.jpg",
+        "description":  "A homage to the original stealth roots in 9th-century Golden Age Baghdad."
+    },
+    {
+        "id":  "cod-bo3",
+        "title":  "Call of Duty: Black Ops III",
+        "genre":  "FPS / Sci-Fi Action",
+        "rating":  9.1,
+        "year":  2015,
+        "badge":  "Zombies Chronicles",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  55,
+        "pcSizeGB":  60,
+        "cdPrice":  15000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/cod-bo3.jpg",
+        "description":  "Advanced cybernetic warfare and the fan-favorite Zombies Chronicles collection."
+    },
+    {
+        "id":  "captain-tsubasa",
+        "title":  "Captain Tsubasa: Rise of New Champions",
+        "genre":  "Anime / Sports",
+        "rating":  8.7,
+        "year":  2020,
+        "badge":  "Anime Soccer",
+        "platforms":  [
+                          "ps4",
+                          "pc"
+                      ],
+        "ps4SizeGB":  30,
+        "pcSizeGB":  32,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/captain-tsubasa.jpg",
+        "description":  "Over-the-top arcade soccer action featuring iconic special shots and storylines."
+    },
+    {
+        "id":  "ctr-nitro-fueled",
+        "title":  "Crash Team Racing Nitro-Fueled",
+        "genre":  "Arcade Racing / Family",
+        "rating":  9.1,
+        "year":  2019,
+        "badge":  "Family Favorite",
+        "platforms":  [
+                          "ps4",
+                          "xbox"
+                      ],
+        "ps4SizeGB":  22,
+        "pcSizeGB":  0,
+        "cdPrice":  17000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/ctr-nitro-fueled.jpg",
+        "description":  "The authentic CTR experience plus tons of remastered tracks, karts, and characters."
+    },
+    {
+        "id":  "far-cry-6",
+        "title":  "Far Cry 6",
+        "genre":  "Open World / FPS",
+        "rating":  8.8,
+        "year":  2021,
+        "badge":  "Open World",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  60,
+        "pcSizeGB":  65,
+        "cdPrice":  20000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/far-cry-6.jpg",
+        "description":  "Join a modern guerrilla revolution to liberate the tropical paradise of Yara."
+    },
+    {
+        "id":  "gta-v",
+        "title":  "Grand Theft Auto V",
+        "genre":  "Action / Open World",
+        "rating":  9.9,
+        "year":  2022,
+        "badge":  "All-Time Classic",
+        "platforms":  [
+                          "ps3",
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  95,
+        "pcSizeGB":  110,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/gta-v.jpg",
+        "description":  "Los Santos and Blaine County in ultra high definition. The ultimate heist sandbox."
+    },
+    {
+        "id":  "days-gone",
+        "title":  "Days Gone",
+        "genre":  "Survival / Open World",
+        "rating":  9,
+        "year":  2019,
+        "badge":  "Freaker Hordes",
+        "platforms":  [
+                          "ps4",
+                          "pc"
+                      ],
+        "ps4SizeGB":  68,
+        "pcSizeGB":  70,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/days-gone.jpg",
+        "description":  "Ride and fight across a brutal Pacific Northwest wilderness crawling with infected hordes."
+    },
+    {
+        "id":  "ea-sports-fc-26",
+        "title":  "EA SPORTS FC 26",
+        "genre":  "Sports / Football",
+        "rating":  9.4,
+        "year":  2025,
+        "badge":  "Trending #1",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  48,
+        "pcSizeGB":  55,
+        "cdPrice":  38000,
+        "onlinePrice":  8000,
+        "moddedPrice":  3000,
+        "cover":  "../shared/assets/covers/ea-sports-fc-26.jpg",
+        "description":  "HyperMotionV realism, updated clubs, Ultimate Team, and Career mode."
+    },
+    {
+        "id":  "horizon-forbidden-west",
+        "title":  "Horizon Forbidden West",
+        "genre":  "Open World / Action RPG",
+        "rating":  9.6,
+        "year":  2022,
+        "badge":  "Stunning Visuals",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  98,
+        "pcSizeGB":  120,
+        "cdPrice":  26000,
+        "onlinePrice":  6500,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/horizon-forbidden-west.jpg",
+        "description":  "Explore distant lands, fight bigger awe-inspiring machines, and encounter new tribes."
+    },
+    {
+        "id":  "dirt-5",
+        "title":  "DIRT 5",
+        "genre":  "Racing / Off-Road",
+        "rating":  8.6,
+        "year":  2020,
+        "badge":  "Off-Road Thrills",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  42,
+        "pcSizeGB":  45,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/dirt-5.jpg",
+        "description":  "Extreme off-road arcade racing across stunning global routes from NYC to Brazil."
+    },
+    {
+        "id":  "ghost-of-tsushima",
+        "title":  "Ghost of Tsushima",
+        "genre":  "Action / Samurai Adventure",
+        "rating":  9.8,
+        "year":  2020,
+        "badge":  "PlayStation Masterpiece",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  60,
+        "pcSizeGB":  75,
+        "cdPrice":  24000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/ghost-of-tsushima.jpg",
+        "description":  "Unconventional samurai warfare to protect feudal Japan from the Mongol invasion."
+    },
+    {
+        "id":  "hot-wheels-unleashed",
+        "title":  "Hot Wheels Unleashed",
+        "genre":  "Arcade Racing / Party",
+        "rating":  8.7,
+        "year":  2021,
+        "badge":  "High-Octane Fun",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  20,
+        "pcSizeGB":  22,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/hot-wheels-unleashed.jpg",
+        "description":  "Collect the best Hot Wheels vehicles, build extraordinary tracks, and race in split-screen."
+    },
+    {
+        "id":  "injustice-2",
+        "title":  "Injustice 2: Legendary Edition",
+        "genre":  "Fighting / DC Universe",
+        "rating":  9.2,
+        "year":  2017,
+        "badge":  "DC Fighting",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  52,
+        "pcSizeGB":  55,
+        "cdPrice":  17000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/injustice-2.jpg",
+        "description":  "Power up and build the ultimate version of your favorite DC superheroes and villains."
+    },
+    {
+        "id":  "tlou-1",
+        "title":  "The Last of Us Remastered",
+        "genre":  "Action / Narrative Survival",
+        "rating":  9.9,
+        "year":  2014,
+        "badge":  "Over 200 GOTY Awards",
+        "platforms":  [
+                          "ps4"
+                      ],
+        "ps4SizeGB":  48,
+        "pcSizeGB":  0,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/tlou-1.jpg",
+        "description":  "Joel and Ellie journey across a post-pandemic United States. Unforgettable story."
+    },
+    {
+        "id":  "minecraft",
+        "title":  "Minecraft (PlayStation 4 Edition)",
+        "genre":  "Sandbox / Survival",
+        "rating":  9.5,
+        "year":  2019,
+        "badge":  "Top Sandbox",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc",
+                          "ps3"
+                      ],
+        "ps4SizeGB":  6,
+        "pcSizeGB":  8,
+        "cdPrice":  16000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/minecraft.jpg",
+        "description":  "Endless creativity and survival. Build anything you can imagine with infinite blocks."
+    },
+    {
+        "id":  "it-takes-two",
+        "title":  "It Takes Two",
+        "genre":  "Co-op Platformer / Adventure",
+        "rating":  9.8,
+        "year":  2021,
+        "badge":  "Game of the Year",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  45,
+        "pcSizeGB":  50,
+        "cdPrice":  22000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/it-takes-two.jpg",
+        "description":  "A genre-bending platform adventure created purely for two-player co-op gameplay."
+    },
+    {
+        "id":  "tlou-2",
+        "title":  "The Last of Us Part II",
+        "genre":  "Action / Survival Horror",
+        "rating":  9.7,
+        "year":  2020,
+        "badge":  "PlayStation Masterpiece",
+        "platforms":  [
+                          "ps4",
+                          "ps5"
+                      ],
+        "ps4SizeGB":  80,
+        "pcSizeGB":  0,
+        "cdPrice":  22000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/tlou-2.jpg",
+        "description":  "An emotional, visceral journey of vengeance across post-apocalyptic Seattle."
+    },
+    {
+        "id":  "motogp-24",
+        "title":  "MotoGP 24",
+        "genre":  "Motorcycle Racing / Sim",
+        "rating":  8.8,
+        "year":  2024,
+        "badge":  "Official MotoGP",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  28,
+        "pcSizeGB":  30,
+        "cdPrice":  28000,
+        "onlinePrice":  6500,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/motogp-24.jpg",
+        "description":  "Official 2024 season with riders market transfers and dynamic weather physics."
+    },
+    {
+        "id":  "kena-bridge-of-spirits",
+        "title":  "Kena: Bridge of Spirits",
+        "genre":  "Action Adventure / Indie",
+        "rating":  9.1,
+        "year":  2021,
+        "badge":  "Deluxe Edition",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc",
+                          "xbox"
+                      ],
+        "ps4SizeGB":  25,
+        "pcSizeGB":  28,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/kena-bridge-of-spirits.jpg",
+        "description":  "A story-driven action adventure combining fast-paced combat with magical Rot companions."
+    },
+    {
+        "id":  "mafia-3",
+        "title":  "Mafia III",
+        "genre":  "Crime / Open World",
+        "rating":  8.4,
+        "year":  2016,
+        "badge":  "Crime Drama",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  52,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/mafia-3.jpg",
+        "description":  "Lincoln Clay builds a criminal empire in 1968 New Bordeaux to exact revenge."
+    },
+    {
+        "id":  "naruto-storm-connections",
+        "title":  "Naruto x Boruto Ultimate Ninja Storm Connections",
+        "genre":  "Anime / Fighting",
+        "rating":  8.9,
+        "year":  2023,
+        "badge":  "Anime Fighting",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  35,
+        "pcSizeGB":  38,
+        "cdPrice":  26000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/naruto-storm-connections.jpg",
+        "description":  "The largest ninja roster in history celebrating the anime 20th anniversary."
+    },
+    {
+        "id":  "nfs-heat",
+        "title":  "Need for Speed Heat",
+        "genre":  "Street Racing",
+        "rating":  8.9,
+        "year":  2019,
+        "badge":  "Street Racing",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  35,
+        "pcSizeGB":  40,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/nfs-heat.jpg",
+        "description":  "Hustle by day in Speedhunters Showdown and risk it all by night in illicit street races."
+    },
+    {
+        "id":  "re7-biohazard",
+        "title":  "Resident Evil 7: Biohazard",
+        "genre":  "Survival Horror / First Person",
+        "rating":  9.4,
+        "year":  2017,
+        "badge":  "VR Compatible",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  28,
+        "pcSizeGB":  30,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/re7-biohazard.jpg",
+        "description":  "Ethan Winters searches for his wife in a derelict Louisiana plantation. Pure terror."
+    },
+    {
+        "id":  "sleeping-dogs",
+        "title":  "Sleeping Dogs: Definitive Edition",
+        "genre":  "Martial Arts / Open World",
+        "rating":  9.1,
+        "year":  2014,
+        "badge":  "Martial Arts Classic",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  20,
+        "pcSizeGB":  22,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/sleeping-dogs.jpg",
+        "description":  "Undercover cop Wei Shen infiltrates the Sun On Yee Triad in neon-lit Hong Kong."
+    },
+    {
+        "id":  "nfs-payback",
+        "title":  "Need for Speed Payback",
+        "genre":  "Action Racing",
+        "rating":  8.4,
+        "year":  2017,
+        "badge":  "Action Driving",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  30,
+        "pcSizeGB":  32,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/nfs-payback.jpg",
+        "description":  "Take down the cartel ruling Fortune Valley casino underworld in blockbuster heist missions."
+    },
+    {
+        "id":  "sekiro",
+        "title":  "Sekiro: Shadows Die Twice",
+        "genre":  "Action / Souls-like",
+        "rating":  9.8,
+        "year":  2019,
+        "badge":  "Game of the Year",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  25,
+        "pcSizeGB":  25,
+        "cdPrice":  24000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/sekiro.jpg",
+        "description":  "Carve your own clever path to vengeance as the One-Armed Wolf in Sengoku Japan."
+    },
+    {
+        "id":  "spiderman-ps4",
+        "title":  "",
+        "genre":  "Action / Superhero",
+        "rating":  9.7,
+        "year":  2018,
+        "badge":  "PS4 Must-Play",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  65,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/spiderman-ps4.jpg",
+        "description":  "A seasoned Peter Parker fights iconic villains across Manhattan with acrobatics and fluid webs."
+    },
+    {
+        "id":  "re2-remake",
+        "title":  "Resident Evil 2 Remake",
+        "genre":  "Survival Horror",
+        "rating":  9.6,
+        "year":  2019,
+        "badge":  "GOTY Nominee",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  26,
+        "pcSizeGB":  28,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/re2-remake.jpg",
+        "description":  "Raccoon City Police Station survival reimagined with modern over-the-shoulder perspective."
+    },
+    {
+        "id":  "shadow-tomb-raider",
+        "title":  "Shadow of the Tomb Raider: Definitive Edition",
+        "genre":  "Action Adventure",
+        "rating":  8.9,
+        "year":  2018,
+        "badge":  "Definitive Edition",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  45,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/shadow-tomb-raider.jpg",
+        "description":  "Lara Croft races to save the world from a Maya apocalypse in the deadliest jungles."
+    },
+    {
+        "id":  "spiderman-miles-morales",
+        "title":  "",
+        "genre":  "Action / Superhero",
+        "rating":  9.2,
+        "year":  2020,
+        "badge":  "Must Play",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  45,
+        "cdPrice":  22000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/spiderman-miles-morales.jpg",
+        "description":  "Bio-electric venom blast attacks and covert camouflage power in snow-covered Harlem."
+    },
+    {
+        "id":  "tennis-world-tour",
+        "title":  "Tennis World Tour",
+        "genre":  "Sports / Tennis",
+        "rating":  7.8,
+        "year":  2018,
+        "badge":  "Tennis Pro",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  10,
+        "pcSizeGB":  12,
+        "cdPrice":  12000,
+        "onlinePrice":  3500,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/tennis-world-tour.jpg",
+        "description":  "Play as Roger Federer and 30 other tennis stars across all major court surfaces."
+    },
+    {
+        "id":  "ac-valhalla",
+        "title":  "",
+        "genre":  "Action RPG / Open World",
+        "rating":  9.1,
+        "year":  2020,
+        "badge":  "Viking Saga",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  85,
+        "pcSizeGB":  95,
+        "cdPrice":  22000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/ac-valhalla.jpg",
+        "description":  "Lead legendary Viking raids against Saxon fortresses and conquer 9th-century England."
+    },
+    {
+        "id":  "god-of-war-2018",
+        "title":  "God of War (2018)",
+        "genre":  "Action Adventure / Norse",
+        "rating":  9.9,
+        "year":  2018,
+        "badge":  "Game of the Year",
+        "platforms":  [
+                          "ps4",
+                          "pc"
+                      ],
+        "ps4SizeGB":  45,
+        "pcSizeGB":  50,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/god-of-war-2018.jpg",
+        "description":  "Kratos and Atreus journey through the brutal realm of Norse gods and monsters."
+    },
+    {
+        "id":  "ufc-4",
+        "title":  "EA SPORTS UFC 4",
+        "genre":  "Combat Sports / MMA",
+        "rating":  8.9,
+        "year":  2020,
+        "badge":  "Fight Champion",
+        "platforms":  [
+                          "ps4",
+                          "xbox"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  0,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/ufc-4.jpg",
+        "description":  "Fluid clinch-to-strike combinations and responsive takedown grappling in the Octagon."
+    },
+    {
+        "id":  "dmc-5",
+        "title":  "Devil May Cry 5",
+        "genre":  "Hack \u0026 Slash / Action",
+        "rating":  9.4,
+        "year":  2019,
+        "badge":  "Stylish Action",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  35,
+        "pcSizeGB":  40,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/dmc-5.jpg",
+        "description":  "High-octane stylized combat featuring Dante, Nero, and V battling demonic hordes."
+    },
+    {
+        "id":  "hogwarts-legacy",
+        "title":  "Hogwarts Legacy",
+        "genre":  "Open World RPG / Magic",
+        "rating":  9.3,
+        "year":  2023,
+        "badge":  "Wizarding World",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  80,
+        "pcSizeGB":  85,
+        "cdPrice":  28000,
+        "onlinePrice":  7000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/hogwarts-legacy.jpg",
+        "description":  "Live the unwritten in 1800s Hogwarts. Master spells, brew potions, and tame beasts."
+    },
+    {
+        "id":  "wwe-2k23",
+        "title":  "WWE 2K23",
+        "genre":  "Sports / Wrestling",
+        "rating":  8.9,
+        "year":  2023,
+        "badge":  "Even Stronger",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  65,
+        "pcSizeGB":  75,
+        "cdPrice":  22000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/wwe-2k23.jpg",
+        "description":  "WarGames match debut, John Cena 20-year Showcase, and deep Superstar roster."
+    },
+    {
+        "id":  "god-of-war-ragnarok",
+        "title":  "God of War RagnarÃ¶k",
+        "genre":  "Action / Mythological",
+        "rating":  9.8,
+        "year":  2022,
+        "badge":  "Masterpiece",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  107,
+        "pcSizeGB":  190,
+        "cdPrice":  32000,
+        "onlinePrice":  7000,
+        "moddedPrice":  3000,
+        "cover":  "../shared/assets/covers/gow-ragnarok.jpg",
+        "description":  "Fimbulwinter is underway. Kratos and Atreus must journey to each of the Nine Realms."
+    },
+    {
+        "id":  "infamous-second-son",
+        "title":  "inFAMOUS Second Son",
+        "genre":  "Superhero / Action",
+        "rating":  8.8,
+        "year":  2014,
+        "badge":  "Superpowers",
+        "platforms":  [
+                          "ps4"
+                      ],
+        "ps4SizeGB":  24,
+        "pcSizeGB":  0,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/infamous-second-son.jpg",
+        "description":  "Delsin Rowe wields smoke, neon, and video superpowers in locked-down Seattle."
+    },
+    {
+        "id":  "jurassic-world-evolution",
+        "title":  "Jurassic World Evolution",
+        "genre":  "Dinosaur Simulation / Strategy",
+        "rating":  8.7,
+        "year":  2018,
+        "badge":  "Park Builder",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  15,
+        "pcSizeGB":  16,
+        "cdPrice":  15000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/jurassic-world-evolution.jpg",
+        "description":  "Bioengineer new dinosaurs and build attractions on legendary islands of the Muertes Archipelago."
+    },
+    {
+        "id":  "motogp-19",
+        "title":  "MotoGP 19",
+        "genre":  "Motorcycle Racing / Sim",
+        "rating":  8.5,
+        "year":  2019,
+        "badge":  "Racing Sim",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  20,
+        "pcSizeGB":  22,
+        "cdPrice":  14000,
+        "onlinePrice":  3500,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/motogp-19.jpg",
+        "description":  "Neural AI racing and historical challenges featuring legendary riders."
+    },
+    {
+        "id":  "rdr2",
+        "title":  "Red Dead Redemption 2",
+        "genre":  "Western / Open World",
+        "rating":  9.9,
+        "year":  2018,
+        "badge":  "Rockstar Masterpiece",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  105,
+        "pcSizeGB":  120,
+        "cdPrice":  22000,
+        "onlinePrice":  6000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/rdr2.jpg",
+        "description":  "Arthur Morgan and the Van der Linde gang on the run across the rugged heart of America."
+    },
+    {
+        "id":  "lego-marvel-collection",
+        "title":  "LEGO Marvel Collection",
+        "genre":  "Action / Adventure / LEGO",
+        "rating":  9,
+        "year":  2019,
+        "badge":  "3 Games in 1",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  45,
+        "pcSizeGB":  50,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/lego-marvel-collection.jpg",
+        "description":  "Includes LEGO Marvel Super Heroes 1 \u0026 2 and LEGO Marvel Avengers with all season passes."
+    },
+    {
+        "id":  "naruto-storm-4",
+        "title":  "Naruto Shippuden: Ultimate Ninja Storm 4",
+        "genre":  "Anime / Fighting",
+        "rating":  9.5,
+        "year":  2016,
+        "badge":  "Anime Classic",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  42,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/naruto-storm-4.jpg",
+        "description":  "The epic climax of the Fourth Great Ninja War with huge cinematic boss battles."
+    },
+    {
+        "id":  "re4-remake",
+        "title":  "Resident Evil 4 Remake",
+        "genre":  "Action Horror",
+        "rating":  9.7,
+        "year":  2023,
+        "badge":  "Survival Hit",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  68,
+        "pcSizeGB":  72,
+        "cdPrice":  26000,
+        "onlinePrice":  6500,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/re4-remake.jpg",
+        "description":  "Leon S. Kennedy rescues the president daughter from a horrifying European cult."
+    },
+    {
+        "id":  "lego-incredibles",
+        "title":  "LEGO The Incredibles",
+        "genre":  "Family / Co-op Adventure",
+        "rating":  8.6,
+        "year":  2018,
+        "badge":  "Family Co-op",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  18,
+        "pcSizeGB":  20,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/lego-incredibles.jpg",
+        "description":  "Experience the thrilling adventures of the Parr superhero family across both Incredibles films."
+    },
+    {
+        "id":  "overcooked-2",
+        "title":  "Overcooked! 2",
+        "genre":  "Co-op Party / Cooking Arcade",
+        "rating":  9.2,
+        "year":  2018,
+        "badge":  "Chaotic Party Game",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  8,
+        "pcSizeGB":  10,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/overcooked-2.jpg",
+        "description":  "Chop, cook, and serve dishes in hilarious high-pressure cooperative kitchens."
+    },
+    {
+        "id":  "team-sonic-racing",
+        "title":  "Team Sonic Racing",
+        "genre":  "Kart Racing / Party",
+        "rating":  8.5,
+        "year":  2019,
+        "badge":  "Sonic Racing",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  18,
+        "pcSizeGB":  20,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/team-sonic-racing.jpg",
+        "description":  "Team-based arcade racing where sharing power-ups and speed boosts unlocks victory."
+    },
+    {
+        "id":  "spongebob-cosmic-shake",
+        "title":  "SpongeBob SquarePants: The Cosmic Shake",
+        "genre":  "3D Platformer / Kids \u0026 Family",
+        "rating":  8.7,
+        "year":  2023,
+        "badge":  "Bikini Bottom Fun",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  16,
+        "pcSizeGB":  18,
+        "cdPrice":  18000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/spongebob-cosmic-shake.jpg",
+        "description":  "Wish-granting Mermaid Tears open portals to 7 distinct Wishworlds in Bikini Bottom."
+    },
+    {
+        "id":  "metal-slug-tactics",
+        "title":  "Metal Slug Tactics",
+        "genre":  "Tactical Strategy / Roguelite",
+        "rating":  8.6,
+        "year":  2024,
+        "badge":  "Retro Tactics",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  10,
+        "pcSizeGB":  12,
+        "cdPrice":  20000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/metal-slug-tactics.jpg",
+        "description":  "Classic explosive run-and-gun combat reimagined as a dynamic tactical grid RPG."
+    },
+    {
+        "id":  "watch-dogs-legion",
+        "title":  "Watch Dogs: Legion",
+        "genre":  "Hacking / Open World",
+        "rating":  8.5,
+        "year":  2020,
+        "badge":  "Play as Anyone",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  45,
+        "pcSizeGB":  50,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/watch-dogs-legion.jpg",
+        "description":  "Build a resistance of anyone you see in near-future London facing collapse."
+    },
+    {
+        "id":  "stray",
+        "title":  "Stray",
+        "genre":  "Cyberpunk Adventure / Cat",
+        "rating":  9.3,
+        "year":  2022,
+        "badge":  "Award Winning",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  14,
+        "pcSizeGB":  15,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/stray.jpg",
+        "description":  "A stray cat untangles an ancient mystery to escape a cybercity populated by droids."
+    },
+    {
+        "id":  "batman-arkham-knight",
+        "title":  "Batman: Arkham Knight",
+        "genre":  "Action / Superhero",
+        "rating":  9.6,
+        "year":  2015,
+        "badge":  "PlayStation Hit",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  55,
+        "cdPrice":  15000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/batman-arkham-knight.jpg",
+        "description":  "Drive the Batmobile through Gotham City to confront Scarecrow and the Arkham Knight."
+    },
+    {
+        "id":  "like-a-dragon-infinite-wealth",
+        "title":  "Like a Dragon: Infinite Wealth",
+        "genre":  "Turn-Based RPG / Yakuza",
+        "rating":  9.4,
+        "year":  2024,
+        "badge":  "Epic RPG",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  60,
+        "pcSizeGB":  70,
+        "cdPrice":  28000,
+        "onlinePrice":  7000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/like-a-dragon-infinite-wealth.jpg",
+        "description":  "Two larger-than-life heroes, Ichiban Kasuga and Kazuma Kiryu, team up in Hawaii."
+    },
+    {
+        "id":  "watch-dogs-2",
+        "title":  "Watch Dogs 2",
+        "genre":  "Hacking / Open World",
+        "rating":  9,
+        "year":  2016,
+        "badge":  "San Francisco Hacker",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  38,
+        "pcSizeGB":  42,
+        "cdPrice":  15000,
+        "onlinePrice":  4000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/watch-dogs-2.jpg",
+        "description":  "Play as brilliant young hacker Marcus Holloway in the San Francisco Bay Area."
+    },
+    {
+        "id":  "gow-3-remastered",
+        "title":  "God of War III Remastered",
+        "genre":  "Hack \u0026 Slash / Greek Myth",
+        "rating":  9.4,
+        "year":  2015,
+        "badge":  "Only on PlayStation",
+        "platforms":  [
+                          "ps4"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  0,
+        "cdPrice":  15000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/gow-3-remastered.jpg",
+        "description":  "Kratos scales Mount Olympus to take down Zeus in brutal 1080p 60fps glory."
+    },
+    {
+        "id":  "tekken-7",
+        "title":  "Tekken 7",
+        "genre":  "Fighting / Martial Arts",
+        "rating":  9.3,
+        "year":  2017,
+        "badge":  "King of Iron Fist",
+        "platforms":  [
+                          "ps4",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  55,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/tekken-7.jpg",
+        "description":  "Discover the epic conclusion of the 20-year Mishima clan feud and Rage Art finishers."
+    },
+    {
+        "id":  "elden-ring",
+        "title":  "Elden Ring",
+        "genre":  "Dark Fantasy / Open World RPG",
+        "rating":  9.9,
+        "year":  2022,
+        "badge":  "Game of the Year",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  60,
+        "cdPrice":  28000,
+        "onlinePrice":  7000,
+        "moddedPrice":  2500,
+        "cover":  "../shared/assets/covers/elden-ring.jpg",
+        "description":  "Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring."
+    },
+    {
+        "id":  "upin-ipin-universe",
+        "title":  "Upin \u0026 Ipin Universe",
+        "genre":  "Kids \u0026 Family / Adventure",
+        "rating":  8.4,
+        "year":  2023,
+        "badge":  "Kids Favorite",
+        "platforms":  [
+                          "ps4"
+                      ],
+        "ps4SizeGB":  12,
+        "pcSizeGB":  0,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/upin-ipin-universe.jpg",
+        "description":  "Join the twin brothers in fun Kampung adventures, mini-games, and village exploration."
+    },
+    {
+        "id":  "witcher-3",
+        "title":  "The Witcher 3: Wild Hunt",
+        "genre":  "Dark Fantasy / Action RPG",
+        "rating":  9.9,
+        "year":  2015,
+        "badge":  "Over 300 GOTY Awards",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  55,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/witcher-3.jpg",
+        "description":  "Play as Geralt of Rivia, monster slayer for hire, hunting the Child of Prophecy."
+    },
+    {
+        "id":  "dbz-kakarot",
+        "title":  "Dragon Ball Z: Kakarot",
+        "genre":  "Anime / Action RPG",
+        "rating":  9.1,
+        "year":  2020,
+        "badge":  "Anime RPG",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  38,
+        "pcSizeGB":  40,
+        "cdPrice":  18000,
+        "onlinePrice":  5000,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/dbz-kakarot.jpg",
+        "description":  "Relive the story of Goku and other Z Fighters. Fish, eat, train, and battle Saiyans."
+    },
+    {
+        "id":  "re8-village",
+        "title":  "Resident Evil Village",
+        "genre":  "Survival Horror / Action",
+        "rating":  9.4,
+        "year":  2021,
+        "badge":  "Award Winner",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  35,
+        "pcSizeGB":  40,
+        "cdPrice":  20000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/re8-village.jpg",
+        "description":  "Ethan Winters battles terrifying new adversaries in a snow-capped European village."
+    },
+    {
+        "id":  "re3-remake",
+        "title":  "Resident Evil 3 Remake",
+        "genre":  "Survival Horror / Action",
+        "rating":  8.8,
+        "year":  2020,
+        "badge":  "Escape Nemesis",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  25,
+        "pcSizeGB":  28,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/re3-remake.jpg",
+        "description":  "Jill Valentine attempts a desperate escape from Raccoon City while pursued by Nemesis."
+    },
+    {
+        "id":  "gta-trilogy",
+        "title":  "Grand Theft Auto: The Trilogy â€“ The Definitive Edition",
+        "genre":  "Open World / Crime Action",
+        "rating":  8.6,
+        "year":  2021,
+        "badge":  "3 Classic Games",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  40,
+        "pcSizeGB":  45,
+        "cdPrice":  20000,
+        "onlinePrice":  5500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/gta-trilogy.jpg",
+        "description":  "Play the genre-defining classics: GTA III, GTA Vice City, and GTA San Andreas remastered."
+    },
+    {
+        "id":  "uncharted-4",
+        "title":  "",
+        "genre":  "Cinematic Action Adventure",
+        "rating":  9.8,
+        "year":  2016,
+        "badge":  "Only on PlayStation",
+        "platforms":  [
+                          "ps4",
+                          "ps5",
+                          "pc"
+                      ],
+        "ps4SizeGB":  50,
+        "pcSizeGB":  60,
+        "cdPrice":  16000,
+        "onlinePrice":  4500,
+        "moddedPrice":  2000,
+        "cover":  "../shared/assets/covers/uncharted-4.jpg",
+        "description":  "Nathan Drake is pulled back into the dangerous world of thieves in search of Libertalia."
+    },
+    {
+        "id":  "re6",
+        "title":  "Resident Evil 6",
+        "genre":  "Action Horror / Co-op",
+        "rating":  8.4,
+        "year":  2016,
+        "badge":  "4 Campaigns",
+        "platforms":  [
+                          "ps4",
+                          "ps3",
+                          "xbox",
+                          "pc"
+                      ],
+        "ps4SizeGB":  20,
+        "pcSizeGB":  22,
+        "cdPrice":  14000,
+        "onlinePrice":  4000,
+        "moddedPrice":  1500,
+        "cover":  "../shared/assets/covers/re6.jpg",
+        "description":  "Four intertwined campaigns featuring Leon, Chris, Jake, and Ada Wong battling global bioterrorism."
+    }
+]

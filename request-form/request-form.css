@@ -47,7 +47,7 @@
 .service-tab-btn.active {
   background: rgba(99, 102, 241, 0.12);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 16px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
 }
 
 .service-tab-btn.active strong {
@@ -90,5 +90,5 @@
   color: var(--accent-gold);
   background: rgba(245, 158, 11, 0.12);
   font-weight: 700;
-  box-shadow: 0 0 14px rgba(245, 158, 11, 0.16);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
 }

@@ -881,3 +881,52 @@ function escapeQuotes(str) {
   if (!str) return '';
   return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
+
+// =========================================================================
+// 12. FEATURED COMBO & CONDITION TRADE-IN HANDLERS
+// =========================================================================
+function addFeaturedBundleToCart() {
+  LegendCart.addItem({
+    id: 'bundle-ps4-champion',
+    title: 'PS4 Slim Ultimate Gamer Combo (1TB + 2 Pads + FC26 + 10 Games)',
+    price: 245000,
+    totalPrice: 245000,
+    variant: 'Full Hardware Combo Deal',
+    type: 'bundle',
+    mode: 'offline-modded',
+    ps4Size: 250,
+    coverImage: 'https://images.unsplash.com/photo-1507457379470-08b800bebc67?auto=format&fit=crop&w=600&q=80'
+  });
+}
+
+function selectConditionGrade(condition, btnElement) {
+  const chips = document.querySelectorAll('.condition-chip');
+  chips.forEach(c => c.classList.remove('active'));
+  if (btnElement) btnElement.classList.add('active');
+
+  const notesMap = {
+    'like-new': '"Mint PS4/PS5 units get top cash payout at Ikeja City Mall!"',
+    'good': '"Tested 100% working consoles get instant payout up to 75% market value."',
+    'fair': '"Working consoles with cosmetic scuffs accepted. Meetup testing in Lagos."',
+    'for-parts': '"Loud fan, disk drive issues, or bricked units bought for hardware scrap parts."'
+  };
+
+  const textMap = {
+    'like-new': 'Like New (10/10)',
+    'good': 'Good Condition (8/10)',
+    'fair': 'Fair / Heavy Use (6/10)',
+    'for-parts': 'For Parts / Faulty (3/10)'
+  };
+
+  const noteEl = document.getElementById('condition-summary-note');
+  const btnEl = document.getElementById('tradein-whatsapp-btn');
+
+  if (noteEl && notesMap[condition]) {
+    noteEl.textContent = notesMap[condition];
+  }
+
+  if (btnEl && textMap[condition]) {
+    btnEl.href = `https://wa.me/2348012345678?text=${encodeURIComponent(`Hello Legend Games, I want to sell/trade-in my console. Condition: ${textMap[condition]}`)}`;
+  }
+}
+

@@ -1,9 +1,9 @@
 # Legend Games — Design System Specification (`DESIGN.md`)
 
 ## 1. Visual Identity & Aesthetic Direction
-- **Theme**: Authentic Nigerian Gaming Shop — High-energy, trustworthy, locally-focused gaming retail experience.
-- **Core Mood**: Dynamic, professional, community-driven, safety-conscious, and gaming-native.
-- **Design Philosophy**: "Real gaming shop, not a template" —消除generic AI patterns and embrace authentic retail aesthetics.
+- **Theme**: Physical Shop-Wall Collage meets Console UI — High-energy, tactile, authentic Nigerian gaming retail experience.
+- **Core Mood**: Dynamic, physical, community-driven, safety-conscious, and gaming-native.
+- **Design Philosophy**: "Real gaming shop wall with tactile kraft tags, hard poster shadows, and sleek console focus states."
 
 ---
 
@@ -11,50 +11,57 @@
 
 ### Color Palette (Dark Theme — Default)
 - **Backgrounds**:
-  - App Canvas: `#0a0e17` (Deep gaming dark with subtle blue tint)
-  - Surface: `#131929` (Rich dark surface)
-  - Elevated Cards: `#1a2235` / Hover: `#242d45`
-  - Input Fields: `#0f1623`
-- **Gaming Brand Accents**:
-  - Primary Gaming Cyan: `#00d4ff` / Hover: `#00b8e6` (Electric blue for energy)
-  - Secondary Gaming Purple: `#7c3aed` (For variety and depth)
-  - Premium Gold: `#ffd700` / Light: `#ffe44d` / Dark: `#ccac00` (For premium elements)
-  - Gaming Neon Green: `#00ff88` (Success/verified states)
-  - Gaming Red: `#ff4757` (Alert states)
-  - Gaming Orange: `#ff9f43` (Accent variations)
-  - WhatsApp Green: `#25d366`
+  - App Canvas: `#080b11` (Deep shop canvas dark)
+  - Surface: `#111622` (Rich dark surface)
+  - Elevated Cards: `#182030` / Hover: `#202a3f`
+  - Input Fields: `#0d121c`
+- **Shop-Wall & Physical Collage Accents**:
+  - Kraft Paper Tan: `#d4a373` / Dark: `#b07d48`
+  - Tape Color: `rgba(255, 235, 170, 0.45)`
+  - Starburst Yellow: `#ffe600` / Text: `#111111`
+  - Marker Red: `#e63946`
+  - Paper White: `#f8f6f0`
+- **Console & Brand Accents**:
+  - Primary Gaming Orange: `#ff5500` / Hover: `#ff7326`
+  - Electric Cyan: `#00f0ff` / Hover: `#00d4e6`
+  - PlayStation Blue: `#0070d1`
+  - Xbox Green: `#107c10`
+  - Gaming Neon Green: `#00ff88` (Verified/Success states)
+  - WhatsApp Green: `#25d366` / Hover: `#20ba5a`
 - **Text & Typography**:
-  - Primary Text: `#ffffff` (Pure white for maximum contrast)
-  - Secondary Text: `#b8c5d6` (Soft blue-gray)
-  - Muted Text: `#7a8a9e` (Less important information)
-  - Display Font: `'Outfit', sans-serif` (Weights: 700, 800, 900 for impact)
-  - Body Font: `'Plus Jakarta Sans', sans-serif` (Weights: 500, 600, 700 for readability)
+  - Primary Text: `#ffffff`
+  - Secondary Text: `#b8c5d6`
+  - Muted Text: `#7a8a9e`
+  - Display Font: `'Archivo Black', 'Outfit', sans-serif` (Bold street/arcade titles)
+  - Handwritten Accent: `'Caveat', cursive` (Stickers, notes, price stamps)
+  - Body Font: `'Plus Jakarta Sans', sans-serif` (Weights: 500, 600, 700)
   - Numerics: `font-variant-numeric: tabular-nums` for all prices, specs, and counters.
 
-### Elevation & Borders
-- **Borders**: Gaming-focused borders with subtle cyan tint: `rgba(0, 212, 255, 0.3)` for active states
-- **Shadows**:
-  - `sm`: `0 2px 8px rgba(0, 0, 0, 0.5)`
-  - `md`: `0 6px 20px rgba(0, 0, 0, 0.6)`
-  - `lg`: `0 12px 36px rgba(0, 0, 0, 0.7)`
-  - `glow-primary`: `0 0 20px rgba(0, 212, 255, 0.2)` (Gaming cyan glow)
-  - `glow-gold`: `0 0 20px rgba(255, 215, 0, 0.2)` (Premium gold glow)
-  - `glow-green`: `0 0 20px rgba(0, 255, 136, 0.2)` (Success glow)
+### Hard-Edged Poster Shadows & Borders
+- **Borders**: 2px solid with high tactile contrast (`#000000`, `rgba(255, 255, 255, 0.12)`, or accent colors).
+- **Poster Shadows (Zero Blur / Flat Arcade Depth)**:
+  - `sm`: `2px 2px 0px #000000`
+  - `md`: `4px 4px 0px #000000`
+  - `lg`: `6px 6px 0px #000000`
+  - `xl`: `8px 8px 0px #000000`
+  - `orange`: `4px 4px 0px #ff5500`
+  - `cyan`: `4px 4px 0px #00f0ff`
 
 ---
 
 ## 3. Motion & Animation Standards
-- **Standard Transitions**: `cubic-bezier(0.16, 1, 0.3, 1)` (Decelerated spring-feel, no jarring bounce).
+- **Standard Transitions**: `cubic-bezier(0.16, 1, 0.3, 1)` (Decelerated spring-feel).
 - **Duration**: `150ms` for micro-interactions, `220ms` for standard transitions, `300ms` for major state changes.
 - **Haptic Touch**: `transform: scale(0.97)` on `:active` for all buttons, chips, and cards.
-- **Gaming Animations**: Subtle pulse effects on trust indicators (`gaming-pulse` keyframe), hover glow effects on interactive elements.
+- **Marquee Motion**: Smooth horizontal scroll with pause on `:hover` and under `@media (prefers-reduced-motion: reduce)`.
+- **Console Focus Effect**: Scale 1.025 with elevated poster shadow and high-contrast border on hover/focus.
 
 ---
 
 ## 4. Gaming Shop Anti-Pattern Guardrails
-1. **Never Use Generic Gradients**: Avoid purple-to-blue linear gradients. Use solid gaming colors with subtle overlays.
-2. **Never Use Template Language**: Replace "Featured," "Discover," "Explore" with authentic retail language like "Hot Sellers," "Shop by Category," "All Services."
-3. **Always Use Uppercase for Impact**: Section headings and CTAs use uppercase with letter-spacing for gaming energy.
-4. **Gaming-Focused Borders**: Use 2px borders with gaming cyan tint instead of subtle 1px borders.
-5. **Touch Friendly**: All clickable buttons and selectable chips have a minimum dimension of `44x44px`.
-6. **Authentic Messaging**: Use Nigerian context (Lagos references, WhatsApp-first, meetup safety) throughout.
+1. **Never Use Generic Soft SaaS Glows**: Use hard-edged poster shadows (`4px 4px 0 #000`) for tactile arcade depth.
+2. **Never Use Template Language**: Authentic retail language like "Naija Verified", "Safe Public Meetups", "Daily Drop", "Quote Loadout".
+3. **Always Use Uppercase for Impact**: Section headers, badges, and primary buttons use punchy uppercase.
+4. **Touch Friendly**: All clickable buttons and selectable chips have a minimum dimension of `44x44px`.
+5. **Authentic Messaging**: Currency is always ₦ (Nigerian Naira), PS4/PS5 include free annual FC edition, safe public Lagos handover locations.
+

@@ -6,32 +6,45 @@
   <title>Legend Games — Nigeria's Premier Gaming Vault & Console Studio</title>
   <meta name="description" content="Shop 72+ verified PS5, PS4, PC & Xbox games, custom console packages, external hard drive loading, and gaming gear in Lagos. ₦0 advance payment, safe public meetup handover.">
 
-  <!-- Google Fonts: Outfit (Display/Headings) & Plus Jakarta Sans (Body) -->
+  <!-- Google Fonts: Archivo Black, Caveat, Outfit, Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../shared/shared.css?v=4">
-  <link rel="stylesheet" href="home.css?v=4">
+  <link rel="stylesheet" href="../shared/shared.css?v=5">
+  <link rel="stylesheet" href="home.css?v=5">
 </head>
 <body class="legend-storefront-body">
 
   <!-- =========================================================
-       1. TOP TRUST & SERVICE TICKER BAR
+       1. ARCADE SCROLLING MARQUEE TICKER BAR
        ========================================================= -->
-  <aside class="legend-top-ticker" aria-label="Trust Announcements">
-    <div class="site-container ticker-inner">
-      <div class="ticker-left">
-        <span class="ticker-pill">NAIJA VERIFIED</span>
-        <span class="ticker-text"><strong>Safe Public Meetups across Lagos</strong> (Ikeja, Lekki, Surulere, Festac) · ₦0 Advance Payment · Free Annual FC Edition with Consoles</span>
+  <aside class="legend-marquee-bar" aria-label="Live Store Announcements">
+    <div class="marquee-track" id="marquee-track">
+      <div class="marquee-content">
+        <span class="m-item"><span class="m-icon">⚽</span> <strong>FREE FC26 INCLUDED</strong> WITH ALL PS4 & PS5 CONSOLE ORDERS</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">📍</span> <strong>SAFE PUBLIC MEETUPS</strong> ACROSS IKEJA, LEKKI, SURULERE & FESTAC</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">🛡️</span> <strong>₦0 ADVANCE PAYMENT</strong> — INSPECT & TEST BEFORE YOU PAY</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">💵</span> <strong>WE BUY & SWAP CONSOLES</strong> — INSTANT CASH VALUATION</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">💾</span> <strong>HARD DISK LOADING</strong> — 50+ GAMES ON 1TB/2TB DRIVES</span>
+        <span class="m-sep">★</span>
       </div>
-      <div class="ticker-right">
-        <a href="https://wa.me/2348012345678" target="_blank" class="ticker-link whatsapp" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
-          WhatsApp Live Support
-        </a>
-        <a href="../how-it-works/how-it-works.html" class="ticker-link">How It Works</a>
-        <a href="../order-tracking/order-tracking.html" class="ticker-link">Track Request</a>
+      <!-- Duplicate content for seamless infinite looping -->
+      <div class="marquee-content" aria-hidden="true">
+        <span class="m-item"><span class="m-icon">⚽</span> <strong>FREE FC26 INCLUDED</strong> WITH ALL PS4 & PS5 CONSOLE ORDERS</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">📍</span> <strong>SAFE PUBLIC MEETUPS</strong> ACROSS IKEJA, LEKKI, SURULERE & FESTAC</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">🛡️</span> <strong>₦0 ADVANCE PAYMENT</strong> — INSPECT & TEST BEFORE YOU PAY</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">💵</span> <strong>WE BUY & SWAP CONSOLES</strong> — INSTANT CASH VALUATION</span>
+        <span class="m-sep">★</span>
+        <span class="m-item"><span class="m-icon">💾</span> <strong>HARD DISK LOADING</strong> — 50+ GAMES ON 1TB/2TB DRIVES</span>
+        <span class="m-sep">★</span>
       </div>
     </div>
   </aside>
@@ -104,38 +117,65 @@
   </header>
 
   <!-- =========================================================
-       3. CATEGORY QUICK-ACCESS BAR
+       3. CATEGORY QUICK-ACCESS BAR (SHOP-WALL COLLAGE PRICE TAGS)
        ========================================================= -->
   <nav class="legend-category-strip" aria-label="Quick Category Access">
     <div class="site-container cat-strip-inner">
-      <a href="../consoles/ps5/ps5.html" class="cat-pill active">
-        <span class="cat-icon">🎮</span>
+      <!-- PlayStation Studio -->
+      <a href="../consoles/ps5/ps5.html" class="cat-pill active tilt-1">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        </span>
         <span class="cat-label">PlayStation Studio</span>
       </a>
-      <a href="../discs-only/discs-only.html" class="cat-pill">
-        <span class="cat-icon">💿</span>
+
+      <!-- Physical Discs -->
+      <a href="../discs-only/discs-only.html" class="cat-pill tilt-2">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="5"></line></svg>
+        </span>
         <span class="cat-label">Physical Discs</span>
         <span class="cat-count-tag">72 Titles</span>
       </a>
-      <a href="../disk/disk.html" class="cat-pill">
-        <span class="cat-icon">💾</span>
+
+      <!-- Hard Disk Loading -->
+      <a href="../disk/disk.html" class="cat-pill tilt-3">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+        </span>
         <span class="cat-label">Hard Disk Loading</span>
         <span class="cat-hot-tag">HOT</span>
       </a>
-      <a href="../pc-games/pc-games.html" class="cat-pill">
-        <span class="cat-icon">💻</span>
+
+      <!-- PC Master Library -->
+      <a href="../pc-games/pc-games.html" class="cat-pill tilt-4">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </span>
         <span class="cat-label">PC Master Library</span>
       </a>
-      <a href="../accessories/accessories.html" class="cat-pill">
-        <span class="cat-icon">🎧</span>
+
+      <!-- Pads & Accessories -->
+      <a href="../accessories/accessories.html" class="cat-pill tilt-1">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+        </span>
         <span class="cat-label">Pads & Accessories</span>
       </a>
-      <a href="../wraps/wraps.html" class="cat-pill">
-        <span class="cat-icon">🎨</span>
+
+      <!-- Custom Console Wraps -->
+      <a href="../wraps/wraps.html" class="cat-pill tilt-2">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </span>
         <span class="cat-label">Custom Console Wraps</span>
       </a>
-      <a href="../price-list/price-list.html" class="cat-pill">
-        <span class="cat-icon">🏷️</span>
+
+      <!-- Master Price List -->
+      <a href="../price-list/price-list.html" class="cat-pill tilt-3">
+        <span class="cat-icon-svg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        </span>
         <span class="cat-label">Master Price List</span>
       </a>
     </div>
@@ -148,12 +188,50 @@
     <div class="site-container">
 
       <!-- =======================================================
-           MODULE 1: HERO SPOTLIGHT ARENA & SIDE STUDIO TILES
+           MODULE 1: HERO SPOTLIGHT ARENA WITH CONSOLE GRAPHIC
            ======================================================= -->
       <section class="legend-hero-arena">
         <!-- Spotlight Carousel Card -->
-        <div class="hero-spotlight-card" id="hero-spotlight-card">
+        <div class="hero-spotlight-card poster-card tape-tab" id="hero-spotlight-card">
           <div class="hero-backdrop-layer"></div>
+          
+          <!-- Illustrated Console + Controller Silhouette Graphic Layer -->
+          <div class="hero-console-svg-layer" aria-hidden="true">
+            <svg class="hero-console-svg" viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Console Silhouette -->
+              <rect x="220" y="40" width="220" height="230" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+              <rect x="235" y="55" width="190" height="200" rx="8" fill="rgba(0,0,0,0.4)" stroke="rgba(0,240,255,0.2)" stroke-width="1.5"/>
+              <line x1="250" y1="80" x2="410" y2="80" stroke="rgba(0,240,255,0.3)" stroke-width="2" stroke-dasharray="4 4"/>
+              <circle cx="395" cy="225" r="16" fill="rgba(255,85,0,0.2)" stroke="#ff5500" stroke-width="2"/>
+              <text x="390" y="231" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#ff5500">⏻</text>
+              <!-- Disc Slot -->
+              <rect x="260" y="105" width="140" height="8" rx="4" fill="#00f0ff" opacity="0.6"/>
+              
+              <!-- Game Controller Silhouette In Front -->
+              <g transform="translate(60, 110)">
+                <path d="M40 30 C30 10 70 0 100 0 C130 0 170 10 160 30 C155 45 150 85 140 115 C135 130 115 130 105 110 C95 90 105 90 95 90 C85 90 95 90 85 110 C75 130 55 130 50 115 C40 85 35 45 40 30 Z" fill="rgba(15,22,35,0.85)" stroke="#00f0ff" stroke-width="2"/>
+                <!-- D-Pad -->
+                <rect x="62" y="42" width="16" height="6" rx="2" fill="#ffffff" opacity="0.7"/>
+                <rect x="67" y="37" width="6" height="16" rx="2" fill="#ffffff" opacity="0.7"/>
+                <!-- Action Buttons -->
+                <circle cx="128" cy="40" r="4" fill="#ff4757"/>
+                <circle cx="136" cy="48" r="4" fill="#00ff88"/>
+                <circle cx="120" cy="48" r="4" fill="#ffe600"/>
+                <circle cx="128" cy="56" r="4" fill="#00d4ff"/>
+                <!-- Thumbsticks -->
+                <circle cx="82" cy="74" r="12" fill="rgba(255,85,0,0.3)" stroke="#ff5500" stroke-width="2"/>
+                <circle cx="118" cy="74" r="12" fill="rgba(255,85,0,0.3)" stroke="#ff5500" stroke-width="2"/>
+                <!-- Touchpad -->
+                <rect x="85" y="28" width="30" height="18" rx="3" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.2)"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Starburst "FREE FC26" Badge on Hero -->
+          <div class="hero-starburst-sticker starburst-badge">
+            <span>FREE<br>FC26<br>INSIDE</span>
+          </div>
+
           <div class="hero-content-layer">
             <div class="hero-tagline-strip">
               <span class="hero-status-pill hot">TRENDING #1 IN NIGERIA</span>
@@ -167,12 +245,12 @@
             <div class="hero-pricing-telemetry">
               <div class="telemetry-cell">
                 <span class="telemetry-lbl">Physical Disc</span>
-                <span class="telemetry-val" id="hero-disc-price">₦38,000</span>
+                <span class="telemetry-val kraft-tag" id="hero-disc-price">₦38,000</span>
               </div>
               <div class="telemetry-sep"></div>
               <div class="telemetry-cell">
                 <span class="telemetry-lbl">HEN Offline Install</span>
-                <span class="telemetry-val modded" id="hero-mod-price">₦3,000</span>
+                <span class="telemetry-val modded kraft-tag" id="hero-mod-price">₦3,000</span>
               </div>
               <div class="telemetry-sep"></div>
               <div class="telemetry-cell">
@@ -199,26 +277,83 @@
         <!-- 2 Side Hardware & Drive Loading Studio Tiles -->
         <div class="hero-side-studios">
           <!-- Studio Tile 1: Consoles -->
-          <div class="studio-tile console-studio">
+          <div class="studio-tile console-studio poster-card tape-tab">
             <div class="studio-tile-bg" style="background-image: url('https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80');"></div>
             <div class="studio-tile-content">
               <span class="studio-tag">HARDWARE BUNDLE</span>
               <h2 class="studio-title">PS5 & PS4 Console Studio</h2>
               <p class="studio-desc">Original and HEN modded packages. <strong>Free annual FC edition included</strong> on all systems.</p>
-              <div class="studio-price-row">From <strong>₦240,000</strong></div>
+              <div class="studio-price-row">From <strong class="kraft-tag">₦240,000</strong></div>
               <a href="../consoles/ps5/ps5.html" class="studio-action-link">Configure Console →</a>
             </div>
           </div>
 
           <!-- Studio Tile 2: Hard Drive Loading -->
-          <div class="studio-tile disk-studio">
+          <div class="studio-tile disk-studio poster-card tape-tab">
             <div class="studio-tile-bg" style="background-image: url('https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80');"></div>
             <div class="studio-tile-content">
               <span class="studio-tag hot">TOP SELLER</span>
               <h2 class="studio-title">Hard Disk Game Loading</h2>
               <p class="studio-desc">Fill 1TB, 2TB, or 3TB external hard drives with 50+ full games. Real-time storage meter.</p>
-              <div class="studio-price-row">From <strong>₦25,000</strong> (Per 1TB)</div>
+              <div class="studio-price-row">From <strong class="kraft-tag">₦25,000</strong> (Per 1TB)</div>
               <a href="../disk/disk.html" class="studio-action-link">Load Your Drive →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+           MODULE 1.5: FEATURED COMBO DEAL & BUNDLE SPOTLIGHT
+           ======================================================= -->
+      <section class="legend-featured-bundle-arena">
+        <div class="bundle-poster-wrapper poster-card tape-tab">
+          <div class="bundle-poster-inner">
+            <div class="bundle-left-visual">
+              <img src="https://images.unsplash.com/photo-1507457379470-08b800bebc67?auto=format&fit=crop&w=600&q=80" alt="PS4 Slim Ultimate Gamer Combo" class="bundle-img" loading="lazy">
+              <div class="bundle-starburst starburst-badge">
+                <span>SAVE<br>₦40,000</span>
+              </div>
+              <div class="bundle-kraft-seal kraft-tag">
+                <span>NAIJA VERIFIED COMBO</span>
+              </div>
+            </div>
+            <div class="bundle-right-info">
+              <div class="bundle-badge-strip">
+                <span class="bundle-pill hot">🔥 #1 BEST-SELLING COMBO DEAL</span>
+                <span class="bundle-pill platform">PS4 SLIM 1TB PACKAGE</span>
+              </div>
+              <h2 class="bundle-title">PS4 Slim Ultimate Gamer Combo</h2>
+              <p class="bundle-subtitle">Complete living room battle station with 2 pads, cables, and 10 preloaded blockbuster titles.</p>
+              
+              <div class="bundle-manifest-list">
+                <div class="manifest-item"><span class="check-icon">✓</span> <strong>PS4 Slim 1TB Console</strong> (Clean, tested, mint thermals)</div>
+                <div class="manifest-item"><span class="check-icon">✓</span> <strong>2x Wireless DualShock 4 Controllers</strong> (Black + Blue)</div>
+                <div class="manifest-item"><span class="check-icon">✓</span> <strong>Free EA SPORTS FC 26 Edition</strong> (Included automatically at ₦0)</div>
+                <div class="manifest-item"><span class="check-icon">✓</span> <strong>10x Pre-installed Blockbuster Games</strong> (GTA V, God of War, MK11, PES)</div>
+                <div class="manifest-item"><span class="check-icon">✓</span> <strong>Full High-Grade Accessories</strong> (Power cord, HDMI, Charging cable)</div>
+              </div>
+
+              <div class="bundle-pricing-row">
+                <div class="bundle-price-block">
+                  <div class="price-strikethrough-wrap">
+                    <span class="price-lbl">Standard Value:</span>
+                    <span class="price-strikethrough">₦285,000</span>
+                  </div>
+                  <div class="price-final-wrap">
+                    <strong class="bundle-deal-price">₦245,000</strong>
+                    <span class="save-tag">SAVE ₦40,000</span>
+                  </div>
+                </div>
+                <div class="bundle-cta-block">
+                  <button class="btn-bundle-order" onclick="addFeaturedBundleToCart()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Add Combo to Quote</span>
+                  </button>
+                  <a href="https://wa.me/2348012345678?text=Hello%20Legend%20Games,%20I%20want%20the%20PS4%20Slim%20Ultimate%20Gamer%20Combo%20for%20₦245,000" target="_blank" rel="noopener" class="btn-bundle-whatsapp">
+                    Direct WhatsApp Quote ↗
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -276,7 +411,7 @@
         </div>
 
         <!-- Live Storage Space & Drive Fit Calculator Widget -->
-        <div class="legend-storage-rack-widget" id="storage-space-widget">
+        <div class="legend-storage-rack-widget poster-card" id="storage-space-widget">
           <div class="rack-header-row">
             <div class="rack-info-left">
               <span class="rack-drive-icon">
@@ -314,11 +449,11 @@
 
         <!-- Catalog Footer Action Bar -->
         <div class="vault-footer-actions" id="catalog-footer-actions">
-          <button class="btn-load-more" id="load-more-games-btn" onclick="loadMoreGames()">
+          <button class="btn-load-more poster-card" id="load-more-games-btn" onclick="loadMoreGames()">
             <span>Load 8 More Games</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
-          <a href="../discs-only/discs-only.html" class="btn-full-vault">
+          <a href="../discs-only/discs-only.html" class="btn-full-vault poster-card">
             <span>Explore Complete 72-Game Vault (Discs & Digital)</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
@@ -347,7 +482,7 @@
 
         <div class="hardware-card-grid">
           <!-- PS5 Pro / Slim -->
-          <div class="hw-deck-card">
+          <div class="hw-deck-card poster-card tape-tab">
             <span class="hw-platform-tag ps5">PS5</span>
             <div class="hw-image-wrap">
               <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=500&q=80" alt="PlayStation 5 Console" loading="lazy">
@@ -356,13 +491,13 @@
               <span class="hw-chip">NEXT-GEN READY</span>
               <h3 class="hw-card-title">PlayStation 5 (Slim / Disc Edition)</h3>
               <p class="hw-card-desc">1TB Ultra-Fast SSD, DualSense Controller, and <strong>Free EA FC 26 Edition included</strong>.</p>
-              <div class="hw-card-price">₦480,000</div>
+              <div class="hw-card-price kraft-tag">₦480,000</div>
               <a href="../consoles/ps5/ps5.html" class="hw-card-btn">Customize Package</a>
             </div>
           </div>
 
           <!-- PS4 Slim HEN Modded -->
-          <div class="hw-deck-card">
+          <div class="hw-deck-card poster-card tape-tab">
             <span class="hw-platform-tag ps4">PS4 HEN</span>
             <div class="hw-image-wrap">
               <img src="https://images.unsplash.com/photo-1507457379470-08b800bebc67?auto=format&fit=crop&w=500&q=80" alt="PS4 Slim Modded" loading="lazy">
@@ -371,13 +506,13 @@
               <span class="hw-chip hot">POPULAR VALUE</span>
               <h3 class="hw-card-title">PS4 Slim 1TB (HEN Modded + 40 Games)</h3>
               <p class="hw-card-desc">GoldHEN firmware preloaded with 40 blockbuster games, 2 wireless pads, and cables.</p>
-              <div class="hw-card-price">₦240,000</div>
+              <div class="hw-card-price kraft-tag">₦240,000</div>
               <a href="../consoles/ps4/ps4.html" class="hw-card-btn">Customize Package</a>
             </div>
           </div>
 
           <!-- Hard Disk Game Loading -->
-          <div class="hw-deck-card">
+          <div class="hw-deck-card poster-card tape-tab">
             <span class="hw-platform-tag pc">EXTERNAL HDD</span>
             <div class="hw-image-wrap">
               <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=500&q=80" alt="External Hard Drive Loading" loading="lazy">
@@ -386,7 +521,7 @@
               <span class="hw-chip spec">STORAGE EXPANSION</span>
               <h3 class="hw-card-title">1TB / 2TB External Game Drive</h3>
               <p class="hw-card-desc">Plug-and-play Seagate / WD drive filled with 35 to 70 curated PS4/PC games of your choice.</p>
-              <div class="hw-card-price">₦25,000 <small>(per 1TB fill)</small></div>
+              <div class="hw-card-price kraft-tag">₦25,000 <small>(per 1TB fill)</small></div>
               <a href="../disk/disk.html" class="hw-card-btn">Configure Drive</a>
             </div>
           </div>
@@ -394,7 +529,164 @@
       </section>
 
       <!-- =======================================================
-           MODULE 4: NAIJA GAMER TRUST & SAFETY DECK
+           MODULE 4: SELL OR TRADE-IN YOUR CONSOLE (CONDITION STRIP)
+           ======================================================= -->
+      <section class="legend-tradein-section">
+        <div class="tradein-card-wrapper poster-card tape-tab">
+          <div class="tradein-header">
+            <div class="tradein-title-group">
+              <span class="section-eyebrow-tag">INSTANT CASH & TRADE-IN VALUATION</span>
+              <h2 class="section-main-heading">Sell Or Swap Your Console</h2>
+              <p class="tradein-desc">Upgrading to PS5 or need instant cash for an old PS4 or Xbox? We inspect in person and pay on the spot during our verified Lagos meetups.</p>
+            </div>
+            <div class="tradein-stamp">
+              <span>INSTANT CASH<br>₦ LAGOS</span>
+            </div>
+          </div>
+
+          <!-- Condition Grading Strip -->
+          <div class="condition-grading-module">
+            <h3 class="grading-title">Select Your Console Condition:</h3>
+            <div class="condition-chips-grid" id="condition-chips-grid">
+              <button class="condition-chip active" data-condition="like-new" onclick="selectConditionGrade('like-new', this)">
+                <div class="chip-grade">10 / 10</div>
+                <strong class="chip-name">Like New</strong>
+                <span class="chip-sub">Flawless casing, box & original wires</span>
+                <span class="chip-estimate">Payout: <strong>Up to 90% Value</strong></span>
+              </button>
+
+              <button class="condition-chip" data-condition="good" onclick="selectConditionGrade('good', this)">
+                <div class="chip-grade">8 / 10</div>
+                <strong class="chip-name">Good Condition</strong>
+                <span class="chip-sub">Minor casing wear, 100% functional</span>
+                <span class="chip-estimate">Payout: <strong>Up to 75% Value</strong></span>
+              </button>
+
+              <button class="condition-chip" data-condition="fair" onclick="selectConditionGrade('fair', this)">
+                <div class="chip-grade">6 / 10</div>
+                <strong class="chip-name">Fair / Heavy Use</strong>
+                <span class="chip-sub">Scratches/scuffs, fully working system</span>
+                <span class="chip-estimate">Payout: <strong>Up to 60% Value</strong></span>
+              </button>
+
+              <button class="condition-chip" data-condition="for-parts" onclick="selectConditionGrade('for-parts', this)">
+                <div class="chip-grade">3 / 10</div>
+                <strong class="chip-name">For Parts / Faulty</strong>
+                <span class="chip-sub">Optical drive issue, loud fan, no power</span>
+                <span class="chip-estimate">Payout: <strong>Parts Scrap Value</strong></span>
+              </button>
+            </div>
+
+            <div class="condition-action-panel">
+              <div class="panel-left-notes">
+                <span class="marker-handwritten" id="condition-summary-note">"Mint PS4/PS5 units get top cash payout at Ikeja City Mall!"</span>
+              </div>
+              <a href="https://wa.me/2348012345678?text=Hello%20Legend%20Games,%20I%20want%20to%20sell/trade-in%20my%20console.%20Condition:%20Like%20New%20(10/10)" target="_blank" rel="noopener" class="btn-tradein-quote" id="tradein-whatsapp-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
+                <span>Get Instant WhatsApp Trade-In Valuation</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+           MODULE 5: STYLIZED WHATSAPP CHAT MOCKUP & TORN RECEIPT STEPS
+           ======================================================= -->
+      <section class="legend-chat-mockup-section">
+        <div class="chat-mockup-container">
+          <div class="chat-mockup-left">
+            <span class="section-eyebrow-tag">TRANSPARENT 4-STEP WORKFLOW</span>
+            <h2 class="section-main-heading">How Lagos Gamers Order in Under 2 Minutes</h2>
+            <p class="chat-intro-p">No automated card deductions or delivery surprises. Every order is verified directly on WhatsApp, with video proofs and a scheduled public meetup.</p>
+            
+            <!-- Torn-Receipt 4-Step Guide -->
+            <div class="torn-receipt-deck torn-receipt-edge">
+              <div class="receipt-header-row">
+                <span class="receipt-brand">LEGEND GAMES RECEIPT</span>
+                <span class="receipt-no">#LG-LAGOS-2026</span>
+              </div>
+              <div class="receipt-steps-list">
+                <div class="receipt-step-item">
+                  <span class="step-num">01</span>
+                  <div class="step-txt">
+                    <strong>Select Loadout</strong>
+                    <span>Pick games, storage size, or custom console specs</span>
+                  </div>
+                </div>
+                <div class="receipt-step-item">
+                  <span class="step-num">02</span>
+                  <div class="step-txt">
+                    <strong>Send WhatsApp Quote</strong>
+                    <span>1-click structured summary sent directly to our team</span>
+                  </div>
+                </div>
+                <div class="receipt-step-item">
+                  <span class="step-num">03</span>
+                  <div class="step-txt">
+                    <strong>Safe Public Handover</strong>
+                    <span>Meet at Ikeja City Mall, Lekki, Surulere or Festac</span>
+                  </div>
+                </div>
+                <div class="receipt-step-item">
+                  <span class="step-num">04</span>
+                  <div class="step-txt">
+                    <strong>Test, Inspect & Pay</strong>
+                    <span>₦0 upfront. Transfer or cash only after 100% satisfaction</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Phone / Note Mockup -->
+          <div class="chat-phone-frame poster-card tape-tab">
+            <div class="phone-chat-header">
+              <div class="phone-avatar">LG</div>
+              <div class="phone-contact-info">
+                <strong class="phone-contact-name">Legend Games Lagos Support</strong>
+                <span class="phone-status"><span class="status-online-dot"></span> Online · Replies in 2 mins</span>
+              </div>
+              <div class="phone-verified-tag">✓ Verified</div>
+            </div>
+            
+            <div class="phone-messages-body">
+              <div class="chat-bubble incoming">
+                <p>Bro, is the FC26 really free with the PS4 Slim? Can we meet at Ikeja City Mall tomorrow?</p>
+                <span class="bubble-time">11:42 AM</span>
+              </div>
+
+              <div class="chat-bubble outgoing">
+                <p>Yes boss! 100% free with the console 🔥. We meet inside ICM food court. You will test the console, inspect both pads, and verify games before transfer. <strong>₦0 advance payment needed!</strong></p>
+                <span class="bubble-time">11:43 AM · <span class="blue-ticks">✓✓</span></span>
+              </div>
+
+              <div class="chat-bubble incoming">
+                <p>Clean! Add 1 extra pad and GTA V disc. I will be at ICM by 3pm today 👍</p>
+                <span class="bubble-time">11:45 AM</span>
+              </div>
+
+              <div class="chat-bubble outgoing">
+                <p>Locked in boss! Console packed + tested. See you at 3pm 🎮📦</p>
+                <span class="bubble-time">11:46 AM · <span class="blue-ticks">✓✓</span></span>
+              </div>
+
+              <div class="chat-sticky-stamp">
+                <span>₦0 ADVANCE PAYMENT GUARANTEE</span>
+              </div>
+            </div>
+
+            <div class="phone-chat-footer">
+              <a href="https://wa.me/2348012345678" target="_blank" rel="noopener" class="phone-cta-btn">
+                <span>Start WhatsApp Conversation Now →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =======================================================
+           MODULE 6: NAIJA GAMER TRUST & SAFETY DECK
            ======================================================= -->
       <section class="legend-trust-deck">
         <div class="trust-deck-header">
@@ -403,25 +695,25 @@
         </div>
 
         <div class="trust-cards-grid">
-          <div class="trust-pill-card">
+          <div class="trust-pill-card poster-card tape-tab">
             <div class="trust-icon-box">🛡️</div>
             <h4>₦0 Advance Payment</h4>
             <p>You never pay before you see the items. Inspect games and test consoles in person before making payment.</p>
           </div>
 
-          <div class="trust-pill-card">
+          <div class="trust-pill-card poster-card tape-tab">
             <div class="trust-icon-box">📍</div>
             <h4>Safe Public Handover</h4>
             <p>Meetups in verified, safe public locations across Ikeja, Lekki, Surulere, Festac, and Abuja.</p>
           </div>
 
-          <div class="trust-pill-card">
+          <div class="trust-pill-card poster-card tape-tab">
             <div class="trust-icon-box">⚽</div>
             <h4>Free FC Edition Included</h4>
             <p>All PlayStation 4 and 5 console purchases automatically include the latest EA FC football edition at no extra charge.</p>
           </div>
 
-          <div class="trust-pill-card">
+          <div class="trust-pill-card poster-card tape-tab">
             <div class="trust-icon-box">💬</div>
             <h4>Direct WhatsApp Confirmation</h4>
             <p>Live responses in minutes with video proof of working discs and consoles sent directly upon request.</p>
@@ -433,10 +725,10 @@
   </main>
 
   <!-- =========================================================
-       5. QUICK VIEW / GAME DETAILS MODAL
+       7. QUICK VIEW / GAME DETAILS MODAL
        ========================================================= -->
   <div id="g2a-game-modal" class="legend-modal-backdrop" style="display:none;" onclick="closeGameModal(event)">
-    <div class="legend-modal-window" onclick="event.stopPropagation()">
+    <div class="legend-modal-window poster-card" onclick="event.stopPropagation()">
       <button class="modal-close-trigger" onclick="closeGameModal()" title="Close Modal">×</button>
       <div class="modal-layout-grid">
         <div class="modal-poster-pane">
@@ -477,7 +769,7 @@
                   <span>Boxed case & tested optical disc</span>
                 </div>
               </div>
-              <div class="format-card-price" id="modal-disc-price">₦18,000</div>
+              <div class="format-card-price kraft-tag" id="modal-disc-price">₦18,000</div>
             </div>
 
             <div class="modal-format-card" id="opt-modded" onclick="selectModalOption('modded')">
@@ -488,11 +780,11 @@
                   <span>Digital package for modded consoles</span>
                 </div>
               </div>
-              <div class="format-card-price modded" id="modal-modded-price">₦2,000</div>
+              <div class="format-card-price modded kraft-tag" id="modal-modded-price">₦2,000</div>
             </div>
           </div>
 
-          <button class="btn-modal-add" id="modal-add-cart-btn" onclick="addModalGameToCart()">
+          <button class="btn-modal-add poster-card" id="modal-add-cart-btn" onclick="addModalGameToCart()">
             + Add to Request Loadout
           </button>
         </div>
@@ -501,7 +793,7 @@
   </div>
 
   <!-- =========================================================
-       6. FLOATING LIVE LOADOUT & DRIVE RACK DECK (BOTTOM BAR)
+       8. FLOATING LIVE LOADOUT & DRIVE RACK DECK (BOTTOM BAR)
        ========================================================= -->
   <div class="legend-floating-loadout" id="floating-loadout-deck">
     <div class="site-container loadout-inner">
@@ -527,7 +819,7 @@
           <strong class="loadout-price-val" id="loadout-price-val">₦0</strong>
         </div>
         <button class="loadout-whatsapp-btn" onclick="sendWhatsAppQuoteDirect()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.768-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
           <span>Send WhatsApp Request</span>
         </button>
         <a href="../cart/cart.html" class="loadout-review-link">Review Basket →</a>
@@ -543,6 +835,6 @@
   <script src="../shared/data/bundles.js"></script>
   <script src="../shared/data/wraps.js"></script>
   <script src="../shared/shared.js"></script>
-  <script src="home.js?v=4"></script>
+  <script src="home.js?v=5"></script>
 </body>
 </html>

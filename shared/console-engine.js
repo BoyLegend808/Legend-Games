@@ -696,10 +696,12 @@ const ConsoleEngine = {
         <!-- Free FC Inclusion Banner (PS4 / PS5 Only) -->
         ${consoleData.hasFCBundle ? `
           <div class="fc-inclusion-card">
-            <div class="fc-icon">⚽</div>
+            <div class="fc-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 15 10 13 14 11 14 9 10"></polygon><circle cx="12" cy="12" r="4"></circle></svg>
+            </div>
             <div class="fc-content">
               <strong>Free EA Sports FC 26 Included</strong>
-              <p>Automatically bundled free with this console — no extra charge.</p>
+              <p>Automatically bundled free with this console: no extra charge.</p>
             </div>
           </div>
         ` : ''}
@@ -744,7 +746,7 @@ const ConsoleEngine = {
             </div>
           ` : `
             <div class="section-disabled-notice" onclick="ConsoleEngine.togglePhysicalSection()">
-              <span>⚪ Physical discs disabled — Tap switch to turn <strong>ON</strong></span>
+              <span>Physical discs disabled: Tap switch to turn <strong>ON</strong></span>
             </div>
           `}
         </div>
@@ -795,7 +797,7 @@ const ConsoleEngine = {
                 </div>
                 <div class="storage-alert-box" id="console-storage-alert" style="display: none;">
                   <div class="storage-alert-text">
-                    <strong>⚠️ Storage Approaching Limit</strong>
+                    <strong>Storage Approaching Limit</strong>
                     <span>Running out of room? You can also load 50+ titles on an external USB game drive!</span>
                   </div>
                   <a href="../../disk/disk.html" class="storage-alert-btn">View External Game Drives →</a>
@@ -822,7 +824,7 @@ const ConsoleEngine = {
             </div>
           ` : `
             <div class="section-disabled-notice" onclick="ConsoleEngine.toggleInstalledSection()">
-              <span>⚪ Installed games disabled — Tap switch to turn <strong>ON</strong></span>
+              <span>Installed games disabled: Tap switch to turn <strong>ON</strong></span>
             </div>
           `}
         </div>

@@ -517,12 +517,12 @@ function createGameCardMarkup(game) {
           <button class="card-format-pill ${currentFormat === 'disc' ? 'active' : ''}" 
                   id="pill-disc-${game.id}"
                   onclick="toggleCardFormat('${game.id}', 'disc', event)">
-            💿 Disc
+            Disc
           </button>
           <button class="card-format-pill ${currentFormat === 'modded' ? 'active' : ''}" 
                   id="pill-mod-${game.id}"
                   onclick="toggleCardFormat('${game.id}', 'modded', event)">
-            ⚡ HEN ₦2k
+            HEN ₦2k
           </button>
         </div>
 

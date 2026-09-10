@@ -1376,6 +1376,119 @@ img {
 }
 
 /* ==========================================================================
+   CONSOLE STORAGE VISUALIZER STYLES
+   ========================================================================== */
+.console-storage-meter {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.console-storage-meter .storage-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.console-storage-meter .storage-meter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+.console-storage-meter .storage-meter-values {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.console-storage-meter .storage-meter-values strong {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  font-variant-numeric: tabular-nums;
+}
+
+.console-storage-meter .storage-meter-values span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.storage-progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.storage-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-cyan));
+  border-radius: var(--radius-full);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+}
+
+.storage-progress-bar-fill.warning {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.storage-progress-bar-fill.danger {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.storage-meter-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.storage-alert-box {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.storage-alert-text strong {
+  display: block;
+  font-size: 0.82rem;
+  color: #f87171;
+}
+
+.storage-alert-text span {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+.storage-alert-btn {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* ==========================================================================
    DESKTOP & TABLET RESPONSIVE ENHANCEMENTS
    ========================================================================== */
 @media (min-width: 768px) {
@@ -1389,3 +1502,4 @@ img {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+

@@ -85,6 +85,34 @@ const LegendWishlist = {
 };
 
 // -------------------------------------------------------------
+// 3b. Console Trade-In Management
+// -------------------------------------------------------------
+const LegendTradeIn = {
+  getTradeIn() {
+    try {
+      const data = localStorage.getItem('legend_tradein_v1');
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+  setTradeIn(tradeData) {
+    try {
+      localStorage.setItem('legend_tradein_v1', JSON.stringify(tradeData));
+      window.dispatchEvent(new CustomEvent('legend-tradein-updated', { detail: tradeData }));
+      showToast('✓ Trade-in valuation applied as basket credit!');
+    } catch (e) {}
+  },
+  clearTradeIn() {
+    try {
+      localStorage.removeItem('legend_tradein_v1');
+      window.dispatchEvent(new CustomEvent('legend-tradein-updated', { detail: null }));
+      showToast('Trade-in credit removed');
+    } catch (e) {}
+  }
+};
+
+// -------------------------------------------------------------
 // 4. Cart / Unified Quote Request Engine
 // -------------------------------------------------------------
 const LegendCart = {
@@ -118,29 +146,26 @@ const LegendCart = {
     items.push(item);
     LegendCart.saveItems(items);
     showToast(`Added "${item.title || item.name}" to request basket`);
-    return item;
-  },
-
-  updateQuantity(cartId, delta) {
-    let items = LegendCart.getItems();
-    const target = items.find(i => i.cartId === cartId);
-    if (target) {
-      target.quantity = (target.quantity || 1) + delta;
-      if (target.quantity <= 0) {
-        items = items.filter(i => i.cartId !== cartId);
-        showToast('Item removed from request');
-      }
-      LegendCart.saveItems(items);
-    }
   },
 
   updateItem(cartId, updatedData) {
     let items = LegendCart.getItems();
     const index = items.findIndex(i => i.cartId === cartId);
-    if (index > -1) {
+    if (index !== -1) {
       items[index] = { ...items[index], ...updatedData, cartId };
       LegendCart.saveItems(items);
       return items[index];
+    }
+    return null;
+  },
+
+  updateQuantity(cartId, delta) {
+    let items = LegendCart.getItems();
+    const item = items.find(i => i.cartId === cartId);
+    if (item) {
+      item.quantity = Math.max(1, (item.quantity || 1) + delta);
+      LegendCart.saveItems(items);
+      return item;
     }
     return null;
   },
@@ -169,6 +194,13 @@ const LegendCart = {
     }, 0);
   },
 
+  getNetTotal() {
+    const gross = LegendCart.getTotal();
+    const tradeIn = LegendTradeIn.getTradeIn();
+    const credit = tradeIn ? Number(tradeIn.estimatedValue || 0) : 0;
+    return Math.max(0, gross - credit);
+  },
+
   updateBadge() {
     const count = LegendCart.getCount();
     const badges = document.querySelectorAll('#nav-cart-badge, #bottom-cart-badge, .header-badge, .nav-tab-badge');
@@ -187,6 +219,7 @@ const LegendCart = {
     const items = LegendCart.getItems();
     const ref = customerData.orderRef || LegendCart.generateOrderReference();
     const total = LegendCart.getTotal();
+    const tradeIn = LegendTradeIn.getTradeIn();
 
     let msg = `*🎮 NEW ORDER REQUEST — ${LEGEND_CONFIG.shopName}*\n`;
     msg += `*Reference:* \`${ref}\`\n`;
@@ -217,14 +250,31 @@ const LegendCart = {
       });
     }
 
-    msg += `------------------------------------\n`;
-    msg += `*ESTIMATED TOTAL:* *${formatNaira(total)}*\n`;
-    msg += `------------------------------------\n\n`;
+    if (tradeIn) {
+      msg += `------------------------------------\n`;
+      msg += `🔄 *TRADE-IN / CONSOLE SWAP VALUATION:*\n`;
+      msg += `   • Trade-In Model: ${tradeIn.deviceName || 'Console'}\n`;
+      msg += `   • Device Condition: ${tradeIn.condition || 'Good'}\n`;
+      if (tradeIn.includedItems && tradeIn.includedItems.length) {
+        msg += `   • Included: ${tradeIn.includedItems.join(', ')}\n`;
+      }
+      if (tradeIn.tradeGames && tradeIn.tradeGames.length) {
+        msg += `   • Traded Discs: ${tradeIn.tradeGames.join(', ')}\n`;
+      }
+      msg += `   • Estimated Trade Credit: -${formatNaira(tradeIn.estimatedValue)}\n`;
+      msg += `------------------------------------\n`;
+      msg += `*FINAL ESTIMATED NET PAYABLE:* *${formatNaira(Math.max(0, total - tradeIn.estimatedValue))}*\n`;
+      msg += `------------------------------------\n\n`;
+    } else {
+      msg += `------------------------------------\n`;
+      msg += `*ESTIMATED TOTAL:* *${formatNaira(total)}*\n`;
+      msg += `------------------------------------\n\n`;
+    }
 
-    msg += `*Customer Details:*\n`;
+    msg += `*Customer Details & Meetup:*\n`;
     msg += `• *Name:* ${customerData.name || 'Not specified'}\n`;
     msg += `• *WhatsApp/Phone:* ${customerData.phone || 'Not specified'}\n`;
-    msg += `• *Preferred Meetup:* ${customerData.meetupArea || 'Safe public location in Lagos'}\n`;
+    msg += `• *Safe Meetup Hub:* ${customerData.meetupArea || 'Safe public location in Lagos'}\n`;
     if (customerData.notes) {
       msg += `• *Additional Notes:* ${customerData.notes}\n`;
     }

@@ -149,11 +149,94 @@ const ConsoleEngine = {
     if (index > -1) {
       this.selectedInstalledGames.splice(index, 1);
     } else {
+      const cap = this.getConsoleStorageCapacity();
+      const currentUsed = this.calculateStorageUsed();
+      const g = (window.GAMES_CATALOG || []).find(item => item.id === gameId);
+      const gameSize = this.activePlatform === 'ps5' ? (g?.ps5SizeGB || g?.ps4SizeGB || 50) : (g?.ps4SizeGB || 45);
+
+      if (currentUsed + gameSize > cap.usableGB) {
+        showToast('⚠️ Internal SSD/HDD limit reached! Remove titles or add an external game drive.');
+      }
       this.selectedInstalledGames.push(gameId);
     }
     this.updateTotal();
     this.renderGamesList('installed', this.currentQueries.installed || '');
     this.updateCountBadges();
+    this.updateStorageMeter();
+  },
+
+  getConsoleStorageCapacity() {
+    const varName = (this.activeVariant?.name || '').toLowerCase();
+    const plat = this.activePlatform;
+
+    if (plat === 'ps5') {
+      if (varName.includes('pro') || varName.includes('2tb')) {
+        return { totalGB: 2000, usableGB: 1890, label: '2TB Ultra-High Speed NVMe SSD' };
+      } else if (varName.includes('slim') || varName.includes('1tb')) {
+        return { totalGB: 1000, usableGB: 848, label: '1TB Custom High-Speed SSD' };
+      } else {
+        return { totalGB: 825, usableGB: 667, label: '825GB Ultra-High Speed SSD' };
+      }
+    } else if (plat === 'ps4') {
+      if (varName.includes('1tb') || varName.includes('pro')) {
+        return { totalGB: 1000, usableGB: 861, label: '1TB Internal Hard Drive' };
+      } else {
+        return { totalGB: 500, usableGB: 408, label: '500GB Internal Hard Drive' };
+      }
+    } else if (plat === 'xbox') {
+      if (varName.includes('series x') || varName.includes('1tb')) {
+        return { totalGB: 1000, usableGB: 802, label: '1TB Custom NVMe SSD' };
+      } else {
+        return { totalGB: 512, usableGB: 364, label: '512GB Custom NVMe SSD' };
+      }
+    } else {
+      return { totalGB: 500, usableGB: 450, label: '500GB Internal Storage' };
+    }
+  },
+
+  calculateStorageUsed() {
+    let totalGB = 0;
+    if (!window.GAMES_CATALOG) return 0;
+    this.selectedInstalledGames.forEach(gid => {
+      const g = GAMES_CATALOG.find(item => item.id === gid);
+      if (g) {
+        const size = this.activePlatform === 'ps5' ? (g.ps5SizeGB || g.ps4SizeGB || 50) : (g.ps4SizeGB || 45);
+        totalGB += Number(size);
+      }
+    });
+    return totalGB;
+  },
+
+  updateStorageMeter() {
+    const cap = this.getConsoleStorageCapacity();
+    const used = this.calculateStorageUsed();
+    const remaining = Math.max(0, cap.usableGB - used);
+    const percentage = Math.min(100, (used / cap.usableGB) * 100);
+
+    const usedDisplay = document.getElementById('console-storage-used-display');
+    const maxDisplay = document.getElementById('console-storage-max-display');
+    const remainingText = document.getElementById('console-storage-remaining-text');
+    const countText = document.getElementById('console-storage-games-count');
+    const fill = document.getElementById('console-storage-progress-fill');
+    const capLabel = document.getElementById('console-storage-cap-label');
+    const alertBox = document.getElementById('console-storage-alert');
+
+    if (usedDisplay) usedDisplay.textContent = `${used} GB`;
+    if (maxDisplay) maxDisplay.textContent = `/ ${cap.usableGB} GB usable (${cap.totalGB}GB raw)`;
+    if (remainingText) remainingText.textContent = `${remaining} GB remaining`;
+    if (countText) countText.textContent = `${this.selectedInstalledGames.length} digital titles`;
+    if (capLabel) capLabel.textContent = cap.label;
+
+    if (fill) {
+      fill.style.width = `${percentage}%`;
+      fill.className = 'storage-progress-bar-fill';
+      if (percentage > 90) fill.classList.add('danger');
+      else if (percentage > 70) fill.classList.add('warning');
+    }
+
+    if (alertBox) {
+      alertBox.style.display = percentage > 85 ? 'flex' : 'none';
+    }
   },
 
   updateCountBadges() {
@@ -515,6 +598,34 @@ const ConsoleEngine = {
 
           ${this.enableInstalledGames ? `
             <div class="section-drawer open">
+              <!-- Live Console Storage Capacity Visualizer -->
+              <div class="storage-meter-card console-storage-meter">
+                <div class="storage-meter-header">
+                  <div>
+                    <span class="storage-meter-label" id="console-storage-cap-label">Console Storage</span>
+                    <div class="storage-meter-values">
+                      <strong id="console-storage-used-display">0 GB</strong>
+                      <span id="console-storage-max-display">/ 848 GB usable</span>
+                    </div>
+                  </div>
+                  <span class="buffer-badge">Safe OS Buffer Reserved</span>
+                </div>
+                <div class="storage-progress-bar">
+                  <div class="storage-progress-bar-fill" id="console-storage-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="storage-meter-footer">
+                  <span id="console-storage-remaining-text">Calculating free space...</span>
+                  <span id="console-storage-games-count">0 digital titles</span>
+                </div>
+                <div class="storage-alert-box" id="console-storage-alert" style="display: none;">
+                  <div class="storage-alert-text">
+                    <strong>⚠️ Storage Approaching Limit</strong>
+                    <span>Running out of room? You can also load 50+ titles on an external USB game drive!</span>
+                  </div>
+                  <a href="../../disk/disk.html" class="storage-alert-btn">View External Game Drives →</a>
+                </div>
+              </div>
+
               <div class="search-mini-wrap">
                 <input type="text" 
                        class="search-input-mini" 
@@ -591,6 +702,7 @@ const ConsoleEngine = {
     }
     if (this.enableInstalledGames) {
       this.renderGamesList('installed', this.currentQueries.installed || '');
+      this.updateStorageMeter();
     }
 
     // Inject Configurator Styles if missing

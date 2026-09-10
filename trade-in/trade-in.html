@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console Swap &amp; Trade-In Estimator — Legend Games Lagos</title>
+  <meta name="description" content="Trade in your old PS4, PS5, Xbox, or game discs for instant cash or trade-in credit toward a new PS5 upgrade in Lagos. Safe public handover meetup.">
+
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="trade-in.css">
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="site-container">
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-item">
+          <span class="trust-dot"></span> Instant Trade Valuation
+        </span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Deduct Credit from PS5 Upgrade</span>
+        <span class="trust-sep">·</span>
+        <span class="trust-item">Safe Lagos Meetup Handover</span>
+      </div>
+
+      <!-- Trade-In Studio Card -->
+      <section class="card card-elevated tradein-studio-card">
+        <div class="studio-header">
+          <span class="badge badge-purple">SWAP &amp; UPGRADE HUB</span>
+          <h2 class="studio-title">Console &amp; Game Trade-In Estimator</h2>
+          <p class="studio-sub">Get an instant valuation for your existing gaming hardware. Apply credit to your new order or cash out on meetup.</p>
+        </div>
+
+        <!-- 1. Select Console Device -->
+        <div class="form-section">
+          <label class="section-label">1. Select your current console</label>
+          <div class="device-grid" id="tradein-devices-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- 2. Device Condition -->
+        <div class="form-section">
+          <label class="section-label">2. Console physical &amp; functional condition</label>
+          <div class="condition-grid" id="tradein-condition-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- 3. Included Hardware Accessories -->
+        <div class="form-section">
+          <label class="section-label">3. Included accessories &amp; cables</label>
+          <div class="accessories-checklist">
+            <label class="trade-check-row">
+              <div class="trade-check-left">
+                <input type="checkbox" id="chk-cables" checked onchange="TradeInEngine.toggleAccessory('cables')">
+                <div>
+                  <strong>Original Power Cable &amp; HDMI Cable</strong>
+                  <span>Essential cords included with console</span>
+                </div>
+              </div>
+              <span class="trade-bonus-tag">+₦5,000</span>
+            </label>
+
+            <label class="trade-check-row">
+              <div class="trade-check-left">
+                <input type="checkbox" id="chk-box" onchange="TradeInEngine.toggleAccessory('box')">
+                <div>
+                  <strong>Original Manufacturer Box / Packaging</strong>
+                  <span>Original retail box in decent condition</span>
+                </div>
+              </div>
+              <span class="trade-bonus-tag">+₦5,000</span>
+            </label>
+
+            <!-- Controllers Counter -->
+            <div class="trade-controller-row">
+              <div>
+                <strong>Working Wireless Controllers</strong>
+                <span>Official controllers with working thumbsticks &amp; battery</span>
+              </div>
+              <div class="qty-counter">
+                <button type="button" class="qty-btn" onclick="TradeInEngine.changeControllerCount(-1)">−</button>
+                <span class="qty-num" id="trade-controller-count">1</span>
+                <button type="button" class="qty-btn" onclick="TradeInEngine.changeControllerCount(1)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Add Physical Game Discs to Trade-In -->
+        <div class="form-section">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <label class="section-label" style="margin-bottom:0;">4. Add original game discs to swap (Optional)</label>
+            <span class="badge badge-gold" id="trade-games-count-badge">0 discs</span>
+          </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">
+            Each original Blu-ray game adds ₦6,000 – ₦18,000 to your trade credit!
+          </p>
+
+          <div class="search-mini-wrap">
+            <input type="text" 
+                   class="search-input-mini" 
+                   id="trade-game-search" 
+                   placeholder="Search games to trade (FIFA, GTA, Spider-Man, MK, GOW)..." 
+                   oninput="TradeInEngine.filterGames(this.value)">
+          </div>
+
+          <div class="trade-games-scroll-list" id="trade-games-list">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Valuation Summary Card -->
+        <div class="trade-valuation-card">
+          <div class="valuation-top">
+            <span class="valuation-label">ESTIMATED TRADE-IN VALUATION</span>
+            <div class="valuation-amount-row">
+              <strong class="valuation-amount" id="trade-val-display">₦0</strong>
+              <span class="valuation-credit-tag">Instant Store Credit</span>
+            </div>
+            <p class="valuation-note" id="trade-val-breakdown">
+              Based on selected console and accessories in good condition.
+            </p>
+          </div>
+
+          <div class="valuation-actions-grid">
+            <button class="btn btn-primary btn-lg" onclick="TradeInEngine.applyCreditToBasket()">
+              <span>Apply Discount to Basket &amp; Upgrade →</span>
+            </button>
+            <button class="btn btn-whatsapp btn-lg" onclick="TradeInEngine.requestWhatsAppTradeIn()">
+              <span>Trade-In via WhatsApp</span>
+            </button>
+          </div>
+          <p style="font-size:0.74rem; color:var(--text-muted); text-align:center; margin-top:10px;">
+            🛡️ Physical inspection &amp; functional testing done safely at our Lagos public meetup hubs before final cashout.
+          </p>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/disks.js"></script>
+  <script src="../shared/data/bundles.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+  <script src="../shared/shared.js"></script>
+  <script src="trade-in.js"></script>
+</body>
+</html>

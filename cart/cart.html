@@ -71,13 +71,50 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Preferred Safe Meetup Location in Lagos</label>
-            <input type="text" class="form-input" id="cust-location" placeholder="e.g. Ikeja City Mall, Lekki Phase 1, Surulere...">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <label class="form-label" style="margin-bottom:0;">Verified Lagos Safe Meetup Hub</label>
+              <span class="badge badge-green" style="font-size:0.68rem; padding:2px 8px;">🛡️ 100% Public &amp; Safe</span>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">
+              Choose a secure public mall for meetup handover, or request verified direct courier.
+            </p>
+
+            <!-- Region Filter Chips -->
+            <div class="meetup-region-chips">
+              <button type="button" class="region-chip active" id="chip-mainland" onclick="CartController.filterMeetupRegion('mainland')">Mainland Hubs</button>
+              <button type="button" class="region-chip" id="chip-island" onclick="CartController.filterMeetupRegion('island')">Island &amp; Lekki</button>
+              <button type="button" class="region-chip" id="chip-custom" onclick="CartController.filterMeetupRegion('custom')">Custom Address</button>
+            </div>
+
+            <!-- Meetup Cards Grid -->
+            <div class="meetup-grid" id="meetup-grid">
+              <!-- Dynamically populated via CartController.renderMeetupHubs() -->
+            </div>
+
+            <!-- Custom Location Input (Visible if custom selected) -->
+            <div id="custom-location-wrap" style="margin-top:10px; display:none;">
+              <input type="text" class="form-input" id="cust-location-custom" placeholder="Enter specific address, estate, or landmark in Lagos..." oninput="CartController.updateCustomLocation(this.value)">
+            </div>
+            <input type="hidden" id="cust-location" value="Ikeja City Mall (Alausa, Ikeja)">
           </div>
 
           <div class="form-group">
             <label class="form-label">Optional Notes or Special Requests</label>
             <textarea class="form-textarea" id="cust-notes" placeholder="e.g. Need extra controller, specific game version, preferred meetup time..."></textarea>
+          </div>
+        </section>
+
+        <!-- Trade-In Valuation Promo / Active Credit Banner -->
+        <section class="card card-elevated tradein-cart-card" id="cart-tradein-banner">
+          <div class="tradein-cart-inner">
+            <div class="tradein-cart-left">
+              <span class="tradein-pill">🔄 SWAP &amp; UPGRADE</span>
+              <h4 id="tradein-banner-title">Have an old PS4 or Game Discs?</h4>
+              <p id="tradein-banner-desc">Calculate instant trade-in value and deduct up to ₦250,000 from your order.</p>
+            </div>
+            <div class="tradein-cart-right" id="tradein-banner-action">
+              <a href="../trade-in/trade-in.html" class="btn btn-secondary btn-sm">Estimate Trade-In →</a>
+            </div>
           </div>
         </section>
 
@@ -100,13 +137,17 @@
             <span>Free FC 26 inclusion</span>
             <strong>Included</strong>
           </div>
+          <div class="bd-row" id="bd-tradein-row" style="display:none; color:var(--accent-green);">
+            <span id="bd-tradein-label">Trade-In credit applied</span>
+            <strong id="bd-tradein-total">-₦0</strong>
+          </div>
           <div class="bd-row">
             <span>Meetup arrangement</span>
-            <strong style="color:var(--text-secondary);">To confirm</strong>
+            <strong style="color:var(--text-secondary);" id="bd-meetup-name">Ikeja City Mall</strong>
           </div>
           <div class="bd-divider"></div>
           <div class="bd-row total-row">
-            <span>Estimated total</span>
+            <span>Estimated net total</span>
             <strong id="cart-total-display">₦0</strong>
           </div>
           <p class="bd-note">

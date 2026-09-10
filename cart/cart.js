@@ -2,14 +2,88 @@
  * Unified Cart & Quote Controller
  */
 
+const LAGOS_MEETUP_HUBS = [
+  // Mainland Hubs
+  {
+    id: 'icm',
+    name: 'Ikeja City Mall (ICM)',
+    area: 'Alausa, Ikeja',
+    region: 'mainland',
+    popular: true,
+    desc: 'Public food court & central parking — monitored & safe'
+  },
+  {
+    id: 'maryland',
+    name: 'Maryland Mall',
+    area: 'Ikorodu Rd, Anthony/Maryland',
+    region: 'mainland',
+    popular: false,
+    desc: 'Underground parking & main lobby'
+  },
+  {
+    id: 'festival',
+    name: 'Festival Mall',
+    area: 'Festac Town / Amuwo Odofin',
+    region: 'mainland',
+    popular: false,
+    desc: 'Silverbird / Golden Tulip public safe zone'
+  },
+  {
+    id: 'yaba',
+    name: 'e-Center / Ozone Cinemas',
+    area: 'Commercial Ave, Yaba',
+    region: 'mainland',
+    popular: false,
+    desc: 'Central tech corridor meetup point'
+  },
+  {
+    id: 'surulere',
+    name: 'Adeniran Ogunsanya Mall (AOS)',
+    area: 'Surulere',
+    region: 'mainland',
+    popular: false,
+    desc: 'Shoprite atrium & secure parking'
+  },
+  // Island & Lekki Hubs
+  {
+    id: 'circle_mall',
+    name: 'Circle Mall (Jakande)',
+    area: 'Lekki Phase 1 / Osapa London',
+    region: 'island',
+    popular: true,
+    desc: 'Anchor plaza & safe public parking'
+  },
+  {
+    id: 'the_palms',
+    name: 'The Palms Shopping Mall',
+    area: 'BIS Way, Victoria Island',
+    region: 'island',
+    popular: true,
+    desc: 'Cinema foyer & central atrium'
+  },
+  {
+    id: 'novare',
+    name: 'Novare Mall',
+    area: 'Sangotedo, Ajah',
+    region: 'island',
+    popular: false,
+    desc: 'Genesis cinema area & main concourse'
+  }
+];
+
 const CartController = {
   contactMethod: 'whatsapp',
+  selectedHubId: 'icm',
+  activeRegion: 'mainland',
+  customLocationText: '',
   lastSubmittedRef: null,
   lastSubmittedMessage: null,
 
   init() {
+    this.renderMeetupHubs();
     this.render();
     window.addEventListener('legend-cart-updated', () => this.render());
+    window.addEventListener('legend-tradein-updated', () => this.render());
   },
 
   setContactMethod(method) {
@@ -18,20 +92,144 @@ const CartController = {
     document.getElementById('opt-phone')?.classList.toggle('active', method === 'phone');
   },
 
+  filterMeetupRegion(region) {
+    this.activeRegion = region;
+    document.getElementById('chip-mainland')?.classList.toggle('active', region === 'mainland');
+    document.getElementById('chip-island')?.classList.toggle('active', region === 'island');
+    document.getElementById('chip-custom')?.classList.toggle('active', region === 'custom');
+
+    const customWrap = document.getElementById('custom-location-wrap');
+    if (customWrap) {
+      customWrap.style.display = region === 'custom' ? 'block' : 'none';
+      if (region === 'custom') {
+        document.getElementById('cust-location-custom')?.focus();
+      }
+    }
+
+    this.renderMeetupHubs();
+  },
+
+  renderMeetupHubs() {
+    const grid = document.getElementById('meetup-grid');
+    if (!grid) return;
+
+    if (this.activeRegion === 'custom') {
+      grid.innerHTML = `
+        <div class="meetup-card custom-active active" style="grid-column: 1 / -1;">
+          <div class="meetup-card-top">
+            <strong>📍 Direct Courier / Custom Meetup Address</strong>
+            <span class="meetup-check">✓</span>
+          </div>
+          <p class="meetup-desc">Enter your exact landmark, estate, or street address below. Handover details confirmed on WhatsApp.</p>
+        </div>
+      `;
+      this.updateLocationInput();
+      return;
+    }
+
+    const filtered = LAGOS_MEETUP_HUBS.filter(h => h.region === this.activeRegion);
+
+    if (!filtered.some(h => h.id === this.selectedHubId)) {
+      this.selectedHubId = filtered[0]?.id || 'icm';
+    }
+
+    grid.innerHTML = filtered.map(hub => {
+      const isSel = this.selectedHubId === hub.id;
+      return `
+        <div class="meetup-card ${isSel ? 'active' : ''}" onclick="CartController.selectMeetupHub('${hub.id}')">
+          <div class="meetup-card-top">
+            <div>
+              <strong class="meetup-name">${hub.name}</strong>
+              <span class="meetup-area">${hub.area}</span>
+            </div>
+            <span class="meetup-check">${isSel ? '✓' : ''}</span>
+          </div>
+          <p class="meetup-desc">${hub.desc}</p>
+          <div class="meetup-badges">
+            <span class="badge badge-green">Monitored Zone</span>
+            ${hub.popular ? '<span class="badge badge-gold">POPULAR HUB</span>' : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    this.updateLocationInput();
+  },
+
+  selectMeetupHub(hubId) {
+    this.selectedHubId = hubId;
+    this.renderMeetupHubs();
+  },
+
+  updateCustomLocation(text) {
+    this.customLocationText = text || '';
+    this.updateLocationInput();
+  },
+
+  updateLocationInput() {
+    const locInput = document.getElementById('cust-location');
+    const meetupSummary = document.getElementById('bd-meetup-name');
+
+    if (this.activeRegion === 'custom') {
+      const customVal = this.customLocationText.trim() || 'Custom Lagos Delivery Address';
+      if (locInput) locInput.value = customVal;
+      if (meetupSummary) meetupSummary.textContent = customVal;
+    } else {
+      const hub = LAGOS_MEETUP_HUBS.find(h => h.id === this.selectedHubId) || LAGOS_MEETUP_HUBS[0];
+      const val = `${hub.name} (${hub.area})`;
+      if (locInput) locInput.value = val;
+      if (meetupSummary) meetupSummary.textContent = hub.name;
+    }
+  },
+
   render() {
     const list = document.getElementById('cart-items-list');
     const countText = document.getElementById('cart-items-count-text');
     const baseTotal = document.getElementById('bd-base-total');
-    const addonsTotal = document.getElementById('bd-addons-total');
     const grandTotal = document.getElementById('cart-total-display');
 
     const items = LegendCart.getItems();
     const count = LegendCart.getCount();
-    const total = LegendCart.getTotal();
+    const grossTotal = LegendCart.getTotal();
+
+    const tradeIn = window.LegendTradeIn ? LegendTradeIn.getTradeIn() : null;
+    const tradeInCredit = tradeIn ? Number(tradeIn.estimatedValue || 0) : 0;
+    const netTotal = Math.max(0, grossTotal - tradeInCredit);
 
     if (countText) countText.textContent = `${count} product${count === 1 ? '' : 's'}`;
-    if (grandTotal) grandTotal.textContent = formatNaira(total);
-    if (baseTotal) baseTotal.textContent = formatNaira(total);
+    if (grandTotal) grandTotal.textContent = formatNaira(netTotal);
+    if (baseTotal) baseTotal.textContent = formatNaira(grossTotal);
+
+    const tradeinRow = document.getElementById('bd-tradein-row');
+    const tradeinTotal = document.getElementById('bd-tradein-total');
+    const tradeinLabel = document.getElementById('bd-tradein-label');
+    const bannerTitle = document.getElementById('tradein-banner-title');
+    const bannerDesc = document.getElementById('tradein-banner-desc');
+    const bannerAction = document.getElementById('tradein-banner-action');
+
+    if (tradeIn && tradeInCredit > 0) {
+      if (tradeinRow) {
+        tradeinRow.style.display = 'flex';
+        if (tradeinLabel) tradeinLabel.textContent = `Trade-In: ${tradeIn.deviceName || 'Old Console'}`;
+        if (tradeinTotal) tradeinTotal.textContent = `-${formatNaira(tradeInCredit)}`;
+      }
+      if (bannerTitle) bannerTitle.textContent = `Applied: ${tradeIn.deviceName} (${formatNaira(tradeInCredit)} credit)`;
+      if (bannerDesc) bannerDesc.textContent = `Condition: ${tradeIn.condition || 'Good'}. This discount is automatically deducted from your quote.`;
+      if (bannerAction) {
+        bannerAction.innerHTML = `
+          <button type="button" class="btn btn-secondary btn-sm" onclick="LegendTradeIn.clearTradeIn()" style="color:var(--accent-red); border-color:rgba(239,68,68,0.3);">Remove Credit</button>
+        `;
+      }
+    } else {
+      if (tradeinRow) tradeinRow.style.display = 'none';
+      if (bannerTitle) bannerTitle.textContent = 'Have an old PS4 or Game Discs?';
+      if (bannerDesc) bannerDesc.textContent = 'Calculate instant trade-in value and deduct up to ₦250,000 from your order.';
+      if (bannerAction) {
+        bannerAction.innerHTML = `
+          <a href="../trade-in/trade-in.html" class="btn btn-secondary btn-sm">Estimate Trade-In →</a>
+        `;
+      }
+    }
 
     if (!list) return;
 
@@ -65,8 +263,6 @@ const CartController = {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             </button>
           </div>
-
-          <!-- Itemized Details Specs -->
           <div class="cart-item-specs-grid">
             ${item.mode ? `<span class="spec-key">Firmware:</span><span class="spec-val">${item.mode === 'modded' ? 'Hacked / Modded' : 'Original Stock (Online)'}</span>` : ''}
             ${item.freeFC ? `<span class="spec-key">Bonus:</span><span class="spec-val" style="color:var(--accent-green);">EA Sports FC 26 (Included Free)</span>` : ''}
@@ -76,7 +272,6 @@ const CartController = {
             ${item.wrap ? `<span class="spec-key">Wrap:</span><span class="spec-val">${item.wrap}</span>` : ''}
             ${item.notes ? `<span class="spec-key">Notes:</span><span class="spec-val">${item.notes}</span>` : ''}
           </div>
-
           <div class="cart-item-bottom" onclick="event.stopPropagation()">
             <div class="qty-counter">
               <button class="qty-btn" onclick="LegendCart.updateQuantity('${item.cartId}', -1)">−</button>
@@ -99,11 +294,10 @@ const CartController = {
       sessionStorage.setItem('legend_edit_cart_item', JSON.stringify(item));
     } catch (e) {}
 
-    // Determine target URL based on item type and platform
     if (item.type === 'console-config' || item.platform) {
       const plat = (item.platform || 'ps5').toLowerCase();
       window.location.href = `../consoles/${plat}/${plat}.html?edit=${encodeURIComponent(cartId)}`;
-    } else if (item.type === 'disk' || item.type === 'hard_drive' || item.capacity) {
+    } else if (item.type === 'disk' || item.type === 'hard-disk' || item.type === 'hard_drive' || item.capacity) {
       window.location.href = `../disk/disk.html?edit=${encodeURIComponent(cartId)}`;
     } else if (item.type === 'pc' || item.type === 'pc_game') {
       window.location.href = `../pc-games/pc-games.html`;
@@ -155,14 +349,13 @@ const CartController = {
     this.lastSubmittedRef = orderRef;
     this.lastSubmittedMessage = text;
 
-    // Save order reference in localStorage for tracking
     try {
       const pastOrders = JSON.parse(localStorage.getItem('naijaplay_orders') || '[]');
       pastOrders.unshift({
         ref: orderRef,
         date: new Date().toISOString(),
         items: items,
-        total: LegendCart.getTotal(),
+        total: LegendCart.getNetTotal(),
         customer: { name, phone, location }
       });
       localStorage.setItem('naijaplay_orders', JSON.stringify(pastOrders.slice(0, 10)));
@@ -170,10 +363,7 @@ const CartController = {
       console.error(e);
     }
 
-    // Open WhatsApp
     openWhatsApp(text);
-
-    // Show Confirmation Screen (Screen 6)
     this.showConfirmationView(orderRef, items);
   },
 

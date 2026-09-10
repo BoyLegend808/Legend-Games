@@ -297,3 +297,174 @@
   padding: 14px;
   margin-bottom: 18px;
 }
+
+/* ==========================================================================
+   LAGOS SAFE MEETUP HUB SELECTOR
+   ========================================================================== */
+.meetup-region-chips {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.meetup-region-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.region-chip {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-fast);
+}
+
+.region-chip:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.region-chip.active {
+  background: rgba(0, 212, 255, 0.12);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+.meetup-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .meetup-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.meetup-card {
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: left;
+}
+
+.meetup-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.meetup-card.active {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 2px 12px rgba(0, 212, 255, 0.15);
+}
+
+.meetup-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.meetup-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+  line-height: 1.25;
+}
+
+.meetup-area {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.meetup-check {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--accent-cyan);
+}
+
+.meetup-desc {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin: 6px 0;
+}
+
+.meetup-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   TRADE-IN CART PROMO / CREDIT BANNER
+   ========================================================================== */
+.tradein-cart-card {
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.08), rgba(0, 212, 255, 0.05));
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  margin-bottom: 22px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+}
+
+.tradein-cart-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tradein-cart-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.tradein-pill {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  background: rgba(255, 107, 0, 0.15);
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-bottom: 6px;
+}
+
+.tradein-cart-left h4 {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.tradein-cart-left p {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.35;
+}
+

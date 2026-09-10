@@ -15,6 +15,10 @@ const ConsoleEngine = {
   selectedBundle: 'none',
   customGameRequest: '',
   editingCartId: null,
+  currentQueries: {
+    physical: '',
+    installed: ''
+  },
 
   init(platformKey) {
     this.activePlatform = platformKey || 'ps4';
@@ -431,6 +435,9 @@ const ConsoleEngine = {
   },
 
   filterGamesList(type, query) {
+    if (!this.currentQueries) {
+      this.currentQueries = { physical: '', installed: '' };
+    }
     this.currentQueries[type] = query || '';
     this.renderGamesList(type, query);
   },
@@ -558,7 +565,7 @@ const ConsoleEngine = {
                        class="search-input-mini" 
                        id="search-physical-input"
                        placeholder="Search physical discs (GTA, COD, FIFA, GOW, Spider-Man)..." 
-                       value="${this.currentQueries.physical || ''}"
+                       value="${(this.currentQueries && this.currentQueries.physical) || ''}"
                        oninput="ConsoleEngine.filterGamesList('physical', this.value)"
                        autocomplete="off">
               </div>
@@ -631,7 +638,7 @@ const ConsoleEngine = {
                        class="search-input-mini" 
                        id="search-installed-input"
                        placeholder="Search digital titles (GTA, COD, FIFA, Wukong, GOW)..." 
-                       value="${this.currentQueries.installed || ''}"
+                       value="${(this.currentQueries && this.currentQueries.installed) || ''}"
                        oninput="ConsoleEngine.filterGamesList('installed', this.value)"
                        autocomplete="off">
               </div>
@@ -698,10 +705,10 @@ const ConsoleEngine = {
 
     // Populate initial game lists if sections are active
     if (this.enablePhysicalGames) {
-      this.renderGamesList('physical', this.currentQueries.physical || '');
+      this.renderGamesList('physical', (this.currentQueries && this.currentQueries.physical) || '');
     }
     if (this.enableInstalledGames) {
-      this.renderGamesList('installed', this.currentQueries.installed || '');
+      this.renderGamesList('installed', (this.currentQueries && this.currentQueries.installed) || '');
       this.updateStorageMeter();
     }
 

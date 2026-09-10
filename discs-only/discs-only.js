@@ -54,11 +54,11 @@ const DiscsCatalog = {
     grid.innerHTML = list.map(g => `
       <div class="disc-card">
         <div class="disc-thumb">
-          <img src="${g.cover}" alt="${g.title}" loading="lazy">
+          <img src="${g.cover || `../shared/assets/covers/${g.id}.jpg`}" alt="${g.title}" loading="lazy" onerror="handleGameCoverError(this, '${(g.title || '').replace(/'/g, "\\'")}', '${(g.genre || '').replace(/'/g, "\\'")}', '${(g.platforms || ['PS4']).join('/')}')">
         </div>
         <h4 class="disc-title">${g.title}</h4>
-        <span class="disc-platforms">${g.platforms.join(' · ')}</span>
-        <div class="disc-price">${formatNaira(g.cdPrice)}</div>
+        <span class="disc-platforms">${(g.platforms || ['PS4']).join(' · ')}</span>
+        <div class="disc-price">${formatNaira(g.cdPrice || g.price || 18000)}</div>
         <button class="btn-add-mini" onclick="DiscsCatalog.addDisc('${g.id}')">
           + Add disc
         </button>

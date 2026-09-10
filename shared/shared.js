@@ -23,6 +23,61 @@ function formatNaira(amount) {
 }
 
 // -------------------------------------------------------------
+// 1b. Universal Game Cover Fallback & Generator Engine
+// -------------------------------------------------------------
+function generateGameCoverSvg(title, genre = 'Action Adventure', platform = 'PS4 · PS5') {
+  let hash = 0;
+  const str = String(title || 'Game Title');
+  for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i);
+  const palettes = [
+    { g1: '#0a1020', g2: '#0f172a', g3: '#1e3a8a', accent: '#38bdf8', icon: '🎮' },
+    { g1: '#120b1e', g2: '#1e1136', g3: '#4c1d95', accent: '#a855f7', icon: '⚡' },
+    { g1: '#1c0f14', g2: '#30131d', g3: '#881337', accent: '#fb7185', icon: '🔥' },
+    { g1: '#0a1914', g2: '#064e3b', g3: '#047857', accent: '#34d399', icon: '⚔️' },
+    { g1: '#1f1309', g2: '#451a03', g3: '#92400e', accent: '#fbbf24', icon: '🏆' },
+    { g1: '#07161b', g2: '#083344', g3: '#0e7490', accent: '#22d3ee', icon: '👑' }
+  ];
+  const p = palettes[Math.abs(hash) % palettes.length];
+  const cleanTitle = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const cleanGenre = String(genre).replace(/&/g, '&amp;');
+  const cleanPlat = String(platform).replace(/&/g, '&amp;');
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+    <defs>
+      <linearGradient id="bg-${Math.abs(hash)}" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${p.g1}" />
+        <stop offset="50%" stop-color="${p.g2}" />
+        <stop offset="100%" stop-color="${p.g3}" />
+      </linearGradient>
+      <radialGradient id="glow-${Math.abs(hash)}" cx="50%" cy="32%" r="50%">
+        <stop offset="0%" stop-color="${p.accent}" stop-opacity="0.35" />
+        <stop offset="100%" stop-color="${p.accent}" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <rect width="300" height="400" fill="url(#bg-${Math.abs(hash)})" />
+    <circle cx="150" cy="130" r="110" fill="url(#glow-${Math.abs(hash)})" />
+    <rect x="0" y="0" width="300" height="34" fill="rgba(0,0,0,0.55)" />
+    <text x="14" y="22" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="900" letter-spacing="1">${cleanPlat.toUpperCase()}</text>
+    <text x="286" y="22" fill="${p.accent}" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="900" text-anchor="end">LEGEND VAULT</text>
+    <circle cx="150" cy="130" r="42" fill="rgba(255,255,255,0.06)" stroke="${p.accent}" stroke-width="1.5" stroke-opacity="0.6" />
+    <text x="150" y="142" font-size="34" text-anchor="middle">${p.icon}</text>
+    <rect x="12" y="240" width="276" height="148" rx="8" fill="rgba(6,10,18,0.8)" stroke="rgba(255,255,255,0.1)" />
+    <text x="150" y="278" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="15" font-weight="900" text-anchor="middle">${cleanTitle.length > 24 ? cleanTitle.substring(0, 22) + '...' : cleanTitle}</text>
+    <text x="150" y="302" fill="rgba(255,255,255,0.65)" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" text-anchor="middle">${cleanGenre}</text>
+    <rect x="25" y="325" width="250" height="26" rx="13" fill="rgba(0,255,136,0.12)" stroke="rgba(0,255,136,0.35)" />
+    <text x="150" y="342" fill="#00ff88" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10.5" font-weight="800" letter-spacing="0.5" text-anchor="middle">✓ VERIFIED PLAYABLE IN LAGOS</text>
+  </svg>`;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+function handleGameCoverError(imgElement, title, genre, platform) {
+  if (!imgElement || imgElement.dataset.fallbackApplied) return;
+  imgElement.dataset.fallbackApplied = 'true';
+  imgElement.src = generateGameCoverSvg(title, genre, platform);
+}
+
+// -------------------------------------------------------------
 // 2. Theme Management (Dark / Light Mode)
 // -------------------------------------------------------------
 const LegendTheme = {

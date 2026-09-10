@@ -159,7 +159,7 @@ function initHeroCarousel() {
   if (thumbsContainer) {
     thumbsContainer.innerHTML = StoreState.heroGames.map((g, idx) => `
       <div class="hero-thumb-btn ${idx === 0 ? 'active' : ''}" onclick="setHeroSlide(${idx})">
-        <img src="${getGameCoverPath(g)}" alt="${g.title}" loading="lazy">
+        <img src="${getGameCoverPath(g)}" alt="${g.title}" loading="lazy" onerror="handleGameCoverError(this, '${escapeQuotes(g.title)}', '${escapeQuotes(g.genre || '')}', 'PS4 · PS5')">
       </div>
     `).join('');
   }
@@ -485,7 +485,7 @@ function createGameCardMarkup(game) {
     <article class="legend-game-card" data-game-id="${game.id}" onclick="openGameModal('${game.id}')">
       <!-- 3:4 Box Art Poster -->
       <div class="g2a-card-media">
-        <img src="${coverUrl}" alt="${game.title} Poster" class="g2a-card-cover" loading="lazy">
+        <img src="${coverUrl}" alt="${game.title} Poster" class="g2a-card-cover" loading="lazy" onerror="handleGameCoverError(this, '${escapeQuotes(game.title)}', '${escapeQuotes(game.genre || '')}', '${escapeQuotes((game.platforms || ['PS4']).join('/'))}')">
         
         <div class="g2a-card-badge-row">
           ${game.badge ? `<span class="g2a-card-badge ${game.badge === 'HOT' ? 'hot' : ''}">${game.badge}</span>` : '<span></span>'}
@@ -871,7 +871,11 @@ function openGameModal(gameId) {
   const discPriceEl = document.getElementById('modal-disc-price');
   const moddedPriceEl = document.getElementById('modal-modded-price');
 
-  if (coverEl) coverEl.src = getGameCoverPath(game);
+  if (coverEl) {
+    coverEl.dataset.fallbackApplied = '';
+    coverEl.onerror = () => handleGameCoverError(coverEl, game.title, game.genre, (game.platforms || ['PS4', 'PS5']).join('/'));
+    coverEl.src = getGameCoverPath(game);
+  }
   if (platformsEl) platformsEl.textContent = (game.platforms || ['PS4', 'PS5']).join(' · ');
   if (badgeEl) badgeEl.textContent = game.badge || 'Verified Title';
   if (ratingEl) ratingEl.textContent = `★ ${game.rating || '9.5'}`;

@@ -282,8 +282,8 @@ function initAppNavigation(options = {}) {
   const path = window.location.pathname.replace(/\\/g, '/');
   const isHome = path.includes('/home/') || path.endsWith('/index.html') || path.endsWith('/Legend%20Games/');
 
-  // Inject Header (unless page has custom g2a-main-header or is custom styled)
-  if (!document.querySelector('.app-header') && !document.querySelector('.g2a-main-header')) {
+  // Inject Header (unless page has custom header or is on home)
+  if (!document.querySelector('.app-header') && !document.querySelector('.g2a-main-header') && !document.querySelector('.legend-master-header') && !isHome) {
     const headerHtml = `
       <header class="app-header">
         <div class="site-container header-inner">

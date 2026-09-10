@@ -53,65 +53,60 @@
        2. MASTER COMMAND HEADER & LIVE SEARCH
        ========================================================= -->
   <header class="legend-master-header">
-    <div class="site-container header-inner">
-      <!-- Brand Logo -->
-      <a href="home.html" class="legend-brand" aria-label="Legend Games Home">
-        <div class="brand-badge-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        </div>
-        <div class="brand-text-block">
-          <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
-          <span class="brand-subtitle">LAGOS VAULT</span>
-        </div>
-      </a>
-
-      <!-- Universal Search with Platform Switcher -->
-      <div class="legend-search-hub">
-        <div class="search-input-wrapper">
-          <div class="search-platform-selector">
-            <select id="search-category-filter" onchange="filterGamesByCategory(this.value)" aria-label="Filter Search Platform">
-              <option value="all">All Vault</option>
-              <option value="ps4">PS4 Vault</option>
-              <option value="ps5">PS5 Titles</option>
-              <option value="pc">PC Master</option>
-              <option value="coop">Co-op / 2P</option>
-            </select>
+    <div class="site-container">
+      <div class="header-main-row">
+        <!-- Brand Logo -->
+        <a href="home.html" class="legend-brand" aria-label="Legend Games Home">
+          <div class="brand-badge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
           </div>
-          <div class="search-v-divider"></div>
-          <input type="text" id="g2a-search-input" class="search-field" 
-                 placeholder="Search 130+ verified titles, consoles, GTA, FC26, God of War..." 
-                 oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Game Catalog">
-          <button class="search-submit-btn" onclick="executeSearch()" title="Search Catalog">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <div class="brand-text-block">
+            <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
+            <span class="brand-subtitle">LAGOS VAULT</span>
+          </div>
+        </a>
+
+        <!-- Header Action Controls -->
+        <div class="header-action-controls">
+          <!-- Theme Toggle -->
+          <button class="icon-action-btn" onclick="LegendTheme.toggle()" title="Toggle Visual Theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           </button>
+
+          <!-- Wishlist -->
+          <a href="../discs-only/discs-only.html?view=wishlist" class="icon-action-btn" title="Saved Wishlist">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </a>
+
+          <!-- Quote Request Cart -->
+          <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Loadout">
+            <div class="cart-icon-cell">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+              <span class="cart-badge-count" id="g2a-cart-count">0</span>
+            </div>
+            <div class="cart-text-cell">
+              <span class="cart-text-lbl">Quote Basket</span>
+              <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
+            </div>
+          </a>
         </div>
-        <!-- Live Instant Search Dropdown -->
-        <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
       </div>
 
-      <!-- Header Action Controls -->
-      <div class="header-action-controls">
-        <!-- Theme Toggle -->
-        <button class="icon-action-btn" onclick="LegendTheme.toggle()" title="Toggle Visual Theme">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-
-        <!-- Wishlist -->
-        <a href="../discs-only/discs-only.html?view=wishlist" class="icon-action-btn" title="Saved Wishlist">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-        </a>
-
-        <!-- Quote Request Cart -->
-        <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Loadout">
-          <div class="cart-icon-cell">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span class="cart-badge-count" id="g2a-cart-count">0</span>
+      <!-- Universal Search with Dynamic Autocomplete -->
+      <div class="header-search-row">
+        <div class="legend-search-hub">
+          <div class="search-input-wrapper">
+            <div class="search-icon-prefix">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <input type="text" id="g2a-search-input" class="search-field" 
+                   placeholder="Search 130+ games & consoles (GTA, FC26, COD, Spider-Man)..." 
+                   oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Game Catalog">
+            <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearchInput()" style="display:none;" title="Clear search">✕</button>
           </div>
-          <div class="cart-text-cell">
-            <span class="cart-text-lbl">Quote Basket</span>
-            <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
-          </div>
-        </a>
+          <!-- Live Instant Search Dropdown -->
+          <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
+        </div>
       </div>
     </div>
   </header>
@@ -121,62 +116,39 @@
        ========================================================= -->
   <nav class="legend-category-strip" aria-label="Quick Category Access">
     <div class="site-container cat-strip-inner">
-      <!-- PlayStation Studio -->
       <a href="../consoles/ps5/ps5.html" class="cat-pill active">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-        </span>
-        <span class="cat-label">PlayStation Studio</span>
+        <span class="cat-icon-svg">🎮</span>
+        <span class="cat-label">PS5 Studio</span>
       </a>
-
-      <!-- Physical Discs -->
+      <a href="../consoles/ps4/ps4.html" class="cat-pill">
+        <span class="cat-icon-svg">🕹️</span>
+        <span class="cat-label">PS4 Studio</span>
+      </a>
       <a href="../discs-only/discs-only.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="5"></line></svg>
-        </span>
+        <span class="cat-icon-svg">💿</span>
         <span class="cat-label">Physical Discs</span>
-        <span class="cat-count-tag">130 Titles</span>
+        <span class="cat-count-tag">130+</span>
       </a>
-
-      <!-- Hard Disk Loading -->
       <a href="../disk/disk.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-        </span>
-        <span class="cat-label">Hard Disk Loading</span>
+        <span class="cat-icon-svg">💾</span>
+        <span class="cat-label">Hard Drive Loading</span>
         <span class="cat-hot-tag">HOT</span>
       </a>
-
-      <!-- PC Master Library -->
       <a href="../pc-games/pc-games.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        </span>
+        <span class="cat-icon-svg">💻</span>
         <span class="cat-label">PC Master Library</span>
       </a>
-
-      <!-- Pads & Accessories -->
       <a href="../accessories/accessories.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-        </span>
-        <span class="cat-label">Pads &amp; Accessories</span>
+        <span class="cat-icon-svg">⚡</span>
+        <span class="cat-label">Controllers & Gear</span>
       </a>
-
-      <!-- Custom Console Wraps -->
       <a href="../wraps/wraps.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-        </span>
-        <span class="cat-label">Console Skins &amp; Wraps</span>
+        <span class="cat-icon-svg">🎨</span>
+        <span class="cat-label">Custom Wraps</span>
       </a>
-
-      <!-- Master Price List -->
       <a href="../price-list/price-list.html" class="cat-pill">
-        <span class="cat-icon-svg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-        </span>
-        <span class="cat-label">Master Price Table</span>
+        <span class="cat-icon-svg">💰</span>
+        <span class="cat-label">Price List</span>
       </a>
     </div>
   </nav>
@@ -188,44 +160,12 @@
     <div class="site-container">
 
       <!-- =======================================================
-           MODULE 1: HERO SPOTLIGHT ARENA WITH CONSOLE GRAPHIC
+           MODULE 1: HERO SPOTLIGHT ARENA
            ======================================================= -->
       <section class="legend-hero-arena">
         <!-- Spotlight Carousel Card -->
         <div class="hero-spotlight-card" id="hero-spotlight-card">
           <div class="hero-backdrop-layer"></div>
-          
-          <!-- Illustrated Console + Controller Vector Graphic Layer -->
-          <div class="hero-console-svg-layer" aria-hidden="true">
-            <svg class="hero-console-svg" viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Console Silhouette with glowing blue accents -->
-              <rect x="220" y="30" width="220" height="240" rx="16" fill="rgba(15,22,38,0.7)" stroke="rgba(0,212,255,0.25)" stroke-width="1.5"/>
-              <rect x="235" y="45" width="190" height="210" rx="10" fill="rgba(7,10,17,0.85)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-              <line x1="250" y1="75" x2="410" y2="75" stroke="rgba(0,212,255,0.3)" stroke-width="2" stroke-dasharray="6 4"/>
-              <circle cx="395" cy="225" r="14" fill="rgba(255,85,0,0.15)" stroke="#ff5500" stroke-width="1.5"/>
-              <text x="390" y="230" font-family="'Outfit', sans-serif" font-weight="900" font-size="14" fill="#ff5500">⏻</text>
-              <!-- Disc Slot Indicator -->
-              <rect x="260" y="98" width="140" height="6" rx="3" fill="#00d4ff" opacity="0.8"/>
-              
-              <!-- Game Controller Silhouette In Front -->
-              <g transform="translate(60, 105)">
-                <path d="M40 30 C30 10 70 0 100 0 C130 0 170 10 160 30 C155 45 150 85 140 115 C135 130 115 130 105 110 C95 90 105 90 95 90 C85 90 95 90 85 110 C75 130 55 130 50 115 C40 85 35 45 40 30 Z" fill="rgba(14,20,34,0.92)" stroke="rgba(0,212,255,0.45)" stroke-width="1.5"/>
-                <!-- D-Pad -->
-                <rect x="62" y="42" width="16" height="6" rx="2" fill="#ffffff" opacity="0.6"/>
-                <rect x="67" y="37" width="6" height="16" rx="2" fill="#ffffff" opacity="0.6"/>
-                <!-- Action Buttons -->
-                <circle cx="128" cy="40" r="4" fill="#ff4757"/>
-                <circle cx="136" cy="48" r="4" fill="#00ff88"/>
-                <circle cx="120" cy="48" r="4" fill="#ffd700"/>
-                <circle cx="128" cy="56" r="4" fill="#00d4ff"/>
-                <!-- Thumbsticks -->
-                <circle cx="82" cy="74" r="12" fill="rgba(255,85,0,0.2)" stroke="#ff5500" stroke-width="1.5"/>
-                <circle cx="118" cy="74" r="12" fill="rgba(255,85,0,0.2)" stroke="#ff5500" stroke-width="1.5"/>
-                <!-- Touchpad -->
-                <rect x="85" y="28" width="30" height="18" rx="3" fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.15)"/>
-              </g>
-            </svg>
-          </div>
 
           <!-- Free FC26 Included Promo Pill -->
           <div class="hero-promo-badge">
@@ -951,7 +891,7 @@
   <script src="../shared/data/disks.js"></script>
   <script src="../shared/data/bundles.js"></script>
   <script src="../shared/data/wraps.js"></script>
-  <script src="../shared/shared.js"></script>
-  <script src="home.js?v=6"></script>
+  <script src="../shared/shared.js?v=12"></script>
+  <script src="home.js?v=12"></script>
 </body>
 </html>

@@ -309,326 +309,19 @@ function handleCatalogSort(sortKey) {
 }
 
 // =========================================================================
-// 4.1 INTELLIGENT GAME SEARCH ALIASES & NORMALIZATION ENGINE
+// 4.1 INTELLIGENT GAME SEARCH ENGINE
 // =========================================================================
-const GAME_SEARCH_ALIASES = {
-  // Grand Theft Auto / GTA
-  'gta': ['grand theft auto', 'gta', 'san andreas', 'vice city'],
-  'gta5': ['grand theft auto v', 'grand theft auto 5', 'gta 5', 'gta v'],
-  'gta 5': ['grand theft auto v', 'gta5', 'gta v'],
-  'gta v': ['grand theft auto v', 'gta5', 'gta 5'],
-  'gtav': ['grand theft auto v', 'gta5', 'gta 5'],
-  'gta iv': ['grand theft auto iv', 'gta4'],
-  'gta4': ['grand theft auto iv', 'gta 4'],
-
-  // Call of Duty / COD
-  'cod': ['call of duty', 'cod', 'warzone', 'modern warfare', 'black ops', 'vanguard', 'cold war', 'wwii'],
-  'cod mw': ['call of duty: modern warfare', 'modern warfare', 'cod mw2', 'mw2', 'mwii'],
-  'mw2': ['call of duty: modern warfare ii', 'modern warfare 2', 'modern warfare ii', 'cod mw2'],
-  'mwii': ['call of duty: modern warfare ii', 'modern warfare 2', 'mw2'],
-  'cod bo': ['call of duty: black ops', 'black ops', 'bo3', 'bocw', 'cold war'],
-  'bo3': ['call of duty: black ops iii', 'black ops 3', 'black ops iii', 'bo3'],
-  'bo 3': ['call of duty: black ops iii', 'black ops 3', 'bo3'],
-  'bocw': ['call of duty: black ops cold war', 'cold war', 'black ops cold war'],
-  'cold war': ['call of duty: black ops cold war', 'bocw'],
-  'vanguard': ['call of duty: vanguard'],
-  'cod ww2': ['call of duty: wwii', 'cod wwii', 'ww2'],
-  'ww2': ['call of duty: wwii', 'world war 2', 'battlefield v', 'battlefield 1'],
-
-  // Football / FIFA / FC / PES
-  'fifa': ['ea sports fc 26', 'ea sports fifa 23', 'efootball pes 2021', 'fifa', 'fc26', 'pes'],
-  'fifa 23': ['ea sports fifa 23', 'fifa 23', 'fifa23'],
-  'fifa23': ['ea sports fifa 23', 'fifa 23'],
-  'fc': ['ea sports fc 26', 'fc 26', 'fc26'],
-  'fc 26': ['ea sports fc 26', 'fc26', 'fifa 26', 'fifa'],
-  'fc26': ['ea sports fc 26', 'fc 26', 'fifa 26'],
-  'fc 25': ['ea sports fc 26', 'fc 26', 'fc26'],
-  'fc25': ['ea sports fc 26', 'fc 26', 'fc26'],
-  'fc 24': ['ea sports fc 26', 'fc 26', 'fc26'],
-  'fc24': ['ea sports fc 26', 'fc 26', 'fc26'],
-  'pes': ['efootball pes 2021 season update', 'pes 2021', 'efootball', 'pro evolution soccer'],
-  'pes 2021': ['efootball pes 2021', 'pes2021', 'pes'],
-  'pes2021': ['efootball pes 2021', 'pes 2021'],
-  'football': ['ea sports fc 26', 'ea sports fifa 23', 'efootball pes 2021', 'captain tsubasa'],
-  'soccer': ['ea sports fc 26', 'ea sports fifa 23', 'efootball pes 2021'],
-
-  // God of War
-  'gow': ['god of war', 'kratos', 'ragnarok', 'ragnarök', 'gow 2018', 'gow ragnarok'],
-  'gow 2018': ['god of war (2018)', 'god of war 4', 'gow4'],
-  'gow4': ['god of war (2018)', 'god of war 4'],
-  'gow 4': ['god of war (2018)', 'god of war 4'],
-  'gow ragnarok': ['god of war ragnarök', 'god of war ragnarok', 'ragnarok', 'ragnarök'],
-  'ragnarok': ['god of war ragnarök', 'god of war ragnarok'],
-  'ragnarök': ['god of war ragnarök'],
-  'kratos': ['god of war (2018)', 'god of war ragnarök'],
-
-  // Red Dead Redemption
-  'rdr': ['red dead redemption 2', 'rdr2', 'rdr 2', 'arthur morgan'],
-  'rdr2': ['red dead redemption 2', 'rdr 2', 'red dead 2'],
-  'rdr 2': ['red dead redemption 2', 'rdr2'],
-  'red dead': ['red dead redemption 2', 'rdr2'],
-  'arthur morgan': ['red dead redemption 2'],
-
-  // Mortal Kombat
-  'mk': ['mortal kombat 11 ultimate', 'mortal kombat xl', 'mk11', 'mkx', 'mkxl', 'scorpion', 'sub zero'],
-  'mk11': ['mortal kombat 11 ultimate', 'mortal kombat 11', 'mk 11'],
-  'mk 11': ['mortal kombat 11 ultimate', 'mk11'],
-  'mkx': ['mortal kombat xl', 'mortal kombat x', 'mkxl'],
-  'mkxl': ['mortal kombat xl', 'mkx'],
-  'mortal kombat': ['mortal kombat 11 ultimate', 'mortal kombat xl'],
-
-  // Spider-Man
-  'spiderman': ["marvel's spider-man", "marvel's spider-man: miles morales", 'spider-man 2', 'spider-man'],
-  'spider-man': ["marvel's spider-man", "marvel's spider-man: miles morales"],
-  'spider man': ["marvel's spider-man", "marvel's spider-man: miles morales"],
-  'miles morales': ["marvel's spider-man: miles morales", 'miles', 'spider-man miles'],
-  'miles': ["marvel's spider-man: miles morales"],
-  'sm': ["marvel's spider-man", "marvel's spider-man: miles morales"],
-
-  // The Last of Us
-  'tlou': ['the last of us remastered', 'the last of us part ii', 'tlou1', 'tlou2', 'joel', 'ellie'],
-  'tlou1': ['the last of us remastered', 'the last of us part 1', 'tlou 1'],
-  'tlou 1': ['the last of us remastered', 'tlou1'],
-  'tlou2': ['the last of us part ii', 'the last of us part 2', 'tlou 2'],
-  'tlou 2': ['the last of us part ii', 'tlou2'],
-  'the last of us': ['the last of us remastered', 'the last of us part ii'],
-  'last of us': ['the last of us remastered', 'the last of us part ii'],
-
-  // Assassin's Creed
-  'ac': ["assassin's creed mirage", "assassin's creed valhalla", "assassin's creed odyssey", "assassin's creed origins", "assassins creed"],
-  'ac mirage': ["assassin's creed mirage"],
-  'ac valhalla': ["assassin's creed valhalla"],
-  'ac odyssey': ["assassin's creed odyssey"],
-  'ac origins': ["assassin's creed origins"],
-  'assassins creed': ["assassin's creed mirage", "assassin's creed valhalla", "assassin's creed odyssey", "assassin's creed origins"],
-  'assassin creed': ["assassin's creed mirage", "assassin's creed valhalla", "assassin's creed odyssey", "assassin's creed origins"],
-
-  // Need for Speed
-  'nfs': ['need for speed heat', 'need for speed payback', 'need for speed unbound', 'nfs heat', 'nfs unbound', 'nfs payback'],
-  'nfs heat': ['need for speed heat'],
-  'nfs unbound': ['need for speed unbound'],
-  'nfs payback': ['need for speed payback'],
-  'need for speed': ['need for speed heat', 'need for speed payback', 'need for speed unbound'],
-
-  // Resident Evil
-  're': ['resident evil 2 remake', 'resident evil 3 remake', 'resident evil 4 remake', 'resident evil 7: biohazard', 'resident evil village', 'resident evil 6'],
-  're2': ['resident evil 2 remake', 're 2', 'resident evil 2'],
-  're 2': ['resident evil 2 remake', 're2'],
-  're3': ['resident evil 3 remake', 're 3', 'resident evil 3'],
-  're 3': ['resident evil 3 remake', 're3'],
-  're4': ['resident evil 4 remake', 're 4', 'resident evil 4', 'leon'],
-  're 4': ['resident evil 4 remake', 're4'],
-  're6': ['resident evil 6', 're 6'],
-  're 6': ['resident evil 6', 're6'],
-  're7': ['resident evil 7: biohazard', 're 7', 'biohazard'],
-  're 7': ['resident evil 7: biohazard', 're7'],
-  're8': ['resident evil village', 're 8', 'village'],
-  're 8': ['resident evil village', 're8'],
-  'village': ['resident evil village'],
-  'biohazard': ['resident evil 7: biohazard'],
-
-  // Black Myth / Wukong
-  'wukong': ['black myth: wukong', 'black myth wukong', 'monkey king', 'sun wukong'],
-  'black myth': ['black myth: wukong', 'wukong'],
-  'monkey king': ['black myth: wukong'],
-
-  // Fighting games
-  'tekken': ['tekken 7', 'tekken 8', 'tk7', 'tk8'],
-  'tekken 8': ['tekken 8', 'tk8'],
-  'tk8': ['tekken 8', 'tk 8'],
-  'tk 8': ['tekken 8', 'tk8'],
-  'tekken 7': ['tekken 7', 'tk7'],
-  'tk7': ['tekken 7', 'tk 7'],
-  'tk 7': ['tekken 7', 'tk7'],
-  'sf': ['street fighter 6', 'sf6', 'sf 6'],
-  'sf6': ['street fighter 6', 'sf 6'],
-  'sf 6': ['street fighter 6', 'sf6'],
-  'street fighter': ['street fighter 6'],
-  'dbz': ['dragon ball xenoverse 2', 'dragon ball fighterz', 'dragon ball: sparking! zero', 'sparking zero', 'goku'],
-  'dragon ball': ['dragon ball xenoverse 2', 'dragon ball fighterz', 'dragon ball: sparking! zero'],
-  'sparking zero': ['dragon ball: sparking! zero', 'sparking! zero', 'budokai tenkaichi'],
-  'budokai': ['dragon ball: sparking! zero'],
-  'kof': ['the king of fighters xv', 'kof 15', 'kof xv', 'king of fighters'],
-  'kof 15': ['the king of fighters xv', 'kof xv'],
-  'kof xv': ['the king of fighters xv'],
-  'injustice': ['injustice 2: legendary edition', 'injustice 2', 'batman', 'superman'],
-
-  // Anime & Manga
-  'naruto': ['naruto shippuden: ultimate ninja storm 4', 'naruto x boruto ultimate ninja storm connections', 'storm 4', 'storm connections'],
-  'storm 4': ['naruto shippuden: ultimate ninja storm 4', 'naruto storm 4'],
-  'storm connections': ['naruto x boruto ultimate ninja storm connections'],
-  'demon slayer': ['demon slayer: kimetsu no yaiba – the hinokami chronicles', 'tanjiro', 'kimetsu'],
-  'kimetsu': ['demon slayer: kimetsu no yaiba – the hinokami chronicles'],
-  'one piece': ['one piece: pirate warriors 4', 'luffy', 'pirate warriors 4', 'pw4'],
-  'pw4': ['one piece: pirate warriors 4'],
-
-  // Combat / Wrestling / Sports
-  'ufc': ['ea sports ufc 4', 'ea sports ufc 5', 'ufc 4', 'ufc 5', 'ufc4', 'ufc5', 'mma'],
-  'ufc 4': ['ea sports ufc 4', 'ufc4'],
-  'ufc4': ['ea sports ufc 4', 'ufc 4'],
-  'ufc 5': ['ea sports ufc 5', 'ufc5'],
-  'ufc5': ['ea sports ufc 5', 'ufc 5'],
-  'wwe': ['wwe 2k23', 'wwe 2k24', 'wwe 2k', 'smackdown', 'wrestling'],
-  'wwe 2k24': ['wwe 2k24', 'wwe24', '2k24'],
-  'wwe 2k23': ['wwe 2k23', 'wwe23', '2k23'],
-  'nba': ['nba 2k24', 'nba 2k', 'basketball', '2k24'],
-  'nba 2k24': ['nba 2k24', 'nba24'],
-
-  // RPG / Souls
-  'elden ring': ['elden ring', 'shadow of the erdtree', 'erdtree', 'fromsoftware', 'souls'],
-  'bloodborne': ['bloodborne (playstation hits)', 'bloodborne', 'fromsoftware', 'souls'],
-  'sekiro': ['sekiro: shadows die twice', 'fromsoftware', 'souls'],
-  'witcher': ['the witcher 3: wild hunt - complete edition', 'witcher 3', 'geralt'],
-  'witcher 3': ['the witcher 3: wild hunt - complete edition', 'witcher 3'],
-  'cyberpunk': ['cyberpunk 2077', 'cyberpunk', 'night city', 'keanu reeves'],
-  'cyberpunk 2077': ['cyberpunk 2077'],
-  'cp2077': ['cyberpunk 2077'],
-  'ff7': ['final fantasy vii remake', 'final fantasy 7 remake', 'ff vii', 'final fantasy', 'cloud'],
-  'ffvii': ['final fantasy vii remake', 'final fantasy 7 remake'],
-  'final fantasy': ['final fantasy vii remake'],
-  'mgs': ['metal gear solid v: the phantom pain', 'mgs5', 'mgsv', 'phantom pain', 'snake', 'big boss'],
-  'mgs5': ['metal gear solid v: the phantom pain', 'mgs 5', 'mgsv'],
-  'mgsv': ['metal gear solid v: the phantom pain', 'mgs 5', 'mgs5'],
-  'metal gear': ['metal gear solid v: the phantom pain'],
-  'ghost of tsushima': ['ghost of tsushima', 'got', 'jin sakai', 'tsushima'],
-  'tsushima': ['ghost of tsushima'],
-  'horizon': ['horizon zero dawn: complete edition', 'horizon forbidden west', 'hzd', 'hfw', 'aloy'],
-  'hzd': ['horizon zero dawn: complete edition', 'horizon zero dawn'],
-  'hfw': ['horizon forbidden west'],
-  'uncharted': ['uncharted 4: a thief’s end', 'uncharted: the nathan drake collection', 'nathan drake'],
-  'nathan drake': ['uncharted 4: a thief’s end', 'uncharted: the nathan drake collection'],
-  'hogwarts': ['hogwarts legacy', 'harry potter', 'magic', 'wizard'],
-  'harry potter': ['hogwarts legacy'],
-
-  // Shooters & War
-  'bf': ['battlefield 1: revolution', 'battlefield v: definitive edition', 'battlefield 1', 'battlefield 5', 'bf1', 'bfv', 'bf5'],
-  'bf1': ['battlefield 1: revolution', 'battlefield 1'],
-  'bf 1': ['battlefield 1: revolution', 'battlefield 1'],
-  'bfv': ['battlefield v: definitive edition', 'battlefield 5', 'bf 5'],
-  'bf5': ['battlefield v: definitive edition', 'battlefield 5', 'bf v'],
-  'bf 5': ['battlefield v: definitive edition', 'battlefield 5'],
-  'battlefield': ['battlefield 1: revolution', 'battlefield v: definitive edition'],
-  'sniper': ['sniper elite 4', 'sniper elite 5', 'se4', 'se5'],
-  'se4': ['sniper elite 4', 'sniper 4'],
-  'se5': ['sniper elite 5', 'sniper 5'],
-  'sniper elite': ['sniper elite 4', 'sniper elite 5'],
-  'star wars': ['star wars jedi: survivor', 'star wars jedi: fallen order', 'star wars battlefront ii: celebration edition', 'jedi'],
-  'jedi': ['star wars jedi: survivor', 'star wars jedi: fallen order'],
-  'far cry': ['far cry 6', 'far cry 5', 'far cry primal (apex edition)', 'fc6', 'fc5'],
-  'fc6': ['far cry 6', 'far cry 6'],
-  'fc5': ['far cry 5', 'far cry 5'],
-  'watch dogs': ['watch dogs 2', 'watch dogs: legion', 'wd2', 'wd legion'],
-  'wd2': ['watch dogs 2', 'watchdogs 2'],
-  'wd legion': ['watch dogs: legion'],
-
-  // Platformers & Family
-  'crash': ['crash bandicoot n. sane trilogy', "crash bandicoot 4: it's about time", 'crash team racing nitro-fueled', 'ctr', 'crash 4'],
-  'crash 4': ["crash bandicoot 4: it's about time", 'crash bandicoot 4'],
-  'ctr': ['crash team racing nitro-fueled', 'crash racing', 'team racing'],
-  'spyro': ['spyro reignited trilogy', 'spyro dragon'],
-  'ratchet': ['ratchet & clank (playstation hits)', 'ratchet and clank', 'clank'],
-  'minecraft': ['minecraft (playstation 4 edition)', 'minecraft'],
-  'it takes two': ['it takes two', 'co-op', 'two players'],
-  'a way out': ['a way out', 'co-op', 'prison escape'],
-  'coop': ['a way out', 'it takes two', 'monster hunter: world', 'dead island 2', 'overcooked', 'borderlands'],
-  'co-op': ['a way out', 'it takes two', 'monster hunter: world', 'dead island 2', 'overcooked', 'borderlands'],
-  '2 player': ['a way out', 'it takes two', 'ea sports fc 26', 'mortal kombat 11 ultimate', 'tekken 8', 'street fighter 6', 'wwe 2k24']
-};
-
 function normalizeSearchText(text) {
+  if (window.LegendSearch) return window.LegendSearch.normalize(text);
   if (!text) return '';
-  return text
-    .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/[^\w\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return text.toLowerCase().replace(/['’]/g, '').replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 function matchGameQuery(game, query) {
+  if (window.LegendSearch) return window.LegendSearch.matchGame(game, query);
   if (!query || !query.trim()) return true;
-  const rawQ = query.toLowerCase().trim();
-  const normQ = normalizeSearchText(query);
-  const compactQ = normQ.replace(/\s+/g, '');
-
-  if (!normQ) return true;
-
-  const normTitle = normalizeSearchText(game.title);
-  const compactTitle = normTitle.replace(/\s+/g, '');
-  const normGenre = normalizeSearchText(game.genre);
-  const normDesc = normalizeSearchText(game.description);
-  const normBadge = normalizeSearchText(game.badge);
-  const gameId = (game.id || '').toLowerCase();
-  const platformsStr = (game.platforms || []).join(' ').toLowerCase();
-
-  // 1. Direct contains check
-  if (
-    normTitle.includes(normQ) ||
-    compactTitle.includes(compactQ) ||
-    normGenre.includes(normQ) ||
-    normDesc.includes(normQ) ||
-    normBadge.includes(normQ) ||
-    gameId.includes(compactQ) ||
-    platformsStr.includes(normQ)
-  ) {
-    return true;
-  }
-
-  // 2. Check alias dictionary
-  for (const [aliasKey, targetMatches] of Object.entries(GAME_SEARCH_ALIASES)) {
-    const normAlias = normalizeSearchText(aliasKey);
-    const compactAlias = normAlias.replace(/\s+/g, '');
-
-    if (normQ === normAlias || compactQ === compactAlias || normQ.startsWith(normAlias) || compactQ.startsWith(compactAlias)) {
-      for (const target of targetMatches) {
-        const normTarget = normalizeSearchText(target);
-        const compactTarget = normTarget.replace(/\s+/g, '');
-        if (normTitle.includes(normTarget) || compactTitle.includes(compactTarget) || gameId.includes(compactTarget)) {
-          return true;
-        }
-      }
-    }
-  }
-
-  // 3. Roman Numeral <-> Arabic Number Transliteration
-  const romanTransliterated = normQ
-    .replace(/\b1\b/g, 'i')
-    .replace(/\b2\b/g, 'ii')
-    .replace(/\b3\b/g, 'iii')
-    .replace(/\b4\b/g, 'iv')
-    .replace(/\b5\b/g, 'v')
-    .replace(/\b6\b/g, 'vi')
-    .replace(/\b7\b/g, 'vii')
-    .replace(/\b8\b/g, 'viii');
-
-  const arabicTransliterated = normQ
-    .replace(/\bviii\b/g, '8')
-    .replace(/\bvii\b/g, '7')
-    .replace(/\bvi\b/g, '6')
-    .replace(/\bv\b/g, '5')
-    .replace(/\biv\b/g, '4')
-    .replace(/\biii\b/g, '3')
-    .replace(/\bii\b/g, '2')
-    .replace(/\bi\b/g, '1');
-
-  if (
-    normTitle.includes(romanTransliterated) ||
-    compactTitle.includes(romanTransliterated.replace(/\s+/g, '')) ||
-    normTitle.includes(arabicTransliterated) ||
-    compactTitle.includes(arabicTransliterated.replace(/\s+/g, ''))
-  ) {
-    return true;
-  }
-
-  // 4. Token-level partial match (all query words must match somewhere in title/genre/description)
-  const queryTokens = normQ.split(' ').filter(t => t.length > 1);
-  if (queryTokens.length > 1) {
-    const fullText = `${normTitle} ${normGenre} ${normDesc} ${normBadge} ${gameId}`;
-    const allFound = queryTokens.every(token => fullText.includes(token));
-    if (allFound) return true;
-  }
-
-  return false;
+  const q = query.toLowerCase().trim();
+  return (game.title || '').toLowerCase().includes(q) || (game.genre || '').toLowerCase().includes(q);
 }
 
 // -------------------------------------------------------------
@@ -1039,6 +732,11 @@ function sendWhatsAppQuoteDirect() {
 function handleG2ASearch(query) {
   StoreState.searchQuery = query;
   const autoDrawer = document.getElementById('g2a-autocomplete-results');
+  const clearBtn = document.getElementById('search-clear-btn');
+
+  if (clearBtn) {
+    clearBtn.style.display = query && query.length > 0 ? 'flex' : 'none';
+  }
 
   if (!query.trim()) {
     if (autoDrawer) autoDrawer.style.display = 'none';
@@ -1085,6 +783,17 @@ function handleG2ASearch(query) {
 
   // Live filter grid
   applyCatalogFilters();
+}
+
+function clearSearchInput() {
+  const searchInput = document.getElementById('g2a-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.focus();
+  }
+  if (clearBtn) clearBtn.style.display = 'none';
+  handleG2ASearch('');
 }
 
 function selectAutocompleteGame(gameId) {

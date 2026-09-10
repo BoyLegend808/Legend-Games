@@ -684,6 +684,14 @@ const GAME_SEARCH_ALIASES = {
   'kof xv': ['the king of fighters xv'],
   'injustice': ['injustice 2: legendary edition', 'injustice 2', 'batman', 'superman'],
 
+  // Batman & DC Superheroes
+  'bat': ['batman: arkham knight', 'batman: the telltale series', 'batman: arkham collection', 'batman', 'injustice 2: legendary edition'],
+  'batman': ['batman: arkham knight', 'batman: the telltale series', 'batman: arkham collection', 'batman', 'injustice 2: legendary edition'],
+  'arkham': ['batman: arkham knight', 'batman: the telltale series', 'batman: arkham collection', 'batman'],
+  'arkham knight': ['batman: arkham knight'],
+  'superman': ['injustice 2: legendary edition'],
+  'dc': ['injustice 2: legendary edition', 'batman: arkham knight', 'batman: the telltale series'],
+
   // Anime & Manga
   'naruto': ['naruto shippuden: ultimate ninja storm 4', 'naruto x boruto ultimate ninja storm connections', 'storm 4', 'storm connections'],
   'storm 4': ['naruto shippuden: ultimate ninja storm 4', 'naruto storm 4'],
@@ -788,21 +796,15 @@ const LegendSearch = {
 
     const normTitle = this.normalize(game.title);
     const compactTitle = normTitle.replace(/\s+/g, '');
-    const normGenre = this.normalize(game.genre);
-    const normDesc = this.normalize(game.description);
-    const normBadge = this.normalize(game.badge);
-    const gameId = (game.id || '').toLowerCase();
-    const platformsStr = (game.platforms || []).join(' ').toLowerCase();
+    const titleWords = normTitle.split(' ').filter(Boolean);
+    const gameId = (game.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    // 1. Direct contains check
+    // 1. Direct title and game ID matching (Highest accuracy)
     if (
       normTitle.includes(normQ) ||
       compactTitle.includes(compactQ) ||
-      normGenre.includes(normQ) ||
-      normDesc.includes(normQ) ||
-      normBadge.includes(normQ) ||
       gameId.includes(compactQ) ||
-      platformsStr.includes(normQ)
+      titleWords.some(w => w.startsWith(normQ))
     ) {
       return true;
     }
@@ -812,18 +814,28 @@ const LegendSearch = {
       const normAlias = this.normalize(aliasKey);
       const compactAlias = normAlias.replace(/\s+/g, '');
 
-      if (normQ === normAlias || compactQ === compactAlias || normQ.startsWith(normAlias) || compactQ.startsWith(compactAlias)) {
+      const isAliasMatch =
+        normQ === normAlias ||
+        compactQ === compactAlias ||
+        (normQ.length >= 3 && normAlias.startsWith(normQ)) ||
+        (normAlias.length >= 3 && normQ.startsWith(normAlias));
+
+      if (isAliasMatch) {
         for (const target of targetMatches) {
           const normTarget = this.normalize(target);
           const compactTarget = normTarget.replace(/\s+/g, '');
-          if (normTitle.includes(normTarget) || compactTitle.includes(compactTarget) || gameId.includes(compactTarget)) {
+          if (
+            normTitle.includes(normTarget) ||
+            compactTitle.includes(compactTarget) ||
+            gameId.includes(compactTarget)
+          ) {
             return true;
           }
         }
       }
     }
 
-    // 3. Roman Numeral <-> Arabic Number Transliteration
+    // 3. Roman Numeral <-> Arabic Number Transliteration on TITLE ONLY
     const romanTransliterated = normQ
       .replace(/\b1\b/g, 'i')
       .replace(/\b2\b/g, 'ii')
@@ -853,12 +865,41 @@ const LegendSearch = {
       return true;
     }
 
-    // 4. Token-level partial match (all query words must match somewhere)
-    const queryTokens = normQ.split(' ').filter(t => t.length > 1);
+    // 4. Genre & Badge word prefix/exact matching (prevents "bat" from matching "combat")
+    const normGenre = this.normalize(game.genre);
+    const genreWords = normGenre.split(' ').filter(Boolean);
+    const normBadge = this.normalize(game.badge);
+    const badgeWords = normBadge.split(' ').filter(Boolean);
+
+    if (
+      genreWords.some(w => w === normQ || (normQ.length >= 3 && w.startsWith(normQ))) ||
+      badgeWords.some(w => w === normQ || (normQ.length >= 3 && w.startsWith(normQ)))
+    ) {
+      return true;
+    }
+
+    // 5. Explicit platform search (only if query specifically targets a platform name)
+    const exactPlatforms = ['ps4', 'ps5', 'xbox', 'pc', 'nintendo'];
+    if (exactPlatforms.includes(normQ)) {
+      const platforms = (game.platforms || []).map(p => p.toLowerCase());
+      if (platforms.some(p => p.includes(normQ))) return true;
+    }
+
+    // 6. Multi-token partial match (e.g. "god ragnarok", "spiderman miles")
+    const queryTokens = normQ.split(' ').filter(t => t.length >= 2);
     if (queryTokens.length > 1) {
-      const fullText = `${normTitle} ${normGenre} ${normDesc} ${normBadge} ${gameId}`;
-      const allFound = queryTokens.every(token => fullText.includes(token));
+      const titleAndGenre = `${normTitle} ${normGenre} ${gameId}`;
+      const allFound = queryTokens.every(token => titleAndGenre.includes(token));
       if (allFound) return true;
+    }
+
+    // 7. Strict description matching: only match whole words in description for queries >= 4 chars
+    if (normQ.length >= 4) {
+      const normDesc = this.normalize(game.description);
+      const descWords = normDesc.split(' ').filter(Boolean);
+      if (descWords.some(w => w === normQ || (normQ.length >= 5 && w.startsWith(normQ)))) {
+        return true;
+      }
     }
 
     return false;

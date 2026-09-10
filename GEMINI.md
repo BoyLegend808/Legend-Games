@@ -6,7 +6,7 @@ This project follows the **Impeccable Design System** standards for all frontend
 
 1. **Aesthetic Craft**:
    - Deliver high-fidelity, polished, and distinctive interfaces suited for gaming culture.
-   - Pair display headings (`Outfit`) with clean body typography (`Plus Jakarta Sans`).
+   - Pair powerhouse display titles (`Russo One`) and technical sub-headers/badges (`Chakra Petch`) with clean body typography (`Plus Jakarta Sans`).
    - Use tabular numbers (`font-variant-numeric: tabular-nums`) for currency (₦) and storage/spec meters.
    - Avoid generic AI SaaS tropes (no purple-to-blue linear default gradients, no raw untinted grays, no card nesting fatigue).
 

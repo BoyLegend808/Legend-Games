@@ -1,61 +1,61 @@
 /* ==========================================================================
-   LEGEND GAMES / NAIJAPLAY — MASTER LUXURY DESIGN SYSTEM & CORE ENGINE
+   LEGEND GAMES / NAIJAPLAY — MASTER HYPER-VOLT & JET CARBON DESIGN SYSTEM
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Russo+One&display=swap');
 
 :root {
-  /* ── Deep Stealth Obsidian Canvas & Dark Palette ── */
-  --bg-app:          #090d16; /* Deep charcoal slate canvas */
-  --bg-surface:      #0f1523; /* Rich architectural dark panel */
-  --bg-card:         #131b2e; /* Elevated solid card surface */
-  --bg-card-hover:   #182238; /* Elevated interactive surface */
-  --bg-card-subtle:  #0d1320; /* Inset surface */
-  --bg-input:        #0a0f18; /* Input field background */
-  --bg-elevated:     #1c273e; /* Floating dialog surface */
+  /* ── Deep Jet Carbon & High-Octane Esports Canvas ── */
+  --bg-app:          #06070a; /* Pitch Jet Carbon Canvas */
+  --bg-surface:      #0b0e15; /* Heavyweight Dark Titanium Panel */
+  --bg-card:         #10141e; /* Elevated High-Tech Card Surface */
+  --bg-card-hover:   #161b28; /* Elevated Interactive State */
+  --bg-card-subtle:  #0a0c12; /* Inset Surface */
+  --bg-input:        #080a10; /* Technical Input Field */
+  --bg-elevated:     #182030; /* Floating Dialog Surface */
 
-  --text-primary:    #ffffff; /* Crisp pure white headings & text */
-  --text-secondary:  #cbd5e1; /* Slate 300 - High contrast body text */
-  --text-muted:      #8494ab; /* Slate 400 - Clear metadata text */
-  --text-inverse:    #090d16; /* Inverse text for light surfaces */
+  --text-primary:    #ffffff; /* Laser White Headings & Values */
+  --text-secondary:  #d1d7e2; /* High-Contrast Silver/Slate */
+  --text-muted:      #7c889b; /* Precision Slate Metadata */
+  --text-inverse:    #06070a; /* Deep Carbon on Light Accents */
 
-  /* ── Cohesive Apex Emerald & Precision Technology Accents ── */
-  --accent-primary:      #10b981; /* Apex Emerald - Currency & Primary Action */
-  --accent-primary-hover:#059669;
-  --accent-secondary:    #34d399; /* Mint highlight */
-  --accent-cyan:         #38bdf8; /* Precision Sky / PlayStation Blue */
-  --accent-cyan-hover:   #0ea5e9;
-  --accent-gold:         #f59e0b; /* Warm Amber - Refined special tier */
-  --accent-gold-light:   #fbbf24;
-  --accent-gold-dark:    #d97706;
-  --accent-green:        #10b981; /* Success emerald */
-  --accent-green-bg:     rgba(16, 185, 129, 0.12);
-  --accent-red:          #ef4444; /* Alert red */
-  --accent-red-bg:       rgba(239, 68, 68, 0.12);
+  /* ── Hyper-Volt & Cyber-Laser Accents ── */
+  --accent-primary:      #ccff00; /* Electric Cyber-Volt Lime */
+  --accent-primary-hover:#b8e600;
+  --accent-secondary:    #00ff66; /* Hyper-Volt Green */
+  --accent-cyan:         #00e5ff; /* Laser Cyber Sky */
+  --accent-cyan-hover:   #00c4db;
+  --accent-gold:         #ffd600; /* Laser Gold */
+  --accent-gold-light:   #ffe033;
+  --accent-gold-dark:    #cca800;
+  --accent-green:        #00ff66; /* Hyper-Green */
+  --accent-green-bg:     rgba(0, 255, 102, 0.12);
+  --accent-red:          #ff2a55; /* Laser Crimson Alert */
+  --accent-red-bg:       rgba(255, 42, 85, 0.12);
   --whatsapp-color:      #25d366;
   --whatsapp-hover:      #20ba5a;
 
-  /* ── Crisp Titanium Structural Borders ── */
+  /* ── Crisp Titanium Carbon Borders ── */
   --border-subtle:   rgba(255, 255, 255, 0.08);
   --border-light:    rgba(255, 255, 255, 0.14);
-  --border-strong:   rgba(255, 255, 255, 0.22);
-  --border-active:   #10b981;
-  --border-cyan:     rgba(56, 189, 248, 0.35);
-  --border-orange:   rgba(245, 158, 11, 0.35);
-  --border-gold:     rgba(245, 158, 11, 0.35);
+  --border-strong:   rgba(255, 255, 255, 0.24);
+  --border-active:   #ccff00;
+  --border-cyan:     rgba(0, 229, 255, 0.35);
+  --border-orange:   rgba(204, 255, 0, 0.35);
+  --border-gold:     rgba(255, 214, 0, 0.35);
 
-  /* ── Smooth Layered Depth Shadows & Glows ── */
-  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md:       0 6px 20px rgba(0, 0, 0, 0.45);
-  --shadow-lg:       0 12px 36px rgba(0, 0, 0, 0.6);
-  --shadow-glow-cyan:   0 0 24px rgba(56, 189, 248, 0.18);
-  --shadow-glow-orange: 0 0 24px rgba(245, 158, 11, 0.18);
-  --shadow-glow-emerald:0 0 24px rgba(16, 185, 129, 0.18);
+  /* ── High-Voltage Layered Depth & Laser Glows ── */
+  --shadow-sm:       0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md:       0 6px 20px rgba(0, 0, 0, 0.65);
+  --shadow-lg:       0 12px 36px rgba(0, 0, 0, 0.8);
+  --shadow-glow-cyan:   0 0 24px rgba(0, 229, 255, 0.22);
+  --shadow-glow-orange: 0 0 24px rgba(204, 255, 0, 0.22);
+  --shadow-glow-emerald:0 0 24px rgba(0, 255, 102, 0.22);
 
-  /* ── Typography (Impeccable Design Directives) ── */
-  --font-body:       'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display:    'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ── Crazy High-Octane Esports Typography ── */
+  --font-body:       'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading:    'Chakra Petch', sans-serif;
+  --font-display:    'Russo One', sans-serif;
 
   /* ── Refined Radii ── */
   --radius-xs:       4px;
@@ -1342,7 +1342,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.04em;
@@ -1585,7 +1585,7 @@ img {
 }
 
 .legend-modal-title {
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-display);
   font-size: 1.22rem;
   font-weight: 800;
   color: var(--text-primary, #ffffff);
@@ -1676,7 +1676,7 @@ img {
   border: none;
   border-radius: var(--radius-md, 10px);
   color: #ffffff;
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-heading);
   font-size: 0.94rem;
   font-weight: 800;
   cursor: pointer;
@@ -1719,7 +1719,7 @@ img {
 }
 
 .modded-modal-title {
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 800;
   color: #ffffff;
@@ -1729,7 +1729,7 @@ img {
 }
 
 .modded-modal-sub {
-  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-family: var(--font-body);
   font-size: 0.82rem;
   color: var(--text-secondary, #94a3b8);
   margin-top: 4px;
@@ -1803,14 +1803,14 @@ img {
 }
 
 .setup-name {
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-heading);
   font-size: 1.05rem;
   font-weight: 800;
   color: #ffffff;
 }
 
 .setup-price-pill {
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-heading);
   font-size: 0.72rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -1829,7 +1829,7 @@ img {
 }
 
 .setup-summary {
-  font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+  font-family: var(--font-body);
   font-size: 0.78rem;
   color: var(--text-secondary, #94a3b8);
   line-height: 1.4;
@@ -1884,7 +1884,7 @@ img {
   width: 100%;
   padding: 10px 14px;
   border-radius: 8px;
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-heading);
   font-size: 0.84rem;
   font-weight: 700;
   cursor: pointer;
@@ -1936,7 +1936,7 @@ img {
 }
 
 .guide-label {
-  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-family: var(--font-heading);
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;

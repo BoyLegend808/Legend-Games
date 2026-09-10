@@ -17,18 +17,19 @@
   - Input Fields: `#0a0f1a`
   - Translucent Glass: `rgba(15, 21, 35, 0.8)` with `backdrop-filter: blur(16px)`
 - **Luminous Gaming Accents**:
-  - Primary Gaming Orange: `#ff5500` / Hover: `#ff7326` (High-energy accent)
-  - Electric Cyan: `#00d4ff` / Hover: `#00b8e6` (PlayStation luminous blue)
-  - Success Emerald: `#00ff88` / Soft BG: `rgba(0, 255, 136, 0.12)` (Verified states)
-  - Alert Red: `#ff4757`
-  - Premium Gold: `#ffd700`
+  - Primary Hyper-Volt Lime: `#ccff00` / Hover: `#b8e600` (Electric cyber accent)
+  - Hyper-Volt Green: `#00ff66` / Soft BG: `rgba(0, 255, 102, 0.12)` (High-voltage gaming green)
+  - Cyber Laser Cyan: `#00e5ff` / Hover: `#00c4db` (PlayStation luminous laser sky)
+  - Alert Red: `#ff2a55`
+  - Premium Laser Gold: `#ffd600`
   - WhatsApp Green: `#25d366` / Hover: `#20ba5a`
-- **Text & Typography**:
-  - Primary Text: `#ffffff` (Crisp white)
-  - Secondary Text: `#b4c3d8` (Soft slate-blue)
-  - Muted Text: `#6e7f98` (Subtle metadata)
-  - Display Font: `'Outfit', -apple-system, BlinkMacSystemFont, sans-serif` (Weights: 600, 700, 800)
-  - Body Font: `'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif` (Weights: 400, 500, 600, 700)
+- **Text & Typography (Esports High-Octane Craft)**:
+  - Primary Text: `#ffffff` (Laser white)
+  - Secondary Text: `#d1d7e2` (Crisp silver/slate)
+  - Muted Text: `#7c889b` (Subtle precision metadata)
+  - Display Font: `'Russo One', sans-serif` (Hero headline, brand, section titles)
+  - Heading & Technical Font: `'Chakra Petch', sans-serif` (Subheaders, chips, badges, specs, buttons)
+  - Body Font: `'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif` (Ultra-clean copy)
   - Numerics: `font-variant-numeric: tabular-nums` for all prices, specs, and counters.
 
 ### Elevation, Glassmorphism & Borders

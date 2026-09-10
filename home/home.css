@@ -118,7 +118,7 @@ body.legend-storefront-body {
 
 /* Standard Section Headings */
 .section-eyebrow-tag {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(0.66rem, 2vw, 0.74rem);
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -129,7 +129,7 @@ body.legend-storefront-body {
 }
 
 .section-main-heading {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.3rem, 4vw, 1.75rem);
   font-weight: 800;
   color: #ffffff;
@@ -195,7 +195,7 @@ body.legend-storefront-body {
 
 .m-item strong {
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -262,7 +262,7 @@ body.legend-storefront-body {
 }
 
 .brand-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 900;
   color: #ffffff;
@@ -300,7 +300,7 @@ body.legend-storefront-body {
   color: var(--accent-orange);
   padding: 6px 12px;
   border-radius: var(--radius-full);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.74rem;
   font-weight: 800;
   text-decoration: none;
@@ -396,7 +396,7 @@ body.legend-storefront-body {
   right: -6px;
   background: var(--accent-orange);
   color: #080c14;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.62rem;
   font-weight: 900;
   min-width: 16px;
@@ -423,11 +423,11 @@ body.legend-storefront-body {
   color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .cart-text-price {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.88rem;
   font-weight: 800;
   color: var(--accent-gold);
@@ -541,7 +541,7 @@ body.legend-storefront-body {
   border-radius: var(--radius-full);
   padding: 7px 14px;
   color: var(--text-secondary);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.78rem;
   font-weight: 700;
   text-decoration: none;
@@ -676,7 +676,7 @@ body.legend-storefront-body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: clamp(0.64rem, 1.8vw, 0.72rem);
   color: var(--accent-cyan);
@@ -715,7 +715,7 @@ body.legend-storefront-body {
 }
 
 .hero-status-pill {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
@@ -736,7 +736,7 @@ body.legend-storefront-body {
 }
 
 .hero-headline {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 5vw, 2.3rem);
   font-weight: 900;
   line-height: 1.1;
@@ -781,7 +781,7 @@ body.legend-storefront-body {
 }
 
 .telemetry-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.05rem;
   color: #ffffff;
@@ -829,7 +829,7 @@ body.legend-storefront-body {
   border: 1px solid rgba(255, 85, 0, 0.5);
   border-radius: var(--radius-sm);
   box-shadow: 0 4px 16px rgba(255, 85, 0, 0.35);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.9rem;
   padding: 12px 20px;
@@ -857,7 +857,7 @@ body.legend-storefront-body {
   color: #ffffff;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.86rem;
   padding: 12px 18px;
@@ -990,7 +990,7 @@ body.legend-storefront-body {
 }
 
 .studio-tag {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
@@ -1005,7 +1005,7 @@ body.legend-storefront-body {
 }
 
 .studio-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.15rem;
   font-weight: 800;
   color: #ffffff;
@@ -1020,7 +1020,7 @@ body.legend-storefront-body {
 }
 
 .studio-price-row {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.84rem;
   color: var(--text-secondary);
   margin-bottom: 10px;
@@ -1032,7 +1032,7 @@ body.legend-storefront-body {
 }
 
 .studio-action-link {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   color: var(--accent-cyan);
@@ -1096,7 +1096,7 @@ body.legend-storefront-body {
   left: 14px;
   background: var(--accent-orange);
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.74rem;
   padding: 5px 12px;
@@ -1122,7 +1122,7 @@ body.legend-storefront-body {
 }
 
 .bundle-pill {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
   padding: 3px 9px;
@@ -1142,7 +1142,7 @@ body.legend-storefront-body {
 }
 
 .bundle-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.25rem, 3vw, 1.65rem);
   font-weight: 900;
   color: #ffffff;
@@ -1219,7 +1219,7 @@ body.legend-storefront-body {
 }
 
 .bundle-deal-price {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.35rem, 4vw, 1.75rem);
   font-weight: 900;
   color: var(--accent-emerald);
@@ -1229,7 +1229,7 @@ body.legend-storefront-body {
   background: rgba(0, 255, 136, 0.12);
   color: var(--accent-emerald);
   border: 1px solid rgba(0, 255, 136, 0.3);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
   padding: 3px 8px;
@@ -1248,7 +1248,7 @@ body.legend-storefront-body {
   color: #ffffff;
   border: 1px solid rgba(255, 85, 0, 0.5);
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.86rem;
   padding: 10px 18px;
@@ -1270,7 +1270,7 @@ body.legend-storefront-body {
   background: rgba(37, 211, 102, 0.12);
   border: 1px solid rgba(37, 211, 102, 0.35);
   color: var(--whatsapp-color);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   padding: 10px 14px;
@@ -1359,7 +1359,7 @@ body.legend-storefront-body {
 }
 
 .countdown-digits {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   color: var(--accent-orange);
 }
@@ -1370,7 +1370,7 @@ body.legend-storefront-body {
 }
 
 .vault-table-link {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   color: var(--accent-cyan);
@@ -1415,7 +1415,7 @@ body.legend-storefront-body {
   border: 1px solid transparent;
   border-radius: var(--radius-full);
   color: var(--text-secondary);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.76rem;
   padding: 6px 12px;
@@ -1458,7 +1458,7 @@ body.legend-storefront-body {
   font-size: 0.76rem;
   padding: 6px 10px;
   outline: none;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   cursor: pointer;
 }
 
@@ -1505,7 +1505,7 @@ body.legend-storefront-body {
 }
 
 .rack-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.88rem;
   color: #ffffff;
 }
@@ -1536,7 +1536,7 @@ body.legend-storefront-body {
   font-weight: 700;
   padding: 4px 12px;
   cursor: pointer;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   min-height: 32px;
   transition: all var(--transition-fast);
 }
@@ -1677,7 +1677,7 @@ body.legend-storefront-body {
   backdrop-filter: blur(4px);
   border: 1px solid var(--border-subtle);
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.6rem;
   font-weight: 800;
   padding: 2px 6px;
@@ -1740,7 +1740,7 @@ body.legend-storefront-body {
 
 .g2a-card-platform-tag {
   color: var(--accent-cyan);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
 }
 
@@ -1779,11 +1779,11 @@ body.legend-storefront-body {
 .g2a-card-score {
   color: var(--accent-gold);
   font-weight: 800;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .g2a-card-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(0.76rem, 2.5vw, 0.9rem);
   line-height: 1.2;
@@ -1813,7 +1813,7 @@ body.legend-storefront-body {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.62rem;
   font-weight: 800;
   padding: 4px 2px;
@@ -1859,7 +1859,7 @@ body.legend-storefront-body {
 }
 
 .g2a-active-price-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: clamp(0.82rem, 2.6vw, 0.98rem);
   color: #ffffff;
@@ -1875,7 +1875,7 @@ body.legend-storefront-body {
   color: #ffffff;
   border: none;
   border-radius: var(--radius-xs);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.72rem;
   padding: 5px 8px;
@@ -1914,7 +1914,7 @@ body.legend-storefront-body {
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-sm);
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.86rem;
   padding: 12px 24px;
@@ -1938,7 +1938,7 @@ body.legend-storefront-body {
   border: 1px solid rgba(0, 212, 255, 0.4);
   border-radius: var(--radius-sm);
   color: var(--accent-cyan);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.86rem;
   padding: 12px 24px;
@@ -1986,7 +1986,7 @@ body.legend-storefront-body {
 }
 
 .vault-empty-notice h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.2rem;
   color: #ffffff;
   margin: 0 0 6px 0;
@@ -2049,7 +2049,7 @@ body.legend-storefront-body {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.65rem;
   padding: 4px 8px;
@@ -2089,7 +2089,7 @@ body.legend-storefront-body {
 }
 
 .hw-chip {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.62rem;
   color: var(--accent-cyan);
@@ -2101,7 +2101,7 @@ body.legend-storefront-body {
 .hw-chip.spec { color: var(--accent-emerald); }
 
 .hw-card-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.05rem;
   color: #ffffff;
@@ -2117,7 +2117,7 @@ body.legend-storefront-body {
 }
 
 .hw-card-price-tag {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 1.25rem;
   color: #ffffff;
@@ -2135,7 +2135,7 @@ body.legend-storefront-body {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   padding: 10px;
@@ -2198,7 +2198,7 @@ body.legend-storefront-body {
   background: rgba(0, 255, 136, 0.12);
   border: 1px solid rgba(0, 255, 136, 0.35);
   color: var(--accent-emerald);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.72rem;
   padding: 5px 12px;
@@ -2224,7 +2224,7 @@ body.legend-storefront-body {
 }
 
 .grading-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.86rem;
   font-weight: 800;
   color: #ffffff;
@@ -2281,7 +2281,7 @@ body.legend-storefront-body {
 }
 
 .chip-grade {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.7rem;
   color: var(--accent-cyan);
@@ -2291,7 +2291,7 @@ body.legend-storefront-body {
 }
 
 .chip-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.84rem;
   color: #ffffff;
@@ -2311,7 +2311,7 @@ body.legend-storefront-body {
 
 .chip-estimate strong {
   color: var(--accent-emerald);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
 }
 
 .condition-action-panel {
@@ -2334,7 +2334,7 @@ body.legend-storefront-body {
   background: var(--whatsapp-color);
   color: #ffffff;
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.86rem;
   padding: 10px 16px;
@@ -2413,7 +2413,7 @@ body.legend-storefront-body {
 }
 
 .step-badge {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.86rem;
   color: var(--accent-orange);
@@ -2433,7 +2433,7 @@ body.legend-storefront-body {
 }
 
 .step-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 0.9rem;
   color: #ffffff;
@@ -2476,7 +2476,7 @@ body.legend-storefront-body {
   height: 34px;
   background: var(--whatsapp-color);
   color: #ffffff;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.8rem;
   border-radius: 50%;
@@ -2492,7 +2492,7 @@ body.legend-storefront-body {
 }
 
 .phone-contact-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.84rem;
   color: #e9edef;
@@ -2521,7 +2521,7 @@ body.legend-storefront-body {
   background: rgba(0, 168, 132, 0.15);
   border: 1px solid rgba(0, 168, 132, 0.4);
   color: #00a884;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.64rem;
   font-weight: 800;
   padding: 2px 6px;
@@ -2585,7 +2585,7 @@ body.legend-storefront-body {
   font-size: 0.62rem;
   font-weight: 800;
   color: var(--accent-cyan);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: 0.04em;
   margin: 4px 0;
 }
@@ -2599,7 +2599,7 @@ body.legend-storefront-body {
   background: var(--whatsapp-color);
   color: #ffffff;
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   padding: 10px;
@@ -2666,7 +2666,7 @@ body.legend-storefront-body {
 }
 
 .trust-card h4 {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 0.92rem;
   color: #ffffff;
@@ -2772,7 +2772,7 @@ body.legend-storefront-body {
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid var(--border-subtle);
   color: var(--accent-cyan);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.68rem;
   padding: 3px 8px;
@@ -2795,7 +2795,7 @@ body.legend-storefront-body {
   background: rgba(255, 85, 0, 0.15);
   border: 1px solid rgba(255, 85, 0, 0.35);
   color: var(--accent-orange);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.65rem;
   padding: 2px 7px;
@@ -2803,14 +2803,14 @@ body.legend-storefront-body {
 }
 
 .modal-score {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   color: var(--accent-gold);
 }
 
 .modal-title-text {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.15rem, 3vw, 1.45rem);
   font-weight: 900;
   color: #ffffff;
@@ -2854,7 +2854,7 @@ body.legend-storefront-body {
 }
 
 .spec-v {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   color: #ffffff;
@@ -2893,7 +2893,7 @@ body.legend-storefront-body {
 }
 
 .format-card-left strong {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.82rem;
   color: #ffffff;
   display: block;
@@ -2906,7 +2906,7 @@ body.legend-storefront-body {
 }
 
 .format-card-price {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 0.92rem;
   color: #ffffff;
@@ -2920,7 +2920,7 @@ body.legend-storefront-body {
   background: linear-gradient(135deg, var(--accent-orange), #e04400);
   color: #ffffff;
   border: none;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.88rem;
   padding: 12px;
@@ -2973,7 +2973,7 @@ body.legend-storefront-body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   color: #ffffff;
@@ -3029,7 +3029,7 @@ body.legend-storefront-body {
 }
 
 .loadout-price-val {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 900;
   font-size: 1.1rem;
   color: var(--accent-emerald);
@@ -3041,7 +3041,7 @@ body.legend-storefront-body {
   border: none;
   border-radius: var(--radius-sm);
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.82rem;
   padding: 8px 14px;
@@ -3060,7 +3060,7 @@ body.legend-storefront-body {
 }
 
 .loadout-review-link {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.78rem;
   color: var(--accent-cyan);
@@ -3134,7 +3134,7 @@ body.legend-storefront-body {
 }
 
 .concierge-tag {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.68rem;
   font-weight: 800;
   color: var(--accent-cyan);
@@ -3144,7 +3144,7 @@ body.legend-storefront-body {
 }
 
 .concierge-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.15rem, 3vw, 1.45rem);
   font-weight: 900;
   color: #ffffff;
@@ -3169,7 +3169,7 @@ body.legend-storefront-body {
   background: var(--whatsapp-color);
   color: #ffffff;
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 800;
   font-size: 0.86rem;
   padding: 10px 20px;
@@ -3278,7 +3278,7 @@ body.legend-storefront-body {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   color: var(--accent-cyan);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-size: 0.68rem;
   font-weight: 700;
   padding: 3px 8px;
@@ -3286,7 +3286,7 @@ body.legend-storefront-body {
 }
 
 .footer-col-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.92rem;
   font-weight: 800;
   color: #ffffff;
@@ -3330,7 +3330,7 @@ body.legend-storefront-body {
 }
 
 .disclaimer-heading {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
   font-size: 0.78rem;
   font-weight: 800;
   color: #ffffff;
@@ -3374,7 +3374,7 @@ body.legend-storefront-body {
   align-items: center;
   gap: 10px;
   font-size: 0.76rem;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
 }
 

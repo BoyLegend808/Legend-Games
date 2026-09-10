@@ -1330,7 +1330,7 @@ const ConsoleEngine = {
           transition: all 0.25s ease;
         }
         .master-switch-label {
-          font-family: 'Outfit', sans-serif;
+          font-family: var(--font-heading);
           font-size: 0.7rem;
           font-weight: 900;
           letter-spacing: 0.5px;
@@ -1460,7 +1460,7 @@ const ConsoleEngine = {
           overflow: hidden;
         }
         .game-title {
-          font-family: 'Outfit', sans-serif;
+          font-family: var(--font-heading);
           font-size: 0.86rem;
           font-weight: 700;
           color: #ffffff;
@@ -1481,7 +1481,7 @@ const ConsoleEngine = {
           margin-left: 8px;
         }
         .game-price {
-          font-family: 'Outfit', sans-serif;
+          font-family: var(--font-heading);
           font-weight: 800;
           color: var(--accent-gold);
           font-size: 0.88rem;

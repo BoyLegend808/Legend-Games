@@ -264,7 +264,7 @@ function getDailySeed() {
   return Math.abs(hash);
 }
 
-function getDailyRandomGames(allGames, count = 8) {
+function getDailyDropGames(allGames, count = 8) {
   if (!allGames || allGames.length <= count) return allGames || [];
   const seed = getDailySeed();
   const random = mulberry32(seed);
@@ -276,6 +276,7 @@ function getDailyRandomGames(allGames, count = 8) {
   }
   return shuffled.slice(0, count);
 }
+const getDailyRandomGames = getDailyDropGames;
 
 function initDailyCountdown() {
   const timerDigits = document.getElementById('daily-countdown-val');

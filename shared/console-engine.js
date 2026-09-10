@@ -7,6 +7,8 @@ const ConsoleEngine = {
   activePlatform: 'ps4',
   activeVariant: null,
   activeMode: 'normal', // 'normal' (stock/online) | 'modded' (hacked/offline)
+  enablePhysicalGames: true, // Master ON/OFF toggle for Physical Games section
+  enableInstalledGames: true, // Master ON/OFF toggle for Installed Games section
   selectedPhysicalGames: [],
   selectedInstalledGames: [],
   selectedWrap: 'none',
@@ -65,7 +67,23 @@ const ConsoleEngine = {
     if (found) {
       this.activeVariant = found;
       this.updateTotal();
+      const cards = document.querySelectorAll('.variant-select-card');
+      cards.forEach(c => c.classList.remove('active'));
+      const activeCard = document.querySelector(`.variant-select-card[data-var-id="${variantId}"]`);
+      if (activeCard) activeCard.classList.add('active');
     }
+  },
+
+  togglePhysicalSection() {
+    this.enablePhysicalGames = !this.enablePhysicalGames;
+    this.updateTotal();
+    this.render();
+  },
+
+  toggleInstalledSection() {
+    this.enableInstalledGames = !this.enableInstalledGames;
+    this.updateTotal();
+    this.render();
   },
 
   togglePhysicalGame(gameId) {
@@ -77,6 +95,7 @@ const ConsoleEngine = {
     }
     this.updateTotal();
     this.renderGamesList('physical', this.currentQueries.physical || '');
+    this.updateCountBadges();
   },
 
   toggleInstalledGame(gameId) {
@@ -88,20 +107,38 @@ const ConsoleEngine = {
     }
     this.updateTotal();
     this.renderGamesList('installed', this.currentQueries.installed || '');
+    this.updateCountBadges();
+  },
+
+  updateCountBadges() {
+    const physBadge = document.getElementById('phys-count-badge');
+    if (physBadge) {
+      const count = this.selectedPhysicalGames.length;
+      physBadge.textContent = count > 0 ? `${count} selected` : 'None';
+      physBadge.className = `section-count-pill ${count > 0 ? 'active' : ''}`;
+    }
+    const instBadge = document.getElementById('inst-count-badge');
+    if (instBadge) {
+      const count = this.selectedInstalledGames.length;
+      instBadge.textContent = count > 0 ? `${count} selected` : 'None';
+      instBadge.className = `section-count-pill ${count > 0 ? 'active' : ''}`;
+    }
   },
 
   calculateTotal() {
     if (!this.activeVariant) return 0;
     let total = Number(this.activeVariant.basePrice || 0);
 
-    // Physical games pricing
-    if (window.GAMES_CATALOG) {
+    // Physical games pricing (if section ON)
+    if (this.enablePhysicalGames && window.GAMES_CATALOG) {
       this.selectedPhysicalGames.forEach(gid => {
         const g = GAMES_CATALOG.find(item => item.id === gid);
         if (g) total += Number(g.cdPrice || g.price || 18000);
       });
+    }
 
-      // Installed games pricing (depends on modded vs online)
+    // Installed games pricing (if section ON)
+    if (this.enableInstalledGames && window.GAMES_CATALOG) {
       this.selectedInstalledGames.forEach(gid => {
         const g = GAMES_CATALOG.find(item => item.id === gid);
         if (g) {
@@ -136,14 +173,18 @@ const ConsoleEngine = {
     if (gamesDisplay) {
       let gamesTotal = 0;
       if (window.GAMES_CATALOG) {
-        this.selectedPhysicalGames.forEach(gid => {
-          const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(g.cdPrice || g.price || 18000);
-        });
-        this.selectedInstalledGames.forEach(gid => {
-          const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2000) : (g.onlinePrice || 6000));
-        });
+        if (this.enablePhysicalGames) {
+          this.selectedPhysicalGames.forEach(gid => {
+            const g = GAMES_CATALOG.find(item => item.id === gid);
+            if (g) gamesTotal += Number(g.cdPrice || g.price || 18000);
+          });
+        }
+        if (this.enableInstalledGames) {
+          this.selectedInstalledGames.forEach(gid => {
+            const g = GAMES_CATALOG.find(item => item.id === gid);
+            if (g) gamesTotal += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2000) : (g.onlinePrice || 6000));
+          });
+        }
       }
       gamesDisplay.textContent = gamesTotal > 0 ? formatNaira(gamesTotal) : '₦0';
     }
@@ -153,16 +194,16 @@ const ConsoleEngine = {
     if (!this.activeVariant) return;
     const consoleData = CONSOLES_DATA[this.activePlatform];
 
-    const physGameObjects = this.selectedPhysicalGames.map(gid => {
+    const physGameObjects = this.enablePhysicalGames ? this.selectedPhysicalGames.map(gid => {
       const g = GAMES_CATALOG.find(item => item.id === gid);
       return g ? { id: g.id, title: g.title, price: g.cdPrice || 18000 } : { id: gid, title: gid };
-    });
+    }) : [];
 
-    const instGameObjects = this.selectedInstalledGames.map(gid => {
+    const instGameObjects = this.enableInstalledGames ? this.selectedInstalledGames.map(gid => {
       const g = GAMES_CATALOG.find(item => item.id === gid);
       const price = this.activeMode === 'modded' ? (g?.moddedPrice || 2000) : (g?.onlinePrice || 6000);
       return g ? { id: g.id, title: g.title, price } : { id: gid, title: gid };
-    });
+    }) : [];
 
     const configItem = {
       type: 'console-config',
@@ -176,7 +217,7 @@ const ConsoleEngine = {
       physicalGames: physGameObjects,
       installedGames: instGameObjects,
       wrap: this.selectedWrap !== 'none' ? this.selectedWrap : null,
-      customGameRequest: this.customGameRequest || null,
+      customGameRequest: (this.enableInstalledGames && this.customGameRequest) ? this.customGameRequest : null,
       quantity: 1,
       image: consoleData.image
     };
@@ -226,15 +267,12 @@ const ConsoleEngine = {
         formatTag = this.activeMode === 'modded' ? 'HEN ₦2,000' : 'Digital PSN';
       }
 
-      const coverSrc = g.cover || g.coverImage || `../../shared/assets/covers/${g.id}.jpg`;
-
       return `
         <div class="game-check-row ${isSelected ? 'selected' : ''}" onclick="${toggleMethod}('${g.id}')">
           <div class="game-check-left">
-            <!-- Dedicated Tactile ON / OFF Button Switch -->
-            <div class="game-switch-btn ${isSelected ? 'on' : 'off'}" role="switch" aria-checked="${isSelected}">
-              <span class="switch-knob"></span>
-              <span class="switch-label">${isSelected ? 'ON' : 'OFF'}</span>
+            <!-- Tactile Checkbox Box -->
+            <div class="game-check-box ${isSelected ? 'checked' : ''}">
+              ${isSelected ? '✓' : ''}
             </div>
             <div class="game-title-block">
               <span class="game-title">${g.title}</span>
@@ -308,7 +346,7 @@ const ConsoleEngine = {
           <label class="section-label">2. Select a variant</label>
           <div class="variant-cards-list">
             ${consoleData.variants.map(v => `
-              <div class="variant-select-card ${this.activeVariant && this.activeVariant.id === v.id ? 'active' : ''}" onclick="ConsoleEngine.setVariant('${v.id}')">
+              <div class="variant-select-card ${this.activeVariant && this.activeVariant.id === v.id ? 'active' : ''}" data-var-id="${v.id}" onclick="ConsoleEngine.setVariant('${v.id}')">
                 <div class="v-card-left">
                   <div class="v-name-row">
                     <strong>${v.name}</strong>
@@ -336,60 +374,110 @@ const ConsoleEngine = {
           </div>
         ` : ''}
 
-        <!-- 3. Add Physical Game Discs (Optional) -->
-        <div class="form-section">
-          <div class="checklist-header">
-            <label class="section-label" style="margin-bottom:0;">3. Add physical games</label>
-            <span class="checklist-tag">CD / Optical Disc</span>
+        <!-- 3. Add Physical Game Discs (With Master Section ON/OFF Toggle Bar) -->
+        <div class="form-section section-games-wrapper ${this.enablePhysicalGames ? 'section-active' : 'section-muted'}">
+          <div class="section-toggle-bar ${this.enablePhysicalGames ? 'bar-on' : 'bar-off'}" onclick="ConsoleEngine.togglePhysicalSection()">
+            <div class="section-toggle-left">
+              <div class="section-title-line">
+                <span class="section-title-num">3</span>
+                <span class="section-title-text">Add Physical Game Discs</span>
+                <span class="checklist-tag">CD / Optical Disc</span>
+              </div>
+              <p class="section-toggle-desc">Physical boxed discs included with console. Turn ON to select titles.</p>
+            </div>
+            <div class="section-toggle-right">
+              <span class="section-count-pill ${this.selectedPhysicalGames.length > 0 ? 'active' : ''}" id="phys-count-badge">
+                ${this.selectedPhysicalGames.length > 0 ? `${this.selectedPhysicalGames.length} selected` : '0 selected'}
+              </span>
+              <!-- Master Section ON / OFF Switch -->
+              <div class="section-master-switch ${this.enablePhysicalGames ? 'on' : 'off'}" role="switch" aria-checked="${this.enablePhysicalGames}">
+                <span class="master-switch-knob"></span>
+                <span class="master-switch-label">${this.enablePhysicalGames ? 'ON' : 'OFF'}</span>
+              </div>
+            </div>
           </div>
-          <div class="search-mini-wrap">
-            <input type="text" 
-                   class="search-input-mini" 
-                   id="search-physical-input"
-                   placeholder="Search 130+ games (GTA, COD, FIFA, GOW, Spider-Man)..." 
-                   oninput="ConsoleEngine.filterGamesList('physical', this.value)"
-                   autocomplete="off">
-          </div>
-          <div class="games-check-list" id="physical-games-list">
-            <!-- Dynamically populated via renderGamesList -->
-          </div>
+
+          ${this.enablePhysicalGames ? `
+            <div class="section-drawer open">
+              <div class="search-mini-wrap">
+                <input type="text" 
+                       class="search-input-mini" 
+                       id="search-physical-input"
+                       placeholder="Search physical discs (GTA, COD, FIFA, GOW, Spider-Man)..." 
+                       value="${this.currentQueries.physical || ''}"
+                       oninput="ConsoleEngine.filterGamesList('physical', this.value)"
+                       autocomplete="off">
+              </div>
+              <div class="games-check-list" id="physical-games-list">
+                <!-- Dynamically populated via renderGamesList -->
+              </div>
+            </div>
+          ` : `
+            <div class="section-disabled-notice" onclick="ConsoleEngine.togglePhysicalSection()">
+              <span>⚪ Physical discs disabled — Tap switch to turn <strong>ON</strong></span>
+            </div>
+          `}
         </div>
 
-        <!-- 4. Add Installed Digital Games -->
-        <div class="form-section">
-          <div class="checklist-header">
-            <label class="section-label" style="margin-bottom:0;">4. Add installed games</label>
-            <span class="checklist-tag">Digital load</span>
-          </div>
-          <p class="section-sub" style="margin-bottom:8px;">${this.activeMode === 'modded' ? 'Modded pricing active (₦2,000 per game)' : 'Standard digital account pricing'}</p>
-          <div class="search-mini-wrap">
-            <input type="text" 
-                   class="search-input-mini" 
-                   id="search-installed-input"
-                   placeholder="Search digital titles (GTA, COD, FIFA, Wukong)..." 
-                   oninput="ConsoleEngine.filterGamesList('installed', this.value)"
-                   autocomplete="off">
-          </div>
-          <div class="games-check-list" id="installed-games-list">
-            <!-- Dynamically populated via renderGamesList -->
+        <!-- 4. Add Installed Digital Games (With Master Section ON/OFF Toggle Bar) -->
+        <div class="form-section section-games-wrapper ${this.enableInstalledGames ? 'section-active' : 'section-muted'}">
+          <div class="section-toggle-bar ${this.enableInstalledGames ? 'bar-on' : 'bar-off'}" onclick="ConsoleEngine.toggleInstalledSection()">
+            <div class="section-toggle-left">
+              <div class="section-title-line">
+                <span class="section-title-num">4</span>
+                <span class="section-title-text">Add Installed Digital Games</span>
+                <span class="checklist-tag">Internal Storage</span>
+              </div>
+              <p class="section-toggle-desc">${this.activeMode === 'modded' ? 'Preloaded games directly on SSD (₦2,000/game)' : 'Digital accounts preloaded on console'}. Turn ON to select titles.</p>
+            </div>
+            <div class="section-toggle-right">
+              <span class="section-count-pill ${this.selectedInstalledGames.length > 0 ? 'active' : ''}" id="inst-count-badge">
+                ${this.selectedInstalledGames.length > 0 ? `${this.selectedInstalledGames.length} selected` : '0 selected'}
+              </span>
+              <!-- Master Section ON / OFF Switch -->
+              <div class="section-master-switch ${this.enableInstalledGames ? 'on' : 'off'}" role="switch" aria-checked="${this.enableInstalledGames}">
+                <span class="master-switch-knob"></span>
+                <span class="master-switch-label">${this.enableInstalledGames ? 'ON' : 'OFF'}</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Request a game not listed -->
-          <div class="custom-game-input-wrap">
-            <label class="form-label" style="font-size:0.76rem;">Request any game not on this list:</label>
-            <input type="text" class="form-input" placeholder="Enter custom game title (e.g. Mortal Kombat 1, Tekken 8)..." oninput="ConsoleEngine.customGameRequest = this.value">
-          </div>
+          ${this.enableInstalledGames ? `
+            <div class="section-drawer open">
+              <div class="search-mini-wrap">
+                <input type="text" 
+                       class="search-input-mini" 
+                       id="search-installed-input"
+                       placeholder="Search digital titles (GTA, COD, FIFA, Wukong, GOW)..." 
+                       value="${this.currentQueries.installed || ''}"
+                       oninput="ConsoleEngine.filterGamesList('installed', this.value)"
+                       autocomplete="off">
+              </div>
+              <div class="games-check-list" id="installed-games-list">
+                <!-- Dynamically populated via renderGamesList -->
+              </div>
+              <!-- Request a game not listed -->
+              <div class="custom-game-input-wrap">
+                <label class="form-label" style="font-size:0.76rem;">Request any digital title not on this list:</label>
+                <input type="text" class="form-input" placeholder="Enter custom game name (e.g. Mortal Kombat 1, Tekken 8)..." value="${this.customGameRequest || ''}" oninput="ConsoleEngine.customGameRequest = this.value">
+              </div>
+            </div>
+          ` : `
+            <div class="section-disabled-notice" onclick="ConsoleEngine.toggleInstalledSection()">
+              <span>⚪ Installed games disabled — Tap switch to turn <strong>ON</strong></span>
+            </div>
+          `}
         </div>
 
         <!-- 5. Finish Setup / Custom Wrap -->
         <div class="form-section">
           <label class="section-label">5. Custom wrap skin (Optional)</label>
           <select class="form-select" onchange="ConsoleEngine.selectedWrap = this.value; ConsoleEngine.updateTotal();">
-            <option value="none">No wrap (Default console chassis)</option>
-            <option value="spider-man">Spider-Man Edition Skin (+₦15,000)</option>
-            <option value="god-of-war">God of War Ragnarök Wrap (+₦15,000)</option>
-            <option value="cyberpunk">Cyberpunk Neon Skin (+₦15,000)</option>
-            <option value="carbon-black">Carbon Matte Stealth Wrap (+₦15,000)</option>
+            <option value="none" ${this.selectedWrap === 'none' ? 'selected' : ''}>No wrap (Default console chassis)</option>
+            <option value="spider-man" ${this.selectedWrap === 'spider-man' ? 'selected' : ''}>Spider-Man Edition Skin (+₦15,000)</option>
+            <option value="god-of-war" ${this.selectedWrap === 'god-of-war' ? 'selected' : ''}>God of War Ragnarök Wrap (+₦15,000)</option>
+            <option value="cyberpunk" ${this.selectedWrap === 'cyberpunk' ? 'selected' : ''}>Cyberpunk Neon Skin (+₦15,000)</option>
+            <option value="carbon-black" ${this.selectedWrap === 'carbon-black' ? 'selected' : ''}>Carbon Matte Stealth Wrap (+₦15,000)</option>
           </select>
         </div>
 
@@ -426,9 +514,13 @@ const ConsoleEngine = {
       </div>
     `;
 
-    // Populate initial game lists with all platform games
-    this.renderGamesList('physical', this.currentQueries.physical || '');
-    this.renderGamesList('installed', this.currentQueries.installed || '');
+    // Populate initial game lists if sections are active
+    if (this.enablePhysicalGames) {
+      this.renderGamesList('physical', this.currentQueries.physical || '');
+    }
+    if (this.enableInstalledGames) {
+      this.renderGamesList('installed', this.currentQueries.installed || '');
+    }
 
     // Inject Configurator Styles if missing
     if (!document.getElementById('console-engine-styles')) {
@@ -605,29 +697,192 @@ const ConsoleEngine = {
           font-size: 0.74rem;
           color: var(--text-secondary);
         }
-        .checklist-header {
+        
+        /* Master Section Toggle Bar Styles */
+        .section-games-wrapper {
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-md);
+          padding: 12px;
+          background: rgba(255, 255, 255, 0.015);
+          transition: all 0.25s ease;
+        }
+        .section-games-wrapper.section-active {
+          border-color: rgba(0, 212, 255, 0.3);
+          background: rgba(0, 212, 255, 0.02);
+        }
+        .section-games-wrapper.section-muted {
+          opacity: 0.75;
+          border-color: var(--border-subtle);
+        }
+        .section-toggle-bar {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 8px;
+          cursor: pointer;
+          padding: 4px 2px;
+          user-select: none;
+        }
+        .section-toggle-left {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .section-title-line {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .section-title-num {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: var(--accent-primary);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.75rem;
+          font-weight: 800;
+          font-family: var(--font-heading);
+        }
+        .section-title-text {
+          font-family: var(--font-heading);
+          font-size: 0.95rem;
+          font-weight: 800;
+          color: var(--text-primary);
         }
         .checklist-tag {
-          font-size: 0.72rem;
+          font-size: 0.68rem;
           font-weight: 700;
-          color: var(--text-muted);
+          color: var(--accent-cyan);
+          background: rgba(0, 212, 255, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
           text-transform: uppercase;
         }
+        .section-toggle-desc {
+          font-size: 0.72rem;
+          color: var(--text-muted);
+          margin-top: 2px;
+        }
+        .section-toggle-right {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .section-count-pill {
+          font-size: 0.7rem;
+          font-weight: 700;
+          padding: 3px 8px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-muted);
+          white-space: nowrap;
+        }
+        .section-count-pill.active {
+          background: rgba(0, 212, 255, 0.15);
+          color: var(--accent-cyan);
+          border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Master Section ON/OFF Switch */
+        .section-master-switch {
+          width: 58px;
+          height: 28px;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          padding: 2px 5px;
+          box-sizing: border-box;
+          flex-shrink: 0;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .section-master-switch.off {
+          background: rgba(255, 255, 255, 0.08);
+          justify-content: flex-start;
+        }
+        .section-master-switch.on {
+          background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+          border-color: #00d4ff;
+          justify-content: flex-end;
+          box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+        }
+        .master-switch-knob {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #ffffff;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+          transition: all 0.25s ease;
+        }
+        .master-switch-label {
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.7rem;
+          font-weight: 900;
+          letter-spacing: 0.5px;
+          margin: 0 4px;
+        }
+        .section-master-switch.off .master-switch-label {
+          color: var(--text-muted);
+          order: 2;
+        }
+        .section-master-switch.off .master-switch-knob {
+          order: 1;
+        }
+        .section-master-switch.on .master-switch-label {
+          color: #080c14;
+          order: 1;
+        }
+        .section-master-switch.on .master-switch-knob {
+          order: 2;
+        }
+
+        .section-drawer {
+          margin-top: 14px;
+          padding-top: 12px;
+          border-top: 1px solid var(--border-subtle);
+          animation: drawerSlide 0.2s ease-out;
+        }
+        @keyframes drawerSlide {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .section-disabled-notice {
+          margin-top: 10px;
+          padding: 8px 12px;
+          background: rgba(255, 255, 255, 0.03);
+          border-radius: var(--radius-sm);
+          font-size: 0.76rem;
+          color: var(--text-muted);
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .section-disabled-notice strong {
+          color: var(--accent-cyan);
+        }
+
         .search-mini-wrap {
           margin-bottom: 8px;
         }
         .search-input-mini {
           width: 100%;
-          padding: 8px 12px;
+          padding: 9px 12px;
           border-radius: var(--radius-sm);
           background: var(--bg-input);
           border: 1px solid var(--border-light);
-          font-size: 0.82rem;
+          font-size: 0.84rem;
           color: var(--text-primary);
+          outline: none;
+          transition: border-color 0.2s ease;
+        }
+        .search-input-mini:focus {
+          border-color: var(--accent-cyan);
+          box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.15);
         }
         .games-check-list {
           display: flex;
@@ -665,58 +920,27 @@ const ConsoleEngine = {
           min-width: 0;
           flex: 1;
         }
-        /* Custom High-Contrast ON / OFF Toggle Switch */
-        .game-switch-btn {
-          width: 54px;
-          height: 26px;
-          border-radius: 20px;
+        /* Sleek game checkbox */
+        .game-check-box {
+          width: 22px;
+          height: 22px;
+          border-radius: 6px;
+          border: 1px solid var(--border-strong);
+          background: rgba(255, 255, 255, 0.04);
           display: flex;
           align-items: center;
-          padding: 2px 4px;
-          box-sizing: border-box;
+          justify-content: center;
+          font-size: 0.8rem;
+          font-weight: 900;
+          color: #ffffff;
           flex-shrink: 0;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          position: relative;
-        }
-        .game-switch-btn.off {
-          background: rgba(255, 255, 255, 0.08);
-          justify-content: flex-start;
-        }
-        .game-switch-btn.on {
-          background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
-          border-color: #00d4ff;
-          justify-content: flex-end;
-          box-shadow: 0 0 10px rgba(0, 212, 255, 0.35);
-        }
-        .switch-knob {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          background: #ffffff;
-          box-shadow: 0 1px 4px rgba(0,0,0,0.4);
           transition: all 0.2s ease;
         }
-        .switch-label {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.65rem;
-          font-weight: 900;
-          letter-spacing: 0.5px;
-          margin: 0 3px;
-        }
-        .game-switch-btn.off .switch-label {
-          color: var(--text-muted);
-          order: 2;
-        }
-        .game-switch-btn.off .switch-knob {
-          order: 1;
-        }
-        .game-switch-btn.on .switch-label {
+        .game-check-box.checked {
+          background: var(--accent-cyan);
+          border-color: var(--accent-cyan);
           color: #080c14;
-          order: 1;
-        }
-        .game-switch-btn.on .switch-knob {
-          order: 2;
+          box-shadow: 0 0 8px rgba(0, 212, 255, 0.35);
         }
         .game-title-block {
           display: flex;

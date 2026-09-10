@@ -264,7 +264,7 @@ const CartController = {
             </button>
           </div>
           <div class="cart-item-specs-grid">
-            ${item.mode ? `<span class="spec-key">Firmware:</span><span class="spec-val">${item.mode === 'modded' ? 'Hacked / Modded' : 'Original Stock (Online)'}</span>` : ''}
+            ${item.mode ? `<span class="spec-key">Firmware:</span><span class="spec-val">${item.mode === 'modded' ? `Hacked / Modded (${item.moddedSubtype === 'online' ? 'Online Stealth' : 'Offline HEN'})` : 'Original Stock (Online)'}</span>` : ''}
             ${item.freeFC ? `<span class="spec-key">Bonus:</span><span class="spec-val" style="color:var(--accent-green);">EA Sports FC 26 (Included Free)</span>` : ''}
             ${item.physicalGames && item.physicalGames.length ? `<span class="spec-key">Discs:</span><span class="spec-val">${item.physicalGames.map(g => typeof g === 'string' ? g : g.title).join(', ')}</span>` : ''}
             ${item.installedGames && item.installedGames.length ? `<span class="spec-key">Installed:</span><span class="spec-val">${item.installedGames.map(g => typeof g === 'string' ? g : g.title).join(', ')}</span>` : ''}

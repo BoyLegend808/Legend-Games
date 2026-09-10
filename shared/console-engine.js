@@ -7,6 +7,7 @@ const ConsoleEngine = {
   activePlatform: 'ps4',
   activeVariant: null,
   activeMode: 'normal', // 'normal' (stock/online) | 'modded' (hacked/offline)
+  moddedSubtype: 'offline', // 'offline' (offline HEN/PKG) | 'online' (stealth online)
   enablePhysicalGames: true, // Master ON/OFF toggle for Physical Games section
   enableInstalledGames: true, // Master ON/OFF toggle for Installed Games section
   selectedPhysicalGames: [],
@@ -51,6 +52,7 @@ const ConsoleEngine = {
       this.editingCartId = editItem.cartId;
       if (editItem.platform) this.activePlatform = editItem.platform;
       if (editItem.mode) this.activeMode = editItem.mode;
+      if (editItem.moddedSubtype) this.moddedSubtype = editItem.moddedSubtype;
       
       const foundVariant = consoleData.variants.find(v => v.name === editItem.variant || v.id === editItem.variantId);
       this.activeVariant = foundVariant || consoleData.variants[0];
@@ -109,6 +111,44 @@ const ConsoleEngine = {
   setMode(mode) {
     this.activeMode = mode;
     this.render();
+  },
+
+  setModdedSubtype(subtype) {
+    this.moddedSubtype = subtype;
+    this.render();
+  },
+
+  showModdedInfoModal(e) {
+    if (e) e.stopPropagation();
+    if (window.LegendModal) {
+      LegendModal.confirm({
+        title: 'Offline Modded vs Online Modded',
+        subtitle: 'Key differences between the two modded console setups:',
+        icon: 'info',
+        summaryRows: [
+          { label: 'Offline Modded (HEN / GoldHEN)', value: 'Strictly Offline • ₦2,000/game' },
+          { label: 'Online Modded (Stealth Bypass)', value: 'WiFi/PSN Enabled • Live Updates' }
+        ],
+        note: `<div style="display:flex; flex-direction:column; gap:10px; font-size:0.76rem; text-align:left;">
+          <div>
+            <strong style="color:var(--accent-gold); display:block; margin-bottom:2px;">🕹️ Offline Modded (Recommended for Story/Budget Gamers):</strong>
+            <span>• Play 40+ blockbuster games loaded directly onto console storage at lowest cost (₦2,000/game).<br>
+            • Must be kept strictly offline / disconnected from PSN to protect jailbreak firmware.<br>
+            • 100% safe from account bans. Best for story, campaign, and local 2-player gaming.</span>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
+            <strong style="color:var(--accent-purple); display:block; margin-bottom:2px;">🌐 Online Modded (Stealth Bypass):</strong>
+            <span>• Configured with stealth DNS and activated accounts so you can safely connect to home WiFi.<br>
+            • Allows live football roster/squad downloads (FC 26 / PES), YouTube apps, and online features.<br>
+            • Includes pre-configured safe stealth security settings provided with your console.</span>
+          </div>
+        </div>`,
+        confirmText: 'Got It!',
+        cancelText: 'Close',
+        onConfirm: () => {},
+        onCancel: () => {}
+      });
+    }
   },
 
   setVariant(variantId) {
@@ -346,6 +386,7 @@ const ConsoleEngine = {
       variant: this.activeVariant.name,
       variantId: this.activeVariant.id,
       mode: this.activeMode,
+      moddedSubtype: this.activeMode === 'modded' ? this.moddedSubtype : null,
       freeFC: consoleData.hasFCBundle,
       basePrice: this.activeVariant.basePrice,
       totalPrice: this.calculateTotal(),
@@ -496,9 +537,40 @@ const ConsoleEngine = {
                   <strong>Hacked / Modded</strong>
                   <span class="mode-check">${this.activeMode === 'modded' ? '✓' : ''}</span>
                 </div>
-                <p>Offline only — play cheap installed games, huge savings</p>
+                <p>Custom firmware — play cheap installed games, huge savings</p>
               </div>
             </div>
+
+            <!-- Modded Sub-options: Offline Modded vs Online Modded -->
+            ${this.activeMode === 'modded' ? `
+              <div class="modded-subtype-wrapper">
+                <div class="modded-subtype-header">
+                  <span class="modded-subtype-title">Select Modded Type:</span>
+                  <button type="button" class="btn-modded-info" onclick="ConsoleEngine.showModdedInfoModal(event)" title="Click to view explanation of differences">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>What is the difference?</span>
+                  </button>
+                </div>
+                <div class="modded-subtype-grid">
+                  <div class="modded-subtype-card ${this.moddedSubtype === 'offline' ? 'active' : ''}" onclick="ConsoleEngine.setModdedSubtype('offline')">
+                    <div class="subtype-card-top">
+                      <div class="subtype-radio ${this.moddedSubtype === 'offline' ? 'checked' : ''}"></div>
+                      <strong>Offline Modded</strong>
+                      <span class="badge badge-gold" style="font-size:0.65rem; padding:2px 6px;">Offline HEN</span>
+                    </div>
+                    <p class="subtype-desc">Play 40+ offline single-player games at ₦2,000/game. Must stay disconnected from PSN.</p>
+                  </div>
+                  <div class="modded-subtype-card ${this.moddedSubtype === 'online' ? 'active' : ''}" onclick="ConsoleEngine.setModdedSubtype('online')">
+                    <div class="subtype-card-top">
+                      <div class="subtype-radio ${this.moddedSubtype === 'online' ? 'checked' : ''}"></div>
+                      <strong>Online Modded</strong>
+                      <span class="badge badge-purple" style="font-size:0.65rem; padding:2px 6px;">Stealth Online</span>
+                    </div>
+                    <p class="subtype-desc">Stealth bypass activated. Connect to WiFi, receive squad/roster updates, and play online.</p>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
           </div>
         ` : ''}
 
@@ -846,6 +918,111 @@ const ConsoleEngine = {
         .mode-check {
           color: var(--accent-primary);
           font-weight: 900;
+        }
+        .modded-subtype-wrapper {
+          margin-top: 10px;
+          padding: 12px 14px;
+          background: rgba(99, 102, 241, 0.06);
+          border: 1px solid rgba(99, 102, 241, 0.25);
+          border-radius: var(--radius-md);
+          animation: fadeIn 0.22s ease-out;
+        }
+        .modded-subtype-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 8px;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        .modded-subtype-title {
+          font-family: var(--font-heading);
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: var(--text-primary);
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+        .btn-modded-info {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 3px 9px;
+          background: rgba(0, 212, 255, 0.12);
+          border: 1px solid rgba(0, 212, 255, 0.35);
+          border-radius: var(--radius-full);
+          color: var(--accent-cyan);
+          font-family: var(--font-body);
+          font-size: 0.72rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all var(--transition-fast);
+        }
+        .btn-modded-info:hover {
+          background: var(--accent-cyan);
+          color: #080c14;
+          box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+          transform: translateY(-1px);
+        }
+        .btn-modded-info:active {
+          transform: scale(0.97);
+        }
+        .modded-subtype-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+        }
+        @media (max-width: 520px) {
+          .modded-subtype-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+        .modded-subtype-card {
+          padding: 10px 12px;
+          background: var(--bg-card);
+          border: 1px solid var(--border-subtle);
+          border-radius: var(--radius-sm);
+          cursor: pointer;
+          transition: all var(--transition-fast);
+        }
+        .modded-subtype-card:hover {
+          border-color: var(--border-light);
+          transform: translateY(-1px);
+        }
+        .modded-subtype-card.active {
+          border-color: var(--accent-cyan);
+          background: rgba(0, 212, 255, 0.06);
+          box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+        }
+        .subtype-card-top {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 0.82rem;
+          margin-bottom: 4px;
+          flex-wrap: wrap;
+        }
+        .subtype-radio {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          border: 2px solid var(--border-light);
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: var(--transition-fast);
+        }
+        .subtype-radio.checked {
+          border-color: var(--accent-cyan);
+          background: var(--accent-cyan);
+          box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
+        }
+        .subtype-desc {
+          font-size: 0.7rem;
+          color: var(--text-muted);
+          line-height: 1.35;
+          margin: 0;
         }
         .variant-cards-list {
           display: flex;

@@ -144,101 +144,97 @@ const ConsoleEngine = {
 
     backdrop.innerHTML = `
       <div class="legend-modal-box legend-modal-lg" role="dialog" aria-modal="true" aria-labelledby="modal-modded-title">
-        <div class="legend-modal-header">
-          <div class="legend-modal-icon icon-cyan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
+        <div class="modded-modal-topbar">
+          <div>
+            <h3 class="modded-modal-title" id="modal-modded-title">Choose Modded Setup</h3>
+            <p class="modded-modal-sub">Compare offline storage gaming vs online WiFi capability</p>
           </div>
-          <div style="flex:1;">
-            <h3 class="legend-modal-title" id="modal-modded-title">Which Modded Setup is Right for You?</h3>
-            <p class="legend-modal-sub">Both setups save you serious money on games. Choose how you want to play:</p>
-          </div>
+          <button type="button" class="modded-modal-close-btn" onclick="ConsoleEngine.closeModdedModal()" aria-label="Close modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
-        <div class="modded-compare-grid">
+        <div class="modded-cards-grid">
           <!-- Card 1: Offline Modded -->
-          <div class="modded-compare-card card-offline">
-            <span class="compare-badge compare-badge-gold">🕹️ BUDGET KING • ₦2,000/GAME</span>
-            <h4 class="compare-card-title">Offline Modded</h4>
-            <p class="compare-card-pitch">Best if you just want to relax and enjoy tons of story & campaign games at home without worrying about data or internet.</p>
-            
-            <ul class="compare-perks-list">
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">🎮</span>
-                <span><strong>30 to 50 top games preloaded</strong> ready to play immediately.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">⚡</span>
-                <span><strong>Zero data or internet needed</strong> — turn on and play anytime.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">💰</span>
-                <span><strong>Huge savings</strong> — game installs cost ₦2,000 instead of ₦70,000.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">🔒</span>
-                <span><strong>100% safe from account bans</strong> — great for 2-player & story mode.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">⚠️</span>
-                <span><em>Keep WiFi disconnected to protect your jailbreak firmware.</em></span>
-              </li>
-            </ul>
+          <div class="modded-setup-card ${this.moddedSubtype === 'offline' ? 'is-selected' : ''}">
+            <div class="setup-card-header">
+              <div class="setup-title-group">
+                <span class="setup-name">Offline Modded</span>
+                <span class="setup-price-pill">₦2,000 / game</span>
+              </div>
+              <p class="setup-summary">Best for story mode, campaign games, and local 2-player gaming without internet.</p>
+            </div>
 
-            <button type="button" class="compare-pick-btn btn-pick-offline" onclick="ConsoleEngine.pickModdedAndClose('offline')">
-              ✓ Select Offline Modded
+            <div class="setup-features-list">
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>30 to 50 top games preloaded on console drive</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Zero internet or mobile data required to play</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Installed games cost ₦2,000 instead of retail price</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>100% safe from PlayStation Network account bans</span>
+              </div>
+              <div class="setup-feature-row setup-feature-warn">
+                <svg class="setup-warn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>Keep WiFi off to protect jailbreak firmware</span>
+              </div>
+            </div>
+
+            <button type="button" class="setup-action-btn ${this.moddedSubtype === 'offline' ? 'btn-selected' : 'btn-default'}" onclick="ConsoleEngine.pickModdedAndClose('offline')">
+              ${this.moddedSubtype === 'offline' ? 'Selected Setup' : 'Select Offline Setup'}
             </button>
           </div>
 
           <!-- Card 2: Online Modded -->
-          <div class="modded-compare-card card-online">
-            <span class="compare-badge compare-badge-purple">🌐 WIFI & LIVE SQUADS READY</span>
-            <h4 class="compare-card-title">Online Modded</h4>
-            <p class="compare-card-pitch">Best if you love current transfer rosters for FC & PES, YouTube streaming, and connecting to WiFi.</p>
-            
-            <ul class="compare-perks-list">
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">⚽</span>
-                <span><strong>Live football transfers & squads</strong> for FC 26 and PES.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">📶</span>
-                <span><strong>Connect freely to home WiFi</strong> for YouTube & media streaming.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">👥</span>
-                <span><strong>Play online multiplayer</strong> with friends and community.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">🛡️</span>
-                <span><strong>Pre-configured stealth settings</strong> ready out of the box.</span>
-              </li>
-              <li class="compare-perk-item">
-                <span class="compare-perk-icon">✨</span>
-                <span><em>The best of both worlds with built-in smart protection.</em></span>
-              </li>
-            </ul>
+          <div class="modded-setup-card ${this.moddedSubtype === 'online' ? 'is-selected' : ''}">
+            <div class="setup-card-header">
+              <div class="setup-title-group">
+                <span class="setup-name">Online Modded</span>
+                <span class="setup-price-pill pill-online">WiFi & Live Squads</span>
+              </div>
+              <p class="setup-summary">Best for live football transfer updates, YouTube apps, and online multiplayer.</p>
+            </div>
 
-            <button type="button" class="compare-pick-btn btn-pick-online" onclick="ConsoleEngine.pickModdedAndClose('online')">
-              ✓ Select Online Modded
+            <div class="setup-features-list">
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Live football squads and transfer rosters for FC 26 & PES</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Connect to home WiFi for YouTube and media apps</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Play online multiplayer matches with friends</span>
+              </div>
+              <div class="setup-feature-row">
+                <svg class="setup-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Pre-configured stealth safety settings included</span>
+              </div>
+              <div class="setup-feature-row setup-feature-info">
+                <svg class="setup-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>Includes verified stealth account access</span>
+              </div>
+            </div>
+
+            <button type="button" class="setup-action-btn ${this.moddedSubtype === 'online' ? 'btn-selected' : 'btn-default'}" onclick="ConsoleEngine.pickModdedAndClose('online')">
+              ${this.moddedSubtype === 'online' ? 'Selected Setup' : 'Select Online Setup'}
             </button>
           </div>
         </div>
 
-        <div class="modded-tip-box">
-          <span class="modded-tip-icon">💡</span>
-          <div>
-            <strong>Quick Guide:</strong> Want the most games for the cheapest price? Pick <strong>Offline Modded</strong>. Want live football updates and WiFi apps? Pick <strong>Online Modded</strong>.
-          </div>
-        </div>
-
-        <div class="legend-modal-actions">
-          <button type="button" class="legend-modal-btn-cancel" onclick="ConsoleEngine.closeModdedModal()" style="width:100%; text-align:center;">
-            Close / Keep Browsing
-          </button>
+        <div class="modded-guide-strip">
+          <span class="guide-label">Summary</span>
+          <span class="guide-text">Pick <strong>Offline Modded</strong> for the lowest price per game. Pick <strong>Online Modded</strong> if you need WiFi connectivity and current football squad updates.</span>
         </div>
       </div>
     `;

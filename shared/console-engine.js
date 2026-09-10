@@ -12,6 +12,7 @@ const ConsoleEngine = {
   selectedWrap: 'none',
   selectedBundle: 'none',
   customGameRequest: '',
+  currentQueries: { physical: '', installed: '' },
 
   init(platformKey) {
     this.activePlatform = platformKey || 'ps4';
@@ -25,12 +26,31 @@ const ConsoleEngine = {
     this.render();
   },
 
+  getPlatformGames() {
+    if (!window.GAMES_CATALOG || !Array.isArray(window.GAMES_CATALOG)) return [];
+    return window.GAMES_CATALOG.filter(g => {
+      const p = (g.platforms || []).map(x => x.toLowerCase());
+      if (this.activePlatform === 'ps4') {
+        return p.includes('ps4') || (g.ps4SizeGB || 0) > 0;
+      } else if (this.activePlatform === 'ps5') {
+        // PS5 natively plays all PS5 and PS4 games
+        return p.includes('ps5') || p.includes('ps4') || (g.ps4SizeGB || 0) > 0;
+      } else if (this.activePlatform === 'xbox') {
+        return p.includes('xbox');
+      } else if (this.activePlatform === 'pc') {
+        return p.includes('pc') || (g.pcSizeGB || 0) > 0;
+      }
+      return true;
+    });
+  },
+
   setPlatform(platformKey) {
     if (!CONSOLES_DATA[platformKey]) return;
     this.activePlatform = platformKey;
     this.activeVariant = CONSOLES_DATA[platformKey].variants.find(v => v.popular) || CONSOLES_DATA[platformKey].variants[0];
     this.selectedPhysicalGames = [];
     this.selectedInstalledGames = [];
+    this.currentQueries = { physical: '', installed: '' };
     this.render();
   },
 
@@ -56,6 +76,7 @@ const ConsoleEngine = {
       this.selectedPhysicalGames.push(gameId);
     }
     this.updateTotal();
+    this.renderGamesList('physical', this.currentQueries.physical || '');
   },
 
   toggleInstalledGame(gameId) {
@@ -66,6 +87,7 @@ const ConsoleEngine = {
       this.selectedInstalledGames.push(gameId);
     }
     this.updateTotal();
+    this.renderGamesList('installed', this.currentQueries.installed || '');
   },
 
   calculateTotal() {
@@ -76,14 +98,14 @@ const ConsoleEngine = {
     if (window.GAMES_CATALOG) {
       this.selectedPhysicalGames.forEach(gid => {
         const g = GAMES_CATALOG.find(item => item.id === gid);
-        if (g) total += Number(g.cdPrice || 0);
+        if (g) total += Number(g.cdPrice || g.price || 18000);
       });
 
       // Installed games pricing (depends on modded vs online)
       this.selectedInstalledGames.forEach(gid => {
         const g = GAMES_CATALOG.find(item => item.id === gid);
         if (g) {
-          const gamePrice = this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000);
+          const gamePrice = this.activeMode === 'modded' ? (g.moddedPrice || 2000) : (g.onlinePrice || 6000);
           total += Number(gamePrice);
         }
       });
@@ -116,11 +138,11 @@ const ConsoleEngine = {
       if (window.GAMES_CATALOG) {
         this.selectedPhysicalGames.forEach(gid => {
           const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(g.cdPrice || 0);
+          if (g) gamesTotal += Number(g.cdPrice || g.price || 18000);
         });
         this.selectedInstalledGames.forEach(gid => {
           const g = GAMES_CATALOG.find(item => item.id === gid);
-          if (g) gamesTotal += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000));
+          if (g) gamesTotal += Number(this.activeMode === 'modded' ? (g.moddedPrice || 2000) : (g.onlinePrice || 6000));
         });
       }
       gamesDisplay.textContent = gamesTotal > 0 ? formatNaira(gamesTotal) : '₦0';
@@ -133,12 +155,12 @@ const ConsoleEngine = {
 
     const physGameObjects = this.selectedPhysicalGames.map(gid => {
       const g = GAMES_CATALOG.find(item => item.id === gid);
-      return g ? { id: g.id, title: g.title, price: g.cdPrice } : { id: gid, title: gid };
+      return g ? { id: g.id, title: g.title, price: g.cdPrice || 18000 } : { id: gid, title: gid };
     });
 
     const instGameObjects = this.selectedInstalledGames.map(gid => {
       const g = GAMES_CATALOG.find(item => item.id === gid);
-      const price = this.activeMode === 'modded' ? (g?.moddedPrice || 2500) : (g?.onlinePrice || 6000);
+      const price = this.activeMode === 'modded' ? (g?.moddedPrice || 2000) : (g?.onlinePrice || 6000);
       return g ? { id: g.id, title: g.title, price } : { id: gid, title: gid };
     });
 
@@ -162,12 +184,82 @@ const ConsoleEngine = {
     LegendCart.addItem(configItem);
   },
 
+  renderGamesList(type, query = '') {
+    const listId = type === 'physical' ? 'physical-games-list' : 'installed-games-list';
+    const container = document.getElementById(listId);
+    if (!container) return;
+
+    const allGames = this.getPlatformGames();
+    let matches = allGames;
+
+    if (query && query.trim()) {
+      if (window.LegendSearch) {
+        matches = allGames.filter(g => LegendSearch.matchGame(g, query));
+      } else {
+        const q = query.toLowerCase().trim();
+        matches = allGames.filter(g => (g.title || '').toLowerCase().includes(q) || (g.genre || '').toLowerCase().includes(q) || (g.id || '').includes(q));
+      }
+    }
+
+    if (matches.length === 0) {
+      container.innerHTML = `
+        <div class="games-empty-state">
+          <span>🔍 No database title found matching "<strong>${query}</strong>"</span>
+          <p>You can type any rare or custom title into the request box below!</p>
+        </div>
+      `;
+      return;
+    }
+
+    const selectedList = type === 'physical' ? this.selectedPhysicalGames : this.selectedInstalledGames;
+    const toggleMethod = type === 'physical' ? 'ConsoleEngine.togglePhysicalGame' : 'ConsoleEngine.toggleInstalledGame';
+
+    container.innerHTML = matches.map(g => {
+      const isSelected = selectedList.includes(g.id);
+      let price = 0;
+      let formatTag = '';
+      if (type === 'physical') {
+        price = g.cdPrice || g.price || 18000;
+        formatTag = 'Blu-ray Disc';
+      } else {
+        price = this.activeMode === 'modded' ? (g.moddedPrice || 2000) : (g.onlinePrice || 6000);
+        formatTag = this.activeMode === 'modded' ? 'HEN ₦2,000' : 'Digital PSN';
+      }
+
+      const coverSrc = g.cover || g.coverImage || `../../shared/assets/covers/${g.id}.jpg`;
+
+      return `
+        <div class="game-check-row ${isSelected ? 'selected' : ''}" onclick="${toggleMethod}('${g.id}')">
+          <div class="game-check-left">
+            <!-- Dedicated Tactile ON / OFF Button Switch -->
+            <div class="game-switch-btn ${isSelected ? 'on' : 'off'}" role="switch" aria-checked="${isSelected}">
+              <span class="switch-knob"></span>
+              <span class="switch-label">${isSelected ? 'ON' : 'OFF'}</span>
+            </div>
+            <div class="game-title-block">
+              <span class="game-title">${g.title}</span>
+              <span class="game-meta-sub">${g.genre || 'Action'} · ${(g.platforms || []).join('/').toUpperCase()}</span>
+            </div>
+          </div>
+          <div class="game-price-col">
+            <span class="game-price">${formatNaira(price)}</span>
+            <span class="game-format-tag">${formatTag}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+
+  filterGamesList(type, query) {
+    this.currentQueries[type] = query || '';
+    this.renderGamesList(type, query);
+  },
+
   render() {
     const mount = document.getElementById('console-engine-mount');
     if (!mount) return;
 
     const consoleData = CONSOLES_DATA[this.activePlatform];
-    const games = window.GAMES_CATALOG ? GAMES_CATALOG.filter(g => g.platforms.includes(this.activePlatform)) : [];
 
     mount.innerHTML = `
       <div class="studio-card card-elevated card">
@@ -248,21 +340,18 @@ const ConsoleEngine = {
         <div class="form-section">
           <div class="checklist-header">
             <label class="section-label" style="margin-bottom:0;">3. Add physical games</label>
-            <span class="checklist-tag">CD / Disc</span>
+            <span class="checklist-tag">CD / Optical Disc</span>
           </div>
           <div class="search-mini-wrap">
-            <input type="text" class="search-input-mini" placeholder="Search titles (e.g. GTA, Spider-Man)..." oninput="ConsoleEngine.filterGamesList('physical', this.value)">
+            <input type="text" 
+                   class="search-input-mini" 
+                   id="search-physical-input"
+                   placeholder="Search 130+ games (GTA, COD, FIFA, GOW, Spider-Man)..." 
+                   oninput="ConsoleEngine.filterGamesList('physical', this.value)"
+                   autocomplete="off">
           </div>
           <div class="games-check-list" id="physical-games-list">
-            ${games.slice(0, 8).map(g => `
-              <label class="game-check-row">
-                <div class="game-check-left">
-                  <input type="checkbox" ${this.selectedPhysicalGames.includes(g.id) ? 'checked' : ''} onchange="ConsoleEngine.togglePhysicalGame('${g.id}')">
-                  <span class="game-title">${g.title}</span>
-                </div>
-                <span class="game-price">${formatNaira(g.cdPrice)}</span>
-              </label>
-            `).join('')}
+            <!-- Dynamically populated via renderGamesList -->
           </div>
         </div>
 
@@ -270,31 +359,25 @@ const ConsoleEngine = {
         <div class="form-section">
           <div class="checklist-header">
             <label class="section-label" style="margin-bottom:0;">4. Add installed games</label>
-            <span class="checklist-tag">Digital install</span>
+            <span class="checklist-tag">Digital load</span>
           </div>
-          <p class="section-sub" style="margin-bottom:8px;">${this.activeMode === 'modded' ? 'Modded pricing active (cheaper)' : 'Standard online account pricing'}</p>
+          <p class="section-sub" style="margin-bottom:8px;">${this.activeMode === 'modded' ? 'Modded pricing active (₦2,000 per game)' : 'Standard digital account pricing'}</p>
           <div class="search-mini-wrap">
-            <input type="text" class="search-input-mini" placeholder="Search digital titles..." oninput="ConsoleEngine.filterGamesList('installed', this.value)">
+            <input type="text" 
+                   class="search-input-mini" 
+                   id="search-installed-input"
+                   placeholder="Search digital titles (GTA, COD, FIFA, Wukong)..." 
+                   oninput="ConsoleEngine.filterGamesList('installed', this.value)"
+                   autocomplete="off">
           </div>
           <div class="games-check-list" id="installed-games-list">
-            ${games.slice(0, 8).map(g => {
-              const p = this.activeMode === 'modded' ? (g.moddedPrice || 2500) : (g.onlinePrice || 6000);
-              return `
-                <label class="game-check-row">
-                  <div class="game-check-left">
-                    <input type="checkbox" ${this.selectedInstalledGames.includes(g.id) ? 'checked' : ''} onchange="ConsoleEngine.toggleInstalledGame('${g.id}')">
-                    <span class="game-title">${g.title}</span>
-                  </div>
-                  <span class="game-price">${formatNaira(p)}</span>
-                </label>
-              `;
-            }).join('')}
+            <!-- Dynamically populated via renderGamesList -->
           </div>
 
           <!-- Request a game not listed -->
           <div class="custom-game-input-wrap">
             <label class="form-label" style="font-size:0.76rem;">Request any game not on this list:</label>
-            <input type="text" class="form-input" placeholder="Enter game name (e.g. Mortal Kombat 1, Tekken 8)..." oninput="ConsoleEngine.customGameRequest = this.value">
+            <input type="text" class="form-input" placeholder="Enter custom game title (e.g. Mortal Kombat 1, Tekken 8)..." oninput="ConsoleEngine.customGameRequest = this.value">
           </div>
         </div>
 
@@ -342,6 +425,10 @@ const ConsoleEngine = {
 
       </div>
     `;
+
+    // Populate initial game lists with all platform games
+    this.renderGamesList('physical', this.currentQueries.physical || '');
+    this.renderGamesList('installed', this.currentQueries.installed || '');
 
     // Inject Configurator Styles if missing
     if (!document.getElementById('console-engine-styles')) {
@@ -546,9 +633,10 @@ const ConsoleEngine = {
           display: flex;
           flex-direction: column;
           gap: 6px;
-          max-height: 220px;
+          max-height: 280px;
           overflow-y: auto;
           padding-right: 4px;
+          border-radius: var(--radius-sm);
         }
         .game-check-row {
           display: flex;
@@ -558,28 +646,134 @@ const ConsoleEngine = {
           background: var(--bg-card-subtle);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-sm);
-          font-size: 0.84rem;
           cursor: pointer;
-          transition: var(--transition-fast);
+          transition: all var(--transition-fast);
+          user-select: none;
         }
         .game-check-row:hover {
           background: var(--bg-card-hover);
+          border-color: var(--border-light);
+        }
+        .game-check-row.selected {
+          background: rgba(0, 212, 255, 0.08);
+          border-color: rgba(0, 212, 255, 0.45);
         }
         .game-check-left {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
+          min-width: 0;
+          flex: 1;
         }
-        .game-check-left input {
-          accent-color: var(--accent-primary);
-          width: 16px;
-          height: 16px;
+        /* Custom High-Contrast ON / OFF Toggle Switch */
+        .game-switch-btn {
+          width: 54px;
+          height: 26px;
+          border-radius: 20px;
+          display: flex;
+          align-items: center;
+          padding: 2px 4px;
+          box-sizing: border-box;
+          flex-shrink: 0;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          position: relative;
+        }
+        .game-switch-btn.off {
+          background: rgba(255, 255, 255, 0.08);
+          justify-content: flex-start;
+        }
+        .game-switch-btn.on {
+          background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+          border-color: #00d4ff;
+          justify-content: flex-end;
+          box-shadow: 0 0 10px rgba(0, 212, 255, 0.35);
+        }
+        .switch-knob {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #ffffff;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+          transition: all 0.2s ease;
+        }
+        .switch-label {
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.65rem;
+          font-weight: 900;
+          letter-spacing: 0.5px;
+          margin: 0 3px;
+        }
+        .game-switch-btn.off .switch-label {
+          color: var(--text-muted);
+          order: 2;
+        }
+        .game-switch-btn.off .switch-knob {
+          order: 1;
+        }
+        .game-switch-btn.on .switch-label {
+          color: #080c14;
+          order: 1;
+        }
+        .game-switch-btn.on .switch-knob {
+          order: 2;
+        }
+        .game-title-block {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          overflow: hidden;
+        }
+        .game-title {
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.86rem;
+          font-weight: 700;
+          color: #ffffff;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .game-meta-sub {
+          font-size: 0.7rem;
+          color: var(--text-muted);
+        }
+        .game-price-col {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 2px;
+          flex-shrink: 0;
+          margin-left: 8px;
         }
         .game-price {
-          font-family: var(--font-heading);
-          font-weight: 700;
+          font-family: 'Outfit', sans-serif;
+          font-weight: 800;
           color: var(--accent-gold);
-          font-size: 0.86rem;
+          font-size: 0.88rem;
+          font-variant-numeric: tabular-nums;
+        }
+        .game-format-tag {
+          font-size: 0.66rem;
+          font-weight: 700;
+          color: var(--accent-cyan);
+          text-transform: uppercase;
+        }
+        .games-empty-state {
+          padding: 20px;
+          text-align: center;
+          color: var(--text-secondary);
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px dashed var(--border-light);
+          border-radius: var(--radius-sm);
+          font-size: 0.82rem;
+        }
+        .games-empty-state strong {
+          color: var(--accent-cyan);
+        }
+        .games-empty-state p {
+          font-size: 0.74rem;
+          color: var(--text-muted);
+          margin-top: 4px;
         }
         .custom-game-input-wrap {
           margin-top: 10px;
@@ -634,19 +828,6 @@ const ConsoleEngine = {
       `;
       document.head.appendChild(style);
     }
-  },
-
-  filterGamesList(type, query) {
-    const term = (query || '').toLowerCase();
-    const listId = type === 'physical' ? 'physical-games-list' : 'installed-games-list';
-    const container = document.getElementById(listId);
-    if (!container) return;
-
-    const rows = container.querySelectorAll('.game-check-row');
-    rows.forEach(row => {
-      const title = row.querySelector('.game-title')?.textContent.toLowerCase() || '';
-      row.style.display = title.includes(term) ? 'flex' : 'none';
-    });
   }
 };
 

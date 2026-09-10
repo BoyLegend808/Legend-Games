@@ -321,7 +321,7 @@ const CartController = {
 
     const name = document.getElementById('cust-name')?.value.trim();
     const phone = document.getElementById('cust-phone')?.value.trim();
-    const location = document.getElementById('cust-location')?.value.trim();
+    const location = document.getElementById('cust-location')?.value.trim() || 'Safe Meetup Hub';
     const notes = document.getElementById('cust-notes')?.value.trim();
 
     if (!name) {
@@ -336,6 +336,32 @@ const CartController = {
       return;
     }
 
+    // Show "Are you sure?" confirmation dialog
+    if (window.LegendModal) {
+      LegendModal.confirm({
+        title: 'Are you sure you want to submit?',
+        subtitle: 'Please review your quote request details before sending to WhatsApp.',
+        icon: 'whatsapp',
+        summaryRows: [
+          { label: 'Customer Name', value: name },
+          { label: 'WhatsApp Phone', value: phone },
+          { label: 'Meetup Hub', value: location },
+          { label: 'Items in Basket', value: `${items.length} item${items.length === 1 ? '' : 's'}` },
+          { label: 'Estimated Net Total', value: formatNaira(LegendCart.getNetTotal()) }
+        ],
+        note: '💬 Submitting will open WhatsApp to send your request. No online payment is required; final price and stock availability are confirmed with you before safe meetup.',
+        confirmText: 'Yes, Submit via WhatsApp',
+        cancelText: 'Cancel & Edit',
+        onConfirm: () => {
+          this.processOrderSubmission(name, phone, location, notes, items);
+        }
+      });
+    } else {
+      this.processOrderSubmission(name, phone, location, notes, items);
+    }
+  },
+
+  processOrderSubmission(name, phone, location, notes, items) {
     const orderRef = LegendCart.generateOrderReference();
     const { text } = LegendCart.buildWhatsAppMessage({
       orderRef,

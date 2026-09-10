@@ -915,6 +915,115 @@ window.LegendSearch = LegendSearch;
 window.matchGameQuery = (game, query) => LegendSearch.matchGame(game, query);
 
 // -------------------------------------------------------------
+// Universal Confirmation Modal Engine ("Are you sure?" box)
+// -------------------------------------------------------------
+const LegendModal = {
+  confirm({
+    title = 'Are you sure you want to submit?',
+    subtitle = 'Please review your quote request before sending to WhatsApp.',
+    icon = 'whatsapp',
+    summaryRows = [],
+    note = 'No online payment required. Final stock availability, price, and safe meetup location in Lagos are confirmed directly on WhatsApp.',
+    confirmText = 'Yes, Submit via WhatsApp',
+    cancelText = 'Cancel & Edit',
+    onConfirm,
+    onCancel
+  } = {}) {
+    let backdrop = document.getElementById('legend-confirm-modal-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'legend-confirm-modal-backdrop';
+      backdrop.className = 'legend-modal-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    const rowsHtml = (summaryRows || []).map(r => `
+      <div class="legend-modal-row">
+        <span class="row-label">${r.label}</span>
+        <span class="row-val">${r.value}</span>
+      </div>
+    `).join('');
+
+    backdrop.innerHTML = `
+      <div class="legend-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title">
+        <div class="legend-modal-header">
+          <div class="legend-modal-icon">
+            ${icon === 'whatsapp' ? `
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            ` : `
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            `}
+          </div>
+          <div>
+            <h3 class="legend-modal-title" id="modal-confirm-title">${title}</h3>
+            <p class="legend-modal-sub">${subtitle}</p>
+          </div>
+        </div>
+
+        ${summaryRows && summaryRows.length ? `<div class="legend-modal-summary">${rowsHtml}</div>` : ''}
+
+        ${note ? `<div class="legend-modal-note">${note}</div>` : ''}
+
+        <div class="legend-modal-actions">
+          <button type="button" class="legend-modal-btn-cancel" id="legend-modal-cancel-btn">${cancelText}</button>
+          <button type="button" class="legend-modal-btn-confirm" id="legend-modal-confirm-btn">
+            <span>${confirmText}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Force display and smooth entry animation
+    backdrop.classList.add('is-open');
+
+    const close = () => {
+      backdrop.classList.remove('is-open');
+      document.removeEventListener('keydown', keyHandler);
+    };
+
+    const keyHandler = (e) => {
+      if (e.key === 'Escape') {
+        close();
+        if (onCancel) onCancel();
+      }
+    };
+    document.addEventListener('keydown', keyHandler);
+
+    backdrop.onclick = (e) => {
+      if (e.target === backdrop) {
+        close();
+        if (onCancel) onCancel();
+      }
+    };
+
+    const cancelBtn = document.getElementById('legend-modal-cancel-btn');
+    if (cancelBtn) {
+      cancelBtn.onclick = () => {
+        close();
+        if (onCancel) onCancel();
+      };
+    }
+
+    const confirmBtn = document.getElementById('legend-modal-confirm-btn');
+    if (confirmBtn) {
+      confirmBtn.onclick = () => {
+        close();
+        if (onConfirm) onConfirm();
+      };
+    }
+  }
+};
+
+window.LegendModal = LegendModal;
+
+// -------------------------------------------------------------
 // Auto-initialize on load
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {

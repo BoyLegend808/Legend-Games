@@ -154,8 +154,28 @@ const ServiceRequest = {
 
   submitDirectWhatsApp() {
     const data = this.getFormData();
-    const msg = `*🛠️ SERVICE INQUIRY — NaijaPlay*\n*Type:* ${data.type.toUpperCase()}\n*Model:* ${data.model}\n*Details:* ${data.summary}\n\nPlease let me know the cost / offer and when we can arrange a meetup in Lagos.`;
-    openWhatsApp(msg);
+    if (window.LegendModal) {
+      LegendModal.confirm({
+        title: 'Submit Service Inquiry?',
+        subtitle: 'Are you sure you want to send this service inquiry via WhatsApp?',
+        icon: 'whatsapp',
+        summaryRows: [
+          { label: 'Inquiry Type', value: data.type ? data.type.toUpperCase() : 'SERVICE' },
+          { label: 'Console Model', value: data.model || 'PlayStation / Xbox' },
+          { label: 'Details', value: data.summary || 'Repair / Modding / Trade-In' }
+        ],
+        note: '💬 We will review your inquiry and message you on WhatsApp to confirm cost and safe Lagos meetup options.',
+        confirmText: 'Yes, Send to WhatsApp',
+        cancelText: 'Cancel & Edit',
+        onConfirm: () => {
+          const msg = `*🛠️ SERVICE INQUIRY — Legend Games*\n*Type:* ${(data.type || '').toUpperCase()}\n*Model:* ${data.model}\n*Details:* ${data.summary}\n\nPlease let me know the cost / offer and when we can arrange a safe meetup in Lagos.`;
+          openWhatsApp(msg);
+        }
+      });
+    } else {
+      const msg = `*🛠️ SERVICE INQUIRY — Legend Games*\n*Type:* ${(data.type || '').toUpperCase()}\n*Model:* ${data.model}\n*Details:* ${data.summary}\n\nPlease let me know the cost / offer and when we can arrange a safe meetup in Lagos.`;
+      openWhatsApp(msg);
+    }
   }
 };
 

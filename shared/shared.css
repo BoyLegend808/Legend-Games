@@ -1533,12 +1533,25 @@ img {
   border-radius: 20px;
   width: 100%;
   max-width: 440px;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 24px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
   transform: scale(0.92) translateY(12px);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  overflow: hidden;
+}
+
+.legend-modal-box::-webkit-scrollbar {
+  width: 5px;
+}
+.legend-modal-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+.legend-modal-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
 }
 
 .legend-modal-backdrop.is-open .legend-modal-box {
@@ -1565,9 +1578,15 @@ img {
   flex-shrink: 0;
 }
 
+.legend-modal-icon.icon-cyan {
+  background: rgba(0, 212, 255, 0.14);
+  color: var(--accent-cyan, #00d4ff);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
 .legend-modal-title {
   font-family: var(--font-heading, 'Outfit', sans-serif);
-  font-size: 1.18rem;
+  font-size: 1.22rem;
   font-weight: 800;
   color: var(--text-primary, #ffffff);
   line-height: 1.25;
@@ -1575,10 +1594,10 @@ img {
 }
 
 .legend-modal-sub {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-secondary, #94a3b8);
   margin-top: 4px;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .legend-modal-summary {
@@ -1677,5 +1696,214 @@ img {
 
 .legend-modal-btn-confirm:active {
   transform: scale(0.97);
+}
+
+/* Wide Modal Modifier */
+.legend-modal-box.legend-modal-lg {
+  max-width: 660px;
+  padding: 24px;
+}
+
+/* Custom Modded Comparison UI (Humanized & Tactile) */
+.modded-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 580px) {
+  .modded-compare-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.modded-compare-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.modded-compare-card.card-offline {
+  border-color: rgba(255, 184, 0, 0.32);
+  background: linear-gradient(180deg, rgba(255, 184, 0, 0.07) 0%, rgba(17, 25, 39, 0.85) 100%);
+}
+
+.modded-compare-card.card-online {
+  border-color: rgba(168, 85, 247, 0.32);
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.07) 0%, rgba(17, 25, 39, 0.85) 100%);
+}
+
+.modded-compare-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.modded-compare-card.card-offline:hover {
+  border-color: rgba(255, 184, 0, 0.6);
+}
+
+.modded-compare-card.card-online:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+}
+
+.compare-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+  align-self: flex-start;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.compare-badge-gold {
+  background: rgba(255, 184, 0, 0.18);
+  color: #ffb800;
+  border: 1px solid rgba(255, 184, 0, 0.4);
+}
+
+.compare-badge-purple {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.compare-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-card-pitch {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 12px;
+  min-height: 48px;
+}
+
+.compare-perks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.compare-perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.compare-perk-item strong {
+  color: #ffffff;
+}
+
+.compare-perk-item em {
+  font-style: normal;
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.compare-perk-icon {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  margin-top: 1px;
+}
+
+.compare-pick-btn {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-family: var(--font-heading);
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pick-offline {
+  background: rgba(255, 184, 0, 0.15);
+  border: 1px solid rgba(255, 184, 0, 0.45);
+  color: #ffb800;
+}
+
+.btn-pick-offline:hover {
+  background: #ffb800;
+  color: #080c14;
+  box-shadow: 0 0 18px rgba(255, 184, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-pick-offline:active {
+  transform: scale(0.97);
+}
+
+.btn-pick-online {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  color: #c084fc;
+}
+
+.btn-pick-online:hover {
+  background: #a855f7;
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-pick-online:active {
+  transform: scale(0.97);
+}
+
+.modded-tip-box {
+  background: rgba(0, 212, 255, 0.07);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 12px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.modded-tip-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.modded-tip-box strong {
+  color: var(--accent-cyan);
 }
 

@@ -118,37 +118,138 @@ const ConsoleEngine = {
     this.render();
   },
 
+  pickModdedAndClose(subtype) {
+    this.setModdedSubtype(subtype);
+    this.closeModdedModal();
+    if (window.showToast) {
+      window.showToast(subtype === 'offline' ? 'Selected: Offline Modded (₦2,000/game)' : 'Selected: Online Modded (WiFi & Squads)');
+    }
+  },
+
+  closeModdedModal() {
+    const backdrop = document.getElementById('legend-confirm-modal-backdrop');
+    if (backdrop) backdrop.classList.remove('is-open');
+  },
+
   showModdedInfoModal(e) {
     if (e) e.stopPropagation();
-    if (window.LegendModal) {
-      LegendModal.confirm({
-        title: 'Offline Modded vs Online Modded',
-        subtitle: 'Key differences between the two modded console setups:',
-        icon: 'info',
-        summaryRows: [
-          { label: 'Offline Modded (HEN / GoldHEN)', value: 'Strictly Offline • ₦2,000/game' },
-          { label: 'Online Modded (Stealth Bypass)', value: 'WiFi/PSN Enabled • Live Updates' }
-        ],
-        note: `<div style="display:flex; flex-direction:column; gap:10px; font-size:0.76rem; text-align:left;">
-          <div>
-            <strong style="color:var(--accent-gold); display:block; margin-bottom:2px;">🕹️ Offline Modded (Recommended for Story/Budget Gamers):</strong>
-            <span>• Play 40+ blockbuster games loaded directly onto console storage at lowest cost (₦2,000/game).<br>
-            • Must be kept strictly offline / disconnected from PSN to protect jailbreak firmware.<br>
-            • 100% safe from account bans. Best for story, campaign, and local 2-player gaming.</span>
-          </div>
-          <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:8px;">
-            <strong style="color:var(--accent-purple); display:block; margin-bottom:2px;">🌐 Online Modded (Stealth Bypass):</strong>
-            <span>• Configured with stealth DNS and activated accounts so you can safely connect to home WiFi.<br>
-            • Allows live football roster/squad downloads (FC 26 / PES), YouTube apps, and online features.<br>
-            • Includes pre-configured safe stealth security settings provided with your console.</span>
-          </div>
-        </div>`,
-        confirmText: 'Got It!',
-        cancelText: 'Close',
-        onConfirm: () => {},
-        onCancel: () => {}
-      });
+
+    let backdrop = document.getElementById('legend-confirm-modal-backdrop');
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.id = 'legend-confirm-modal-backdrop';
+      backdrop.className = 'legend-modal-backdrop';
+      document.body.appendChild(backdrop);
     }
+
+    backdrop.innerHTML = `
+      <div class="legend-modal-box legend-modal-lg" role="dialog" aria-modal="true" aria-labelledby="modal-modded-title">
+        <div class="legend-modal-header">
+          <div class="legend-modal-icon icon-cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </div>
+          <div style="flex:1;">
+            <h3 class="legend-modal-title" id="modal-modded-title">Which Modded Setup is Right for You?</h3>
+            <p class="legend-modal-sub">Both setups save you serious money on games. Choose how you want to play:</p>
+          </div>
+        </div>
+
+        <div class="modded-compare-grid">
+          <!-- Card 1: Offline Modded -->
+          <div class="modded-compare-card card-offline">
+            <span class="compare-badge compare-badge-gold">🕹️ BUDGET KING • ₦2,000/GAME</span>
+            <h4 class="compare-card-title">Offline Modded</h4>
+            <p class="compare-card-pitch">Best if you just want to relax and enjoy tons of story & campaign games at home without worrying about data or internet.</p>
+            
+            <ul class="compare-perks-list">
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">🎮</span>
+                <span><strong>30 to 50 top games preloaded</strong> ready to play immediately.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">⚡</span>
+                <span><strong>Zero data or internet needed</strong> — turn on and play anytime.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">💰</span>
+                <span><strong>Huge savings</strong> — game installs cost ₦2,000 instead of ₦70,000.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">🔒</span>
+                <span><strong>100% safe from account bans</strong> — great for 2-player & story mode.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">⚠️</span>
+                <span><em>Keep WiFi disconnected to protect your jailbreak firmware.</em></span>
+              </li>
+            </ul>
+
+            <button type="button" class="compare-pick-btn btn-pick-offline" onclick="ConsoleEngine.pickModdedAndClose('offline')">
+              ✓ Select Offline Modded
+            </button>
+          </div>
+
+          <!-- Card 2: Online Modded -->
+          <div class="modded-compare-card card-online">
+            <span class="compare-badge compare-badge-purple">🌐 WIFI & LIVE SQUADS READY</span>
+            <h4 class="compare-card-title">Online Modded</h4>
+            <p class="compare-card-pitch">Best if you love current transfer rosters for FC & PES, YouTube streaming, and connecting to WiFi.</p>
+            
+            <ul class="compare-perks-list">
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">⚽</span>
+                <span><strong>Live football transfers & squads</strong> for FC 26 and PES.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">📶</span>
+                <span><strong>Connect freely to home WiFi</strong> for YouTube & media streaming.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">👥</span>
+                <span><strong>Play online multiplayer</strong> with friends and community.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">🛡️</span>
+                <span><strong>Pre-configured stealth settings</strong> ready out of the box.</span>
+              </li>
+              <li class="compare-perk-item">
+                <span class="compare-perk-icon">✨</span>
+                <span><em>The best of both worlds with built-in smart protection.</em></span>
+              </li>
+            </ul>
+
+            <button type="button" class="compare-pick-btn btn-pick-online" onclick="ConsoleEngine.pickModdedAndClose('online')">
+              ✓ Select Online Modded
+            </button>
+          </div>
+        </div>
+
+        <div class="modded-tip-box">
+          <span class="modded-tip-icon">💡</span>
+          <div>
+            <strong>Quick Guide:</strong> Want the most games for the cheapest price? Pick <strong>Offline Modded</strong>. Want live football updates and WiFi apps? Pick <strong>Online Modded</strong>.
+          </div>
+        </div>
+
+        <div class="legend-modal-actions">
+          <button type="button" class="legend-modal-btn-cancel" onclick="ConsoleEngine.closeModdedModal()" style="width:100%; text-align:center;">
+            Close / Keep Browsing
+          </button>
+        </div>
+      </div>
+    `;
+
+    backdrop.classList.add('is-open');
+
+    backdrop.onclick = (event) => {
+      if (event.target === backdrop) {
+        ConsoleEngine.closeModdedModal();
+      }
+    };
   },
 
   setVariant(variantId) {
@@ -558,7 +659,7 @@ const ConsoleEngine = {
                       <strong>Offline Modded</strong>
                       <span class="badge badge-gold" style="font-size:0.65rem; padding:2px 6px;">Offline HEN</span>
                     </div>
-                    <p class="subtype-desc">Play 40+ offline single-player games at ₦2,000/game. Must stay disconnected from PSN.</p>
+                    <p class="subtype-desc">Play 40+ offline single-player games at ₦2,000/game. Keep disconnected from WiFi.</p>
                   </div>
                   <div class="modded-subtype-card ${this.moddedSubtype === 'online' ? 'active' : ''}" onclick="ConsoleEngine.setModdedSubtype('online')">
                     <div class="subtype-card-top">
@@ -566,7 +667,7 @@ const ConsoleEngine = {
                       <strong>Online Modded</strong>
                       <span class="badge badge-purple" style="font-size:0.65rem; padding:2px 6px;">Stealth Online</span>
                     </div>
-                    <p class="subtype-desc">Stealth bypass activated. Connect to WiFi, receive squad/roster updates, and play online.</p>
+                    <p class="subtype-desc">Connect to WiFi, get live football squad updates (FC 26 / PES), and play online.</p>
                   </div>
                 </div>
               </div>

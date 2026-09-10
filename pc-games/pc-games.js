@@ -22,8 +22,10 @@ const PCGamesCatalog = {
 
     if (this.searchQuery) {
       list = list.filter(g => 
-        g.title.toLowerCase().includes(this.searchQuery) ||
-        g.genre.toLowerCase().includes(this.searchQuery)
+        window.LegendSearch ? LegendSearch.matchGame(g, this.searchQuery) : (
+          g.title.toLowerCase().includes(this.searchQuery) ||
+          g.genre.toLowerCase().includes(this.searchQuery)
+        )
       );
     }
 

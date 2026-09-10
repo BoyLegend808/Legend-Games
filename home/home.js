@@ -308,21 +308,6 @@ function handleCatalogSort(sortKey) {
   applyCatalogFilters();
 }
 
-function applyCatalogFilters() {
-  let list = [...StoreState.allGames];
-
-  // 1. Tab Filter
-  if (StoreState.activeTab === 'featured') {
-    list = getDailyRandomGames(list, 8);
-  } else if (StoreState.activeTab === 'bestsellers') {
-    list = list.filter(g => (g.rating || 0) >= 9.0 || g.badge === 'HOT');
-  } else if (StoreState.activeTab === 'modded_budget') {
-    list = list.filter(g => (g.moddedPrice || 0) <= 2000);
-  } else if (StoreState.activeTab === 'goty') {
-    list = list.filter(g => g.badge === 'GOTY' || g.badge === 'POPULAR' || (g.rating || 0) >= 9.5);
-  } else if (StoreState.activeTab === 'sports') {
-    list = list.filter(g => {
-      const genre = (g.genre || '').toLowerCase();
 // =========================================================================
 // 4.1 INTELLIGENT GAME SEARCH ALIASES & NORMALIZATION ENGINE
 // =========================================================================

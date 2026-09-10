@@ -94,8 +94,12 @@ const PriceListController = {
 
     if (this.searchQuery) {
       items = items.filter(i => 
-        i.title.toLowerCase().includes(this.searchQuery) ||
-        (i.subtitle && i.subtitle.toLowerCase().includes(this.searchQuery))
+        window.LegendSearch ? (
+          LegendSearch.matchText(`${i.title} ${i.subtitle || ''}`, this.searchQuery)
+        ) : (
+          i.title.toLowerCase().includes(this.searchQuery) ||
+          (i.subtitle && i.subtitle.toLowerCase().includes(this.searchQuery))
+        )
       );
     }
 

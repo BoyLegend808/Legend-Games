@@ -98,12 +98,18 @@ const DiskLoader = {
     const list = document.getElementById('disk-games-list');
     if (!list || !window.GAMES_CATALOG) return;
 
-    const relevantGames = GAMES_CATALOG.filter(g => g.platforms.includes(this.activePurpose));
+    const relevantGames = (window.GAMES_CATALOG || []).filter(g => {
+      const platforms = (g.platforms || []).map(p => p.toLowerCase());
+      if (this.activePurpose === 'ps4') {
+        return platforms.includes('ps4') || (g.ps4SizeGB || 0) > 0;
+      }
+      return platforms.includes('pc') || (g.pcSizeGB || 0) > 0;
+    });
 
     list.innerHTML = relevantGames.map(g => {
       const sizeGB = this.activePurpose === 'ps4' ? (g.ps4SizeGB || 45) : (g.pcSizeGB || 55);
       return `
-        <label class="game-check-row">
+        <label class="game-check-row" data-game-id="${g.id}">
           <div class="game-check-left">
             <input type="checkbox" ${this.selectedGames.includes(g.id) ? 'checked' : ''} onchange="DiskLoader.toggleGame('${g.id}')">
             <div>
@@ -159,14 +165,28 @@ const DiskLoader = {
   },
 
   filterGames(query) {
-    const term = (query || '').toLowerCase();
     const container = document.getElementById('disk-games-list');
     if (!container) return;
 
     const rows = container.querySelectorAll('.game-check-row');
     rows.forEach(row => {
-      const title = row.querySelector('.game-title')?.textContent.toLowerCase() || '';
-      row.style.display = title.includes(term) ? 'flex' : 'none';
+      const gameId = row.getAttribute('data-game-id');
+      const game = (window.GAMES_CATALOG || []).find(g => g.id === gameId);
+      const title = row.querySelector('.game-title')?.textContent || '';
+      
+      let isMatch = true;
+      if (query && query.trim()) {
+        if (window.LegendSearch && game) {
+          isMatch = LegendSearch.matchGame(game, query);
+        } else if (game) {
+          const q = query.toLowerCase().trim();
+          isMatch = (game.title || '').toLowerCase().includes(q) || (game.genre || '').toLowerCase().includes(q) || (game.id || '').includes(q);
+        } else {
+          isMatch = title.toLowerCase().includes(query.toLowerCase().trim());
+        }
+      }
+
+      row.style.display = isMatch ? 'flex' : 'none';
     });
   },
 

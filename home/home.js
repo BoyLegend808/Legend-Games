@@ -70,11 +70,16 @@ function initStorefront() {
   // 5. Update Storage Calculator & Bottom Floating Deck
   updateStorageWidget();
   updateFloatingLoadoutDeck();
+  updateCartHeaderBadge();
 
   // 6. Listen for Cart and Wishlist Updates
   window.addEventListener('legend-cart-updated', () => {
     updateStorageWidget();
     updateFloatingLoadoutDeck();
+    updateCartHeaderBadge();
+  });
+
+  window.addEventListener('legend-tradein-updated', () => {
     updateCartHeaderBadge();
   });
 
@@ -116,6 +121,25 @@ function initStorefront() {
 
   updateCartHeaderBadge();
 }
+
+function updateCartHeaderBadge() {
+  const countBadge = document.getElementById('g2a-cart-count');
+  const priceDisplay = document.getElementById('g2a-cart-total-price');
+
+  if (window.LegendCart) {
+    const count = LegendCart.getCount();
+    const total = LegendCart.getNetTotal ? LegendCart.getNetTotal() : LegendCart.getTotal();
+
+    if (countBadge) {
+      countBadge.textContent = count;
+      countBadge.style.display = count > 0 ? 'flex' : 'none';
+    }
+    if (priceDisplay) {
+      priceDisplay.textContent = formatNaira(total);
+    }
+  }
+}
+
 
 // =========================================================================
 // 3. HERO SPOTLIGHT CAROUSEL

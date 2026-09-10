@@ -14,16 +14,62 @@ const ConsoleEngine = {
   selectedWrap: 'none',
   selectedBundle: 'none',
   customGameRequest: '',
-  currentQueries: { physical: '', installed: '' },
+  editingCartId: null,
 
   init(platformKey) {
     this.activePlatform = platformKey || 'ps4';
     const consoleData = CONSOLES_DATA[this.activePlatform];
     if (!consoleData) return;
 
-    // Set default variant
-    const defaultVar = consoleData.variants.find(v => v.popular) || consoleData.variants[0];
-    this.activeVariant = defaultVar;
+    // Check if we are editing an existing item from the basket
+    const urlParams = new URLSearchParams(window.location.search);
+    const editCartId = urlParams.get('edit') || urlParams.get('editCartId');
+    let editItem = null;
+
+    if (editCartId) {
+      const items = LegendCart.getItems();
+      editItem = items.find(i => i.cartId === editCartId);
+    }
+
+    if (!editItem) {
+      try {
+        const raw = sessionStorage.getItem('legend_edit_cart_item');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && (!parsed.platform || parsed.platform === this.activePlatform)) {
+            editItem = parsed;
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (editItem) {
+      this.editingCartId = editItem.cartId;
+      if (editItem.platform) this.activePlatform = editItem.platform;
+      if (editItem.mode) this.activeMode = editItem.mode;
+      
+      const foundVariant = consoleData.variants.find(v => v.name === editItem.variant || v.id === editItem.variantId);
+      this.activeVariant = foundVariant || consoleData.variants[0];
+
+      if (editItem.physicalGames && Array.isArray(editItem.physicalGames)) {
+        this.selectedPhysicalGames = editItem.physicalGames.map(g => typeof g === 'string' ? g : g.id);
+        this.enablePhysicalGames = this.selectedPhysicalGames.length > 0;
+      }
+      if (editItem.installedGames && Array.isArray(editItem.installedGames)) {
+        this.selectedInstalledGames = editItem.installedGames.map(g => typeof g === 'string' ? g : g.id);
+        this.enableInstalledGames = this.selectedInstalledGames.length > 0;
+      }
+      if (editItem.wrap) {
+        this.selectedWrap = editItem.wrap;
+      }
+      if (editItem.customGameRequest) {
+        this.customGameRequest = editItem.customGameRequest;
+      }
+    } else {
+      // Set default variant
+      const defaultVar = consoleData.variants.find(v => v.popular) || consoleData.variants[0];
+      this.activeVariant = defaultVar;
+    }
 
     this.render();
   },
@@ -206,10 +252,12 @@ const ConsoleEngine = {
     }) : [];
 
     const configItem = {
+      cartId: this.editingCartId || undefined,
       type: 'console-config',
       platform: this.activePlatform,
       title: `${consoleData.name} (${this.activeVariant.name})`,
       variant: this.activeVariant.name,
+      variantId: this.activeVariant.id,
       mode: this.activeMode,
       freeFC: consoleData.hasFCBundle,
       basePrice: this.activeVariant.basePrice,
@@ -222,7 +270,18 @@ const ConsoleEngine = {
       image: consoleData.image
     };
 
-    LegendCart.addItem(configItem);
+    if (this.editingCartId) {
+      LegendCart.updateItem(this.editingCartId, configItem);
+      try {
+        sessionStorage.removeItem('legend_edit_cart_item');
+      } catch (e) {}
+      showToast('Configuration updated in basket!');
+      setTimeout(() => {
+        window.location.href = '../../cart/cart.html';
+      }, 400);
+    } else {
+      LegendCart.addItem(configItem);
+    }
   },
 
   renderGamesList(type, query = '') {
@@ -301,8 +360,20 @@ const ConsoleEngine = {
 
     mount.innerHTML = `
       <div class="studio-card card-elevated card">
+        ${this.editingCartId ? `
+          <div class="edit-mode-banner">
+            <div class="edit-mode-info">
+              <span class="edit-mode-icon">✏️</span>
+              <div>
+                <strong>Editing Basket Item</strong>
+                <p>Modify your variant, game discs, or preloaded titles below.</p>
+              </div>
+            </div>
+            <a href="../../cart/cart.html" class="btn-cancel-edit">Back to Basket</a>
+          </div>
+        ` : ''}
         <div class="studio-header">
-          <span class="badge badge-purple">REQUEST A QUOTE</span>
+          <span class="badge badge-purple">${this.editingCartId ? 'EDIT CONFIGURATION' : 'REQUEST A QUOTE'}</span>
           <h2 class="studio-title">Configure your ${consoleData.name}</h2>
           <p class="studio-sub">Build your console and game list. We confirm everything before meetup.</p>
         </div>
@@ -507,7 +578,7 @@ const ConsoleEngine = {
 
         <!-- Action Button -->
         <button class="btn btn-primary btn-full btn-lg" onclick="ConsoleEngine.addToCart()">
-          <span>Add configuration to request</span>
+          <span>${this.editingCartId ? '✓ Save Changes & Update Basket' : 'Add configuration to request'}</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
 
@@ -530,6 +601,51 @@ const ConsoleEngine = {
         .studio-card {
           margin-top: 8px;
           margin-bottom: 24px;
+        }
+        .edit-mode-banner {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(0, 212, 255, 0.08);
+          border: 1px solid rgba(0, 212, 255, 0.35);
+          border-radius: var(--radius-md);
+          padding: 12px 14px;
+          margin-bottom: 16px;
+          gap: 12px;
+        }
+        .edit-mode-info {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .edit-mode-icon {
+          font-size: 1.3rem;
+        }
+        .edit-mode-info strong {
+          display: block;
+          font-size: 0.88rem;
+          color: var(--accent-cyan);
+        }
+        .edit-mode-info p {
+          font-size: 0.72rem;
+          color: var(--text-muted);
+          margin: 0;
+        }
+        .btn-cancel-edit {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--text-secondary);
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid var(--border-light);
+          padding: 6px 12px;
+          border-radius: var(--radius-sm);
+          text-decoration: none;
+          white-space: nowrap;
+          transition: var(--transition-fast);
+        }
+        .btn-cancel-edit:hover {
+          background: rgba(255, 255, 255, 0.15);
+          color: #ffffff;
         }
         .studio-header {
           margin-bottom: 20px;

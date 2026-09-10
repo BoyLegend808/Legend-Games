@@ -27,11 +27,49 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 16px;
-  transition: var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
-.cart-item-card:hover {
-  border-color: var(--border-light);
+.cart-item-card.clickable-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.cart-item-card.clickable-card:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.03);
+  box-shadow: 0 4px 18px rgba(0, 212, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.cart-item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.edit-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+  transition: all var(--transition-fast);
+}
+
+.cart-item-card:hover .edit-pill-tag {
+  background: var(--accent-cyan);
+  color: #080c14;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
 }
 
 .cart-item-top {

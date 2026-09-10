@@ -52,13 +52,16 @@ const CartController = {
       const qty = item.quantity || 1;
 
       return `
-        <div class="cart-item-card">
+        <div class="cart-item-card clickable-card" onclick="CartController.editItem('${item.cartId}')" title="Click to edit and change games in studio">
           <div class="cart-item-top">
             <div>
-              <h4 class="cart-item-title">${item.title || item.name}</h4>
+              <div class="cart-item-title-row">
+                <h4 class="cart-item-title">${item.title || item.name}</h4>
+                <span class="edit-pill-tag">✏️ Edit in Studio →</span>
+              </div>
               <span class="cart-item-sub">${item.variant ? `Variant: ${item.variant}` : (item.subtitle || '')}</span>
             </div>
-            <button class="cart-item-del-btn" onclick="LegendCart.removeItem('${item.cartId}')" title="Remove item">
+            <button class="cart-item-del-btn" onclick="event.stopPropagation(); LegendCart.removeItem('${item.cartId}')" title="Remove item">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             </button>
           </div>
@@ -74,7 +77,7 @@ const CartController = {
             ${item.notes ? `<span class="spec-key">Notes:</span><span class="spec-val">${item.notes}</span>` : ''}
           </div>
 
-          <div class="cart-item-bottom">
+          <div class="cart-item-bottom" onclick="event.stopPropagation()">
             <div class="qty-counter">
               <button class="qty-btn" onclick="LegendCart.updateQuantity('${item.cartId}', -1)">−</button>
               <span class="qty-num">${qty}</span>
@@ -85,6 +88,34 @@ const CartController = {
         </div>
       `;
     }).join('');
+  },
+
+  editItem(cartId) {
+    const items = LegendCart.getItems();
+    const item = items.find(i => i.cartId === cartId);
+    if (!item) return;
+
+    try {
+      sessionStorage.setItem('legend_edit_cart_item', JSON.stringify(item));
+    } catch (e) {}
+
+    // Determine target URL based on item type and platform
+    if (item.type === 'console-config' || item.platform) {
+      const plat = (item.platform || 'ps5').toLowerCase();
+      window.location.href = `../consoles/${plat}/${plat}.html?edit=${encodeURIComponent(cartId)}`;
+    } else if (item.type === 'disk' || item.type === 'hard_drive' || item.capacity) {
+      window.location.href = `../disk/disk.html?edit=${encodeURIComponent(cartId)}`;
+    } else if (item.type === 'pc' || item.type === 'pc_game') {
+      window.location.href = `../pc-games/pc-games.html`;
+    } else if (item.type === 'game_disc' || item.type === 'game_modded') {
+      window.location.href = `../discs-only/discs-only.html`;
+    } else if (item.type === 'accessory') {
+      window.location.href = `../accessories/accessories.html`;
+    } else if (item.type === 'wrap') {
+      window.location.href = `../wraps/wraps.html`;
+    } else {
+      window.location.href = `../home/home.html`;
+    }
   },
 
   submitRequest() {

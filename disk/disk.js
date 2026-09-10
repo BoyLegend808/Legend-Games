@@ -6,18 +6,82 @@ const DiskLoader = {
   activePurpose: 'ps4', // 'ps4' | 'pc'
   activeCapacityId: '1tb',
   selectedGames: [],
+  editingCartId: null,
 
   init() {
+    this.checkEditMode();
     this.renderCapacities();
     this.renderGames();
     this.updateMeter();
   },
 
+  checkEditMode() {
+    const params = new URLSearchParams(window.location.search);
+    const editId = params.get('edit');
+    if (!editId) return;
+
+    this.editingCartId = editId;
+    let editItem = null;
+
+    try {
+      const stored = sessionStorage.getItem('legend_edit_cart_item');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed.cartId === editId) editItem = parsed;
+      }
+    } catch (e) {}
+
+    if (!editItem && window.LegendCart) {
+      editItem = LegendCart.getItems().find(i => i.cartId === editId);
+    }
+
+    if (editItem) {
+      if (editItem.purpose) this.activePurpose = editItem.purpose;
+      if (editItem.capacity) {
+        const cLower = editItem.capacity.toLowerCase();
+        if (cLower.includes('500')) this.activeCapacityId = '500gb';
+        else if (cLower.includes('1tb') || cLower.includes('1 tb')) this.activeCapacityId = '1tb';
+        else if (cLower.includes('2tb') || cLower.includes('2 tb')) this.activeCapacityId = '2tb';
+        else if (cLower.includes('4tb') || cLower.includes('4 tb')) this.activeCapacityId = '4tb';
+      }
+      if (Array.isArray(editItem.installedGames)) {
+        this.selectedGames = editItem.installedGames.map(g => typeof g === 'string' ? g : (g.id || g.title));
+      }
+      this.renderEditBanner();
+    }
+  },
+
+  renderEditBanner() {
+    const header = document.querySelector('.studio-header');
+    if (!header) return;
+
+    const banner = document.createElement('div');
+    banner.className = 'edit-mode-banner';
+    banner.style.cssText = 'background: rgba(255, 107, 0, 0.12); border: 1px solid rgba(255, 107, 0, 0.35); border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);';
+    banner.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.25rem;">✏️</span>
+        <div>
+          <strong style="display: block; font-size: 0.9rem; color: #ff8c33;">Editing Basket Item</strong>
+          <span style="font-size: 0.78rem; color: var(--text-secondary);">Modify capacity or loaded games, then save changes to update your basket.</span>
+        </div>
+      </div>
+      <a href="../cart/cart.html" style="font-size: 0.8rem; font-weight: 700; color: #fff; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 12px; border-radius: 8px; text-decoration: none; white-space: nowrap;">Cancel</a>
+    `;
+    header.parentNode.insertBefore(banner, header);
+
+    const btnText = document.querySelector('.btn-primary strong, #btn-add-disk-cart');
+    if (btnText) {
+      btnText.textContent = 'Save Changes & Update Basket';
+    }
+  },
+
   setPurpose(purpose) {
     this.activePurpose = purpose;
-    document.getElementById('purpose-ps4').classList.toggle('active', purpose === 'ps4');
-    document.getElementById('purpose-pc').classList.toggle('active', purpose === 'pc');
-    document.getElementById('disk-platform-tag').textContent = purpose === 'ps4' ? 'PS4 Games' : 'PC Games';
+    document.getElementById('purpose-ps4')?.classList.toggle('active', purpose === 'ps4');
+    document.getElementById('purpose-pc')?.classList.toggle('active', purpose === 'pc');
+    const tag = document.getElementById('disk-platform-tag');
+    if (tag) tag.textContent = purpose === 'ps4' ? 'PS4 Games' : 'PC Games';
 
     // Re-render games and calculate storage with the new platform values
     this.renderGames();
@@ -38,7 +102,7 @@ const DiskLoader = {
       // Check if adding this game would exceed the usable buffer
       const capData = this.getActiveCapacity();
       const currentUsed = this.calculateStorageUsed();
-      const game = GAMES_CATALOG.find(g => g.id === gameId);
+      const game = (window.GAMES_CATALOG || []).find(g => g.id === gameId);
       const gameSize = this.activePurpose === 'ps4' ? (game?.ps4SizeGB || 45) : (game?.pcSizeGB || 55);
 
       if (currentUsed + gameSize > capData.usableGB) {
@@ -63,7 +127,7 @@ const DiskLoader = {
   calculateStorageUsed() {
     let totalGB = 0;
     this.selectedGames.forEach(gid => {
-      const g = GAMES_CATALOG.find(item => item.id === gid);
+      const g = (window.GAMES_CATALOG || []).find(item => item.id === gid);
       if (g) {
         const size = this.activePurpose === 'ps4' ? (g.ps4SizeGB || 45) : (g.pcSizeGB || 55);
         totalGB += Number(size);
@@ -195,7 +259,7 @@ const DiskLoader = {
     const used = this.calculateStorageUsed();
 
     const loadedGamesList = this.selectedGames.map(gid => {
-      const g = GAMES_CATALOG.find(item => item.id === gid);
+      const g = (window.GAMES_CATALOG || []).find(item => item.id === gid);
       const size = this.activePurpose === 'ps4' ? (g?.ps4SizeGB || 45) : (g?.pcSizeGB || 55);
       return { id: gid, title: g ? g.title : gid, sizeGB: size };
     });
@@ -213,6 +277,20 @@ const DiskLoader = {
       notes: `${this.selectedGames.length} games loaded (${used}GB of ${cap.usableGB}GB usable)`
     };
 
+    if (this.editingCartId) {
+      if (window.LegendCart && typeof LegendCart.updateItem === 'function') {
+        LegendCart.updateItem(this.editingCartId, item);
+      }
+      try {
+        sessionStorage.removeItem('legend_edit_cart_item');
+      } catch (e) {}
+      showToast('✓ Basket item updated successfully!');
+      setTimeout(() => {
+        window.location.href = '../cart/cart.html';
+      }, 350);
+      return;
+    }
+
     LegendCart.addItem(item);
   }
 };
@@ -220,3 +298,4 @@ const DiskLoader = {
 document.addEventListener('DOMContentLoaded', () => {
   DiskLoader.init();
 });
+

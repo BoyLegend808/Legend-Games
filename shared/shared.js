@@ -134,6 +134,17 @@ const LegendCart = {
     }
   },
 
+  updateItem(cartId, updatedData) {
+    let items = LegendCart.getItems();
+    const index = items.findIndex(i => i.cartId === cartId);
+    if (index > -1) {
+      items[index] = { ...items[index], ...updatedData, cartId };
+      LegendCart.saveItems(items);
+      return items[index];
+    }
+    return null;
+  },
+
   removeItem(cartId) {
     let items = LegendCart.getItems();
     items = items.filter(item => item.cartId !== cartId);

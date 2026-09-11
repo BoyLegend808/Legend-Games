@@ -3680,3 +3680,173 @@ body.legend-storefront-body {
   }
 }
 
+/* =========================================================
+   MASTER RESPONSIVE & MOBILE DRAWER OVERRIDES
+   ========================================================= */
+
+/* Mobile Drawer Backdrop & Drawer Panel Styles */
+.mobile-drawer-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(10, 15, 29, 0.85) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 2000 !important;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-drawer-backdrop.active {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+.mobile-drawer-content {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 290px !important;
+  max-width: 85vw !important;
+  background: #151C2C !important;
+  border-right: 1px solid #1E293B !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(-100%) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.65) !important;
+}
+
+.mobile-drawer-backdrop.active .mobile-drawer-content {
+  transform: translateX(0) !important;
+}
+
+.mobile-drawer-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #1E293B !important;
+}
+
+.drawer-close-btn {
+  background: transparent !important;
+  border: none !important;
+  color: #94A3B8 !important;
+  font-size: 22px !important;
+  cursor: pointer !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+}
+
+.drawer-close-btn:hover {
+  color: #FFFFFF !important;
+  background: #1A2235 !important;
+}
+
+.mobile-drawer-body {
+  padding: 20px 16px !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 22px !important;
+}
+
+@media (max-width: 900px) {
+  /* 1. Hide Desktop-Only Elements Completely on Mobile/Tablet */
+  .desktop-only,
+  .brand-subtitle.desktop-only,
+  .cart-text-cell.desktop-only,
+  .nav-secondary-btn.desktop-only,
+  .icon-action-btn.desktop-only {
+    display: none !important;
+  }
+
+  /* 2. Show Mobile Hamburger Button */
+  .mobile-hamburger-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 8px !important;
+    color: #00E5FF !important;
+    padding: 7px 10px !important;
+    cursor: pointer !important;
+  }
+
+  /* 3. Header Container Layout */
+  .header-content-wrap {
+    padding: 8px 14px !important;
+    gap: 8px !important;
+  }
+
+  .header-main-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  /* 4. Cart Button on Mobile: Icon Only with Notification Badge */
+  .header-cart-card {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    box-shadow: none !important;
+  }
+
+  /* 5. Row 3 Full-Width Search Bar */
+  .header-search-row {
+    width: 100% !important;
+    margin-top: 4px !important;
+  }
+
+  .header-search-center {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .search-input-wrapper {
+    width: 100% !important;
+    background: #101624 !important;
+    border: 1px solid #1E293B !important;
+    border-radius: 9999px !important;
+    padding: 8px 16px !important;
+  }
+
+  /* 6. CRITICAL: Completely Hide Desktop Sidebar on Mobile/Tablet */
+  .dashboard-sidebar {
+    display: none !important;
+  }
+
+  .desktop-dashboard-layout {
+    flex-direction: column !important;
+    padding: 14px 12px !important;
+    gap: 20px !important;
+  }
+
+  .hero-split-card {
+    flex-direction: column !important;
+  }
+
+  .hero-split-right {
+    min-height: 260px !important;
+  }
+
+  .hero-split-left {
+    padding: 20px 16px !important;
+  }
+
+  .hero-pricing-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .advanced-ux-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+

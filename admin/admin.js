@@ -93,9 +93,10 @@ const AdminApp = {
 
     const userName = sessionStorage.getItem('legend_admin_user') || 'Shop Admin';
     const userRole = sessionStorage.getItem('legend_admin_role') || 'Operations Lead';
-    document.getElementById('admin-user-name').textContent = userName;
-    document.getElementById('admin-user-role').textContent = userRole;
-    document.getElementById('admin-avatar').textContent = userName.slice(0, 2).toUpperCase();
+    if (document.getElementById('admin-user-name')) document.getElementById('admin-user-name').textContent = userName;
+    if (document.getElementById('admin-user-role')) document.getElementById('admin-user-role').textContent = userRole;
+    if (document.getElementById('admin-avatar')) document.getElementById('admin-avatar').textContent = userName.slice(0, 2).toUpperCase();
+    if (document.getElementById('footer-admin-user')) document.getElementById('footer-admin-user').textContent = userName;
   },
 
   logout() {
@@ -527,8 +528,8 @@ CREATE POLICY "Public orders view" ON public.orders FOR SELECT USING (true);`;
   switchTab(tabId) {
     this.currentTab = tabId;
 
-    // Update active button
-    document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+    // Update active button (both horizontal pills and legacy buttons)
+    document.querySelectorAll('.cat-pill, .sidebar-nav-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === tabId);
     });
 
@@ -536,6 +537,12 @@ CREATE POLICY "Public orders view" ON public.orders FOR SELECT USING (true);`;
     document.querySelectorAll('.admin-tab-view').forEach(view => {
       view.classList.toggle('active', view.id === `view-${tabId}`);
     });
+
+    // Smooth scroll active pill in category strip
+    const activePill = document.querySelector(`.cat-pill[data-tab="${tabId}"]`);
+    if (activePill) {
+      activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
 
     // Close mobile sidebar if open
     document.getElementById('admin-sidebar')?.classList.remove('open');

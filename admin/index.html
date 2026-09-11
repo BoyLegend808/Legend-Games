@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="../home/home.css">
   <link rel="stylesheet" href="admin.css">
   
   <!-- Supabase & Data Assets -->
@@ -19,146 +20,204 @@
   <script src="../shared/data/accessories.js"></script>
   <script src="../shared/data/wraps.js"></script>
 </head>
-<body class="admin-body">
+<body class="admin-body legend-storefront-body">
   <div class="cyber-grid-overlay"></div>
 
-  <!-- ── SIDEBAR NAVIGATION ── -->
-  <aside class="admin-sidebar" id="admin-sidebar">
-    <div class="sidebar-header">
-      <div class="admin-logo-mark">
-        <span>LEGEND</span> GAMES
+  <!-- =========================================================
+       1. TOP MARQUEE TICKER (MATCHING SITE)
+       ========================================================= -->
+  <aside class="legend-marquee-bar" aria-label="Staff Announcement Ticker">
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="m-item">⚡ <strong>STAFF COMMAND CENTER</strong> LAGOS REAL-TIME INVENTORY &amp; CATALOG ENGINE</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>130+ TITLES IN CATALOG</strong> COVER ART STUDIO &amp; GALLERY READY</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>DIRECT WHATSAPP QUOTES</strong> REAL-TIME CUSTOMER ORDER PIPELINE</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>SAFE PUBLIC MEETUPS</strong> IKEJA, LEKKI, SURULERE, FESTAC</span>
+        <span class="m-sep">·</span>
       </div>
-      <span class="admin-badge-pill">OPS PRO</span>
-    </div>
-
-    <div class="sidebar-scroll">
-      <div class="sidebar-section-title">Core Overview</div>
-      <button class="sidebar-nav-btn active" data-tab="overview" onclick="AdminApp.switchTab('overview')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        <span>Overview & KPIs</span>
-      </button>
-
-      <div class="sidebar-section-title">Inventory CRUD Suite</div>
-      <button class="sidebar-nav-btn" data-tab="games" onclick="AdminApp.switchTab('games')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
-        <span>Games Catalog</span>
-        <span class="nav-counter" id="badge-games-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="consoles" onclick="AdminApp.switchTab('consoles')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/></svg>
-        <span>Consoles & Devices</span>
-        <span class="nav-counter" id="badge-consoles-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="drives" onclick="AdminApp.switchTab('drives')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
-        <span>Hard Drives</span>
-        <span class="nav-counter" id="badge-drives-count">4</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="accessories" onclick="AdminApp.switchTab('accessories')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-        <span>Accessories & Gear</span>
-        <span class="nav-counter" id="badge-accessories-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="wraps" onclick="AdminApp.switchTab('wraps')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
-        <span>Console Wraps</span>
-        <span class="nav-counter" id="badge-wraps-count">0</span>
-      </button>
-
-      <div class="sidebar-section-title">Operational Power Tools</div>
-      <button class="sidebar-nav-btn" data-tab="batch-pricing" onclick="AdminApp.switchTab('batch-pricing')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>Batch Pricing & FX</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="broadcast" onclick="AdminApp.switchTab('broadcast')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-        <span>WhatsApp Broadcast</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="hubs" onclick="AdminApp.switchTab('hubs')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>Lagos Meetup Hubs</span>
-      </button>
-
-      <div class="sidebar-section-title">Customer Pipeline</div>
-      <button class="sidebar-nav-btn" data-tab="orders" onclick="AdminApp.switchTab('orders')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        <span>Live Orders Feed</span>
-        <span class="nav-counter" id="badge-orders-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="tradeins" onclick="AdminApp.switchTab('tradeins')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
-        <span>Trade-In Valuations</span>
-        <span class="nav-counter" id="badge-tradeins-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="services" onclick="AdminApp.switchTab('services')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        <span>Repairs & Service Desk</span>
-        <span class="nav-counter" id="badge-services-count">0</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="customers" onclick="AdminApp.switchTab('customers')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>Customer Directory</span>
-      </button>
-
-      <div class="sidebar-section-title">System & Diagnostics</div>
-      <button class="sidebar-nav-btn" data-tab="database" onclick="AdminApp.switchTab('database')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        <span>Supabase Sync & Backup</span>
-      </button>
-      <button class="sidebar-nav-btn" data-tab="activity" onclick="AdminApp.switchTab('activity')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span>Activity Audit Log</span>
-      </button>
-    </div>
-
-    <div class="sidebar-footer">
-      <div class="admin-profile">
-        <div class="profile-avatar" id="admin-avatar">AD</div>
-        <div class="profile-info">
-          <span class="profile-name" id="admin-user-name">Shop Admin</span>
-          <span class="profile-role" id="admin-user-role">Operations Lead</span>
-        </div>
+      <div class="marquee-content" aria-hidden="true">
+        <span class="m-item">⚡ <strong>STAFF COMMAND CENTER</strong> LAGOS REAL-TIME INVENTORY &amp; CATALOG ENGINE</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>130+ TITLES IN CATALOG</strong> COVER ART STUDIO &amp; GALLERY READY</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>DIRECT WHATSAPP QUOTES</strong> REAL-TIME CUSTOMER ORDER PIPELINE</span>
+        <span class="m-sep">·</span>
+        <span class="m-item"><strong>SAFE PUBLIC MEETUPS</strong> IKEJA, LEKKI, SURULERE, FESTAC</span>
+        <span class="m-sep">·</span>
       </div>
-      <button class="btn-sidebar-icon" title="Log Out" onclick="AdminApp.logout()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      </button>
     </div>
   </aside>
 
-  <!-- ── MAIN COCKPIT VIEW ── -->
-  <main class="admin-main">
-    <!-- Topbar -->
-    <header class="admin-topbar">
-      <div class="topbar-left">
-        <button class="mobile-menu-toggle" onclick="AdminApp.toggleMobileSidebar()">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
+  <!-- =========================================================
+       2. MASTER COMMAND HEADER (MATCHING SITE)
+       ========================================================= -->
+  <header class="legend-master-header">
+    <div class="site-container">
+      <div class="header-main-row">
+        <!-- Brand Logo -->
+        <a href="index.html" class="legend-brand" aria-label="Legend Games Command Center">
+          <div class="brand-badge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </div>
+          <div class="brand-text-block">
+            <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
+            <span class="brand-subtitle">STAFF COMMAND CENTER</span>
+          </div>
+        </a>
+
+        <!-- Header Action Controls -->
+        <div class="header-action-controls">
+          <!-- Database Sync / Health Pill -->
+          <div class="db-status-pill" id="db-status-indicator" onclick="AdminApp.switchTab('database')" title="Check Supabase Connection Health" style="cursor: pointer;">
+            <div class="status-dot" id="db-status-dot"></div>
+            <span id="db-status-text">Checking Database...</span>
+          </div>
+
+          <!-- Add Game Quick Action Button -->
+          <button type="button" class="header-tradein-btn" onclick="AdminApp.openAddGameModal()" title="Add New Game Title">
+            <svg class="tradein-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span class="tradein-btn-text">+ Add Game</span>
+          </button>
+
+          <!-- Live Storefront View Link Button -->
+          <a href="../home/home.html" target="_blank" class="header-cart-card" title="Open Customer Storefront" style="background: rgba(0, 229, 255, 0.1); border-color: rgba(0, 229, 255, 0.35);">
+            <div class="cart-icon-cell" style="color: #00e5ff;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+            <div class="cart-text-cell">
+              <span class="cart-text-lbl" style="color: #a3b1c6;">CUSTOMER</span>
+              <span class="cart-text-price" style="color: #00e5ff; font-size: 0.78rem;">LIVE VAULT ↗</span>
+            </div>
+          </a>
+
+          <!-- Staff Profile Card -->
+          <div class="header-staff-pill" title="Current Operator">
+            <div class="profile-avatar" id="admin-avatar">AD</div>
+            <div class="profile-info-compact">
+              <span class="profile-name" id="admin-user-name">Shop Admin</span>
+              <span class="profile-role" id="admin-user-role">Operations</span>
+            </div>
+          </div>
+
+          <!-- Lock Terminal / Log Out Button -->
+          <button type="button" class="icon-action-btn" onclick="AdminApp.logout()" title="Lock Terminal / Log Out">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       3. HORIZONTAL CATEGORY PILL STRIP (MATCHING SITE)
+       ========================================================= -->
+  <nav class="legend-category-strip" aria-label="Admin Navigation Tabs">
+    <div class="site-container cat-strip-inner">
+      <button type="button" class="cat-pill active" data-tab="overview" onclick="AdminApp.switchTab('overview')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span class="cat-label">Overview &amp; KPIs</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="games" onclick="AdminApp.switchTab('games')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
+        <span class="cat-label">Games Catalog</span>
+        <span class="cat-count-tag" id="badge-games-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="consoles" onclick="AdminApp.switchTab('consoles')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="8" cy="12" r="2"/></svg>
+        <span class="cat-label">Consoles &amp; Hardware</span>
+        <span class="cat-count-tag" id="badge-consoles-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="drives" onclick="AdminApp.switchTab('drives')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg>
+        <span class="cat-label">Hard Drives</span>
+        <span class="cat-hot-tag">HOT</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="accessories" onclick="AdminApp.switchTab('accessories')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <span class="cat-label">Accessories &amp; Gear</span>
+        <span class="cat-count-tag" id="badge-accessories-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="wraps" onclick="AdminApp.switchTab('wraps')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        <span class="cat-label">Console Wraps</span>
+        <span class="cat-count-tag" id="badge-wraps-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="batch-pricing" onclick="AdminApp.switchTab('batch-pricing')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span class="cat-label">Batch Pricing &amp; FX</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="broadcast" onclick="AdminApp.switchTab('broadcast')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <span class="cat-label">WhatsApp Broadcast</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="hubs" onclick="AdminApp.switchTab('hubs')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="cat-label">Meetup Hubs</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="orders" onclick="AdminApp.switchTab('orders')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cat-label">Live Orders</span>
+        <span class="cat-hot-tag" id="badge-orders-count" style="background:#ff2a55; color:#fff;">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="tradeins" onclick="AdminApp.switchTab('tradeins')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/></svg>
+        <span class="cat-label">Trade-In Queue</span>
+        <span class="cat-count-tag" id="badge-tradeins-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="services" onclick="AdminApp.switchTab('services')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span class="cat-label">Repairs &amp; Services</span>
+        <span class="cat-count-tag" id="badge-services-count">0</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="customers" onclick="AdminApp.switchTab('customers')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="cat-label">Customer Directory</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="database" onclick="AdminApp.switchTab('database')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span class="cat-label">Database &amp; Sync</span>
+      </button>
+
+      <button type="button" class="cat-pill" data-tab="activity" onclick="AdminApp.switchTab('activity')">
+        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span class="cat-label">Audit Log</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       4. MAIN STOREFRONT VIEWPORT
+       ========================================================= -->
+  <main class="legend-main-viewport">
+    <div class="site-container" style="padding-top: 24px; padding-bottom: 60px;">
+      
+      <!-- Module Subheader & Context Card -->
+      <div class="admin-page-hero">
         <div class="page-title-wrap">
-          <h1 class="topbar-page-title" id="page-current-title">Overview & KPIs</h1>
+          <div class="admin-module-tag">STAFF COMMAND MODULE</div>
+          <h1 class="topbar-page-title" id="page-current-title">Overview &amp; KPIs</h1>
           <p class="topbar-page-desc" id="page-current-desc">Store telemetry, inventory counts, and pending customer requests</p>
         </div>
       </div>
 
-      <div class="topbar-right">
-        <div class="db-status-pill" id="db-status-indicator" onclick="AdminApp.switchTab('database')" title="Check Supabase Connection Health">
-          <div class="status-dot" id="db-status-dot"></div>
-          <span id="db-status-text">Checking Supabase...</span>
-        </div>
-
-        <button class="topbar-action-btn" onclick="AdminApp.openAddGameModal()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          <span>Add Game</span>
-        </button>
-
-        <a href="../home/home.html" target="_blank" class="topbar-action-btn" title="Open Customer Storefront">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span>Live Store</span>
-        </a>
-      </div>
-    </header>
-
-    <!-- Main Dynamic Content Views -->
-    <div class="admin-content">
+      <!-- Main Dynamic Content Views -->
+      <div class="admin-content">
 
       <!-- ── TAB 1: OVERVIEW & TELEMETRY ── -->
       <section class="admin-tab-view active" id="view-overview">
@@ -833,8 +892,86 @@
         </div>
       </section>
 
+      </div>
     </div>
   </main>
+
+  <!-- =========================================================
+       5. MASTER STOREFRONT FOOTER
+       ========================================================= -->
+  <footer class="legend-master-footer">
+    <div class="site-container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <div class="brand-badge-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+            <div class="brand-text-block">
+              <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
+              <span class="brand-subtitle">STAFF COMMAND TERMINAL</span>
+            </div>
+          </div>
+          <p class="footer-tagline">
+            Internal Operations &amp; Inventory Suite · Legend Games Lagos. Real-time updates for games, pricing, hardware, and customer WhatsApp quote requests.
+          </p>
+          <div class="footer-social-strip">
+            <a href="../home/home.html" class="footer-social-link" title="Open Storefront">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </a>
+            <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="WhatsApp Business">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Inventory Controls</h4>
+          <ul class="footer-links-list">
+            <li><a href="#" onclick="AdminApp.switchTab('games'); return false;">PS5 &amp; PS4 Games Catalog</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('consoles'); return false;">Consoles &amp; Hardware</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('drives'); return false;">Pre-Loaded Hard Drives</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('accessories'); return false;">Accessories &amp; Controllers</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('wraps'); return false;">Vinyl Console Wraps</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Command Suite</h4>
+          <ul class="footer-links-list">
+            <li><a href="#" onclick="AdminApp.switchTab('orders'); return false;">Live Customer Orders</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('tradeins'); return false;">Trade-In Valuations</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('batch-pricing'); return false;">Batch Pricing &amp; FX Recalibrator</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('broadcast'); return false;">WhatsApp Broadcast Composer</a></li>
+            <li><a href="#" onclick="AdminApp.switchTab('database'); return false;">Database Status &amp; Backup</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Staff Security</h4>
+          <p style="font-size: 0.8rem; color: #7c889b; line-height: 1.5; margin-bottom: 12px;">
+            PIN Authorized Session active for <strong style="color: #ccff00;" id="footer-admin-user">Shop Admin</strong>.
+          </p>
+          <button type="button" class="btn btn-secondary btn-full" onclick="AdminApp.logout()" style="height: 38px; font-size: 0.8rem; border-color: rgba(255,255,255,0.15);">
+            Lock Terminal
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p class="footer-copyright">
+          © 2026 Legend Games Lagos. All rights reserved. Master Admin Cockpit v2.5.
+        </p>
+        <div class="footer-legal-links">
+          <a href="../home/home.html">Customer Storefront</a>
+          <span class="m-sep">·</span>
+          <a href="../discs-only/discs-only.html">Discs Vault</a>
+          <span class="m-sep">·</span>
+          <a href="../trade-in/trade-in.html">Trade-In Hub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <!-- ── MODAL DRAWER: ADD / EDIT GAME ── -->
   <div class="modal-backdrop" id="modal-game-drawer">

@@ -658,12 +658,12 @@ body.legend-storefront-body {
 }
 
 .pricing-amount.brand-teal {
-  color: #00A8E8;
+  color: #00E5FF;
 }
 
 .pricing-sub {
   font-size: 11px;
-  color: #8b8f9e;
+  color: #94A3B8;
 }
 
 /* Action Buttons */
@@ -674,10 +674,51 @@ body.legend-storefront-body {
   flex-wrap: wrap;
 }
 
-.btn-primary-teal {
-  background: #00A8E8;
-  color: #ffffff;
+.btn-primary-orange {
+  background: #FF5C00;
+  color: #FFFFFF;
   font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-primary-orange:hover {
+  background: #D94E00;
+}
+
+.btn-primary-orange:active {
+  transform: scale(0.98);
+}
+
+.btn-primary-teal {
+  background: #00E5FF;
+  color: #0A0F1D;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-primary-teal:hover {
+  background: #00B8CC;
+}
   font-size: 13.5px;
   font-weight: 700;
   padding: 12px 22px;

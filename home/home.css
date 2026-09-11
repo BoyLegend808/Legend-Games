@@ -1282,20 +1282,7 @@ body.legend-storefront-body {
   }
 
   .hero-split-left {
-    padding: 24px;
-  }
-
-  .hero-pricing-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .top-nav-inner {
-    padding: 10px 16px;
-    gap: 12px;
-  }
-
-  .header-search-center {
-    max-width: 220px;
+    padding: 0;
   }
 }
 

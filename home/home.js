@@ -87,32 +87,10 @@ function initStorefront() {
     syncWishlistButtons();
   });
 
-  // 7. Search Input Keydown Listener (Enter triggers scroll to Vault)
-  const searchInput = document.getElementById('g2a-search-input');
-  if (searchInput) {
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        executeSearch();
-      }
-    });
-    searchInput.addEventListener('focus', () => {
-      if (searchInput.value.trim()) {
-        handleG2ASearch(searchInput.value);
-      }
-    });
-  }
+  // 7. Init Search Input Controls (Keyboard navigation, Focus, Click Outside)
+  initSearchInputControls();
 
-  // 8. Close Autocomplete on Click Outside
-  document.addEventListener('click', (e) => {
-    const searchHub = document.querySelector('.legend-search-hub');
-    const autoDrawer = document.getElementById('g2a-autocomplete-results');
-    if (searchHub && !searchHub.contains(e.target) && autoDrawer) {
-      autoDrawer.style.display = 'none';
-    }
-  });
-
-  // 9. Close Modal on Escape
+  // 8. Close Modal on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeGameModal();
@@ -842,51 +820,114 @@ function sendWhatsAppQuoteDirect() {
 // =========================================================================
 // 9. INSTANT SEARCH & AUTOCOMPLETE (POWERED BY ALIAS & FUZZY MATCH ENGINE)
 // =========================================================================
+let activeAutocompleteIndex = -1;
+
+function initSearchInputControls() {
+  const searchInput = document.getElementById('g2a-search-input');
+  const autoDrawer = document.getElementById('g2a-autocomplete-results');
+  if (!searchInput) return;
+
+  // Keydown listener: Enter, Escape, ArrowUp, ArrowDown
+  searchInput.addEventListener('keydown', (e) => {
+    const isDrawerOpen = autoDrawer && autoDrawer.style.display !== 'none';
+    const items = isDrawerOpen ? autoDrawer.querySelectorAll('.search-auto-item') : [];
+
+    if (e.key === 'ArrowDown') {
+      if (!isDrawerOpen || items.length === 0) return;
+      e.preventDefault();
+      activeAutocompleteIndex = (activeAutocompleteIndex + 1) % items.length;
+      updateAutocompleteHighlight(items);
+    } else if (e.key === 'ArrowUp') {
+      if (!isDrawerOpen || items.length === 0) return;
+      e.preventDefault();
+      activeAutocompleteIndex = (activeAutocompleteIndex - 1 + items.length) % items.length;
+      updateAutocompleteHighlight(items);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (isDrawerOpen && activeAutocompleteIndex >= 0 && items[activeAutocompleteIndex]) {
+        items[activeAutocompleteIndex].click();
+      } else {
+        executeSearch();
+      }
+    } else if (e.key === 'Escape') {
+      if (autoDrawer) autoDrawer.style.display = 'none';
+      searchInput.blur();
+    }
+  });
+
+  // Focus: re-open autocomplete if input has text
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim()) {
+      handleG2ASearch(searchInput.value);
+    }
+  });
+
+  // Click outside: close autocomplete drawer
+  document.addEventListener('click', (e) => {
+    const searchCenter = document.querySelector('.header-search-center');
+    if (searchCenter && !searchCenter.contains(e.target) && autoDrawer) {
+      autoDrawer.style.display = 'none';
+    }
+  });
+}
+
+function updateAutocompleteHighlight(items) {
+  items.forEach((item, idx) => {
+    if (idx === activeAutocompleteIndex) {
+      item.classList.add('active');
+      item.scrollIntoView({ block: 'nearest' });
+    } else {
+      item.classList.remove('active');
+    }
+  });
+}
+
 function handleG2ASearch(query) {
-  StoreState.searchQuery = query;
+  StoreState.searchQuery = query || '';
   const autoDrawer = document.getElementById('g2a-autocomplete-results');
   const clearBtn = document.getElementById('search-clear-btn');
+  activeAutocompleteIndex = -1;
 
   if (clearBtn) {
     clearBtn.style.display = query && query.length > 0 ? 'flex' : 'none';
   }
 
-  if (!query.trim()) {
+  if (!query || !query.trim()) {
     if (autoDrawer) autoDrawer.style.display = 'none';
     applyCatalogFilters();
     return;
   }
 
-  // Filter top matches for dropdown using intelligent query matcher
-  const matches = StoreState.allGames.filter(g => matchGameQuery(g, query)).slice(0, 8);
+  const cleanQ = query.trim();
+  const matches = StoreState.allGames.filter(g => matchGameQuery(g, cleanQ)).slice(0, 8);
 
   if (autoDrawer) {
     if (matches.length > 0) {
-      autoDrawer.innerHTML = matches.map(g => `
-        <div class="search-auto-item" onclick="selectAutocompleteGame('${g.id}')">
-          <img src="${getGameCoverPath(g)}" alt="${g.title}" class="auto-item-thumb">
+      autoDrawer.innerHTML = matches.map((g, idx) => `
+        <div class="search-auto-item" data-index="${idx}" onclick="selectAutocompleteGame('${g.id}')">
+          <img src="${getGameCoverPath(g)}" alt="${escapeQuotes(g.title)}" class="auto-item-thumb" onerror="this.src='../shared/assets/covers/placeholder.jpg'">
           <div class="auto-item-info">
-            <span class="auto-item-title">${g.title}</span>
-            <span class="auto-item-sub">${g.genre || 'Action'} · ${(g.platforms || []).join(', ').toUpperCase()}</span>
+            <span class="auto-item-title">${escapeQuotes(g.title)}</span>
+            <span class="auto-item-sub">${escapeQuotes(g.genre || 'Action')} · ${(g.platforms || []).join(', ').toUpperCase()}</span>
           </div>
           <div class="auto-item-price">
             <strong>${formatNaira(g.price || 18000)}</strong>
-            <small>HEN: ${formatNaira(g.moddedPrice || 2000)}</small>
+            <small>HEN: ${formatNaira(g.moddedPrice || 2500)}</small>
           </div>
         </div>
       `).join('') + `
-        <div class="search-auto-footer-action" onclick="requestCustomGameWhatsApp('${escapeQuotes(query)}')">
+        <div class="search-auto-footer-action" onclick="requestCustomGameWhatsApp('${escapeQuotes(cleanQ)}')">
           <span class="req-icon">💬</span>
-          <span>Looking for another edition? <strong>Request "${query}" on WhatsApp →</strong></span>
+          <span>Looking for another edition? <strong>Request "${escapeQuotes(cleanQ)}" on WhatsApp →</strong></span>
         </div>
       `;
       autoDrawer.style.display = 'block';
     } else {
       autoDrawer.innerHTML = `
         <div class="search-auto-empty">
-          <span>No exact database match found for "<strong>${query}</strong>"</span>
-          <button type="button" class="btn-request-unlisted" onclick="requestCustomGameWhatsApp('${escapeQuotes(query)}')">
-            💬 Request "${query}" directly on WhatsApp
+          <span>No exact database match found for "<strong>${escapeQuotes(cleanQ)}</strong>"</span>
+          <button type="button" class="btn-request-unlisted" onclick="requestCustomGameWhatsApp('${escapeQuotes(cleanQ)}')">
+            💬 Request "${escapeQuotes(cleanQ)}" directly on WhatsApp
           </button>
         </div>
       `;
@@ -894,7 +935,6 @@ function handleG2ASearch(query) {
     }
   }
 
-  // Live filter grid
   applyCatalogFilters();
 }
 
@@ -924,9 +964,11 @@ function executeSearch() {
   if (autoDrawer) autoDrawer.style.display = 'none';
 
   // Smooth scroll to vault catalog section
-  const vaultSection = document.getElementById('vault');
-  if (vaultSection) {
-    vaultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const catalogSection = document.getElementById('catalog-section') || 
+                         document.getElementById('vault') || 
+                         document.querySelector('.legend-master-store-catalog');
+  if (catalogSection) {
+    catalogSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 

@@ -375,6 +375,169 @@ body.legend-storefront-body {
   font-size: 13.5px;
 }
 
+/* =========================================================
+   LIVE SEARCH AUTOCOMPLETE DRAWER & DROPDOWN STYLING
+   ========================================================= */
+.search-autocomplete-drawer {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #15161e;
+  border: 1px solid #232533;
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 8px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #232533 transparent;
+}
+
+.search-auto-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.search-auto-item:hover,
+.search-auto-item.active {
+  background: #1c1e29;
+  border-color: #00A8E8;
+}
+
+.auto-item-thumb {
+  width: 38px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #0f1015;
+  flex-shrink: 0;
+}
+
+.auto-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.auto-item-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auto-item-sub {
+  font-size: 11px;
+  color: #8b8f9e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auto-item-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.auto-item-price strong {
+  font-size: 13px;
+  color: #00A8E8;
+  font-weight: 700;
+}
+
+.auto-item-price small {
+  font-size: 10px;
+  color: #10B981;
+}
+
+.search-auto-footer-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-top: 1px solid #232533;
+  background: rgba(0, 168, 232, 0.08);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #8b8f9e;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.search-auto-footer-action:hover {
+  background: rgba(0, 168, 232, 0.16);
+  color: #ffffff;
+}
+
+.search-auto-footer-action strong {
+  color: #00A8E8;
+}
+
+.search-auto-empty {
+  padding: 16px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #8b8f9e;
+}
+
+.btn-request-unlisted {
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-request-unlisted:hover {
+  background: #20ba5a;
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #626675;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.search-clear-btn:hover {
+  color: #ffffff;
+}
+
 /* Zone 3: Far-Right Header Actions (Trade-In, Profile, Cart Side-by-Side) */
 .header-action-controls,
 .header-user-actions {

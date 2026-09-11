@@ -16,7 +16,10 @@ const MIME_TYPES = {
   '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
-  '.ico': 'image/x-icon'
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf'
 };
 
 function getGamesData() {
@@ -30,8 +33,8 @@ function getGamesData() {
   return [];
 }
 
-const server = http.createServer((req, res) => {
-  const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+const handleRequest = (req, res) => {
+  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let urlPath = decodeURIComponent(parsedUrl.pathname);
 
   // Set CORS headers for API calls
@@ -88,11 +91,23 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Route aliases
+  // Root & Route aliases
   if (urlPath === '/' || urlPath === '') {
     urlPath = '/home/home.html';
   } else if (urlPath === '/home' || urlPath === '/home/') {
     urlPath = '/home/home.html';
+  } else if (urlPath === '/home.css') {
+    urlPath = '/home/home.css';
+  } else if (urlPath === '/home.js') {
+    urlPath = '/home/home.js';
+  } else if (urlPath === '/cart.css') {
+    urlPath = '/cart/cart.css';
+  } else if (urlPath === '/cart.js') {
+    urlPath = '/cart/cart.js';
+  } else if (urlPath === '/admin.css') {
+    urlPath = '/admin/admin.css';
+  } else if (urlPath === '/admin.js') {
+    urlPath = '/admin/admin.js';
   } else if (urlPath === '/consoles/ps5' || urlPath === '/consoles/ps5/') {
     urlPath = '/consoles/ps5/ps5.html';
   } else if (urlPath === '/consoles/ps4' || urlPath === '/consoles/ps4/') {
@@ -123,6 +138,8 @@ const server = http.createServer((req, res) => {
     urlPath = '/faq/faq.html';
   } else if (urlPath === '/price-list' || urlPath === '/price-list/') {
     urlPath = '/price-list/price-list.html';
+  } else if (urlPath === '/trade-in' || urlPath === '/trade-in/') {
+    urlPath = '/trade-in/trade-in.html';
   } else if (urlPath === '/admin' || urlPath === '/admin/') {
     urlPath = '/admin/index.html';
   } else if (urlPath === '/admin/login' || urlPath === '/admin/login/') {
@@ -148,17 +165,23 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, {
       'Content-Type': contentType,
-      'Cache-Control': 'no-cache'
+      'Cache-Control': ext.match(/\.(jpg|jpeg|png|webp|svg|woff2?)$/) ? 'public, max-age=31536000, immutable' : 'public, max-age=3600'
     });
     fs.createReadStream(filePath).pipe(res);
   });
-});
+};
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n======================================================`);
-  console.log(` LEGEND GAMES DATABASE & SERVER IS LIVE!`);
-  console.log(`======================================================`);
-  console.log(` Web App:   http://localhost:${PORT}`);
-  console.log(` Games API: http://localhost:${PORT}/api/games`);
-  console.log(`======================================================\n`);
-});
+const server = http.createServer(handleRequest);
+
+if (require.main === module || (!process.env.VERCEL && !process.env.NOW_REGION)) {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n======================================================`);
+    console.log(` LEGEND GAMES DATABASE & SERVER IS LIVE!`);
+    console.log(`======================================================`);
+    console.log(` Web App:   http://localhost:${PORT}`);
+    console.log(` Games API: http://localhost:${PORT}/api/games`);
+    console.log(`======================================================\n`);
+  });
+}
+
+module.exports = handleRequest;

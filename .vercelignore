@@ -1,5 +1,4 @@
 # Files to ignore during Vercel deployment
-server.js
 server.ps1
 test_server.ps1
 start-server.bat

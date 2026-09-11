@@ -1,0 +1,12 @@
+{
+  "name": "legend-games",
+  "version": "1.0.0",
+  "description": "Legend Games — Nigeria's Premier Gaming Vault & Console Studio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["gaming", "playstation", "lagos", "consoles"],
+  "author": "Legend Games Team",
+  "license": "ISC"
+}

@@ -138,23 +138,27 @@ body.legend-storefront-body {
    ========================================================= */
 .legend-trust-banner {
   width: 100%;
-  background: #12131a;
-  border-bottom: 1px solid #232533;
-  padding: 8px 16px;
+  background: #111827 !important;
+  border-bottom: 1px solid #1f2937 !important;
+  padding: 8px 24px !important;
   position: relative;
   z-index: 101;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .trust-banner-inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   font-size: 12px;
   font-weight: 500;
-  color: #8b8f9e;
+  color: #9ca3af;
   text-align: center;
   line-height: 1.4;
+  width: 100%;
 }
 
 .trust-bullet-icon {
@@ -169,7 +173,7 @@ body.legend-storefront-body {
 }
 
 /* =========================================================
-   2. TOP STICKY NAVIGATION BAR (DESKTOP DASHBOARD)
+   2. TOP STICKY NAVIGATION BAR (3-ZONE FLEXBOX LAYOUT)
    ========================================================= */
 .legend-desktop-top-header {
   position: sticky;
@@ -183,25 +187,18 @@ body.legend-storefront-body {
 .top-nav-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 10px 24px;
+  padding: 16px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.top-nav-main-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.top-nav-left,
 .header-left-cluster {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
@@ -324,57 +321,74 @@ body.legend-storefront-body {
   color: #00A8E8;
 }
 
-/* Centered Search Bar (max-width: 400px, muted background, no harsh outlines) */
+/* Zone 2: Centered Search Bar (width 500px, dark gray background #15161e, rounded corners 20px) */
 .header-search-center {
-  max-width: 400px;
-  width: 100%;
+  flex: 1;
+  max-width: 500px;
+  min-width: 300px;
   position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 16px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
 }
 
-.header-search-center .search-icon {
+.search-icon-prefix {
   position: absolute;
-  left: 12px;
+  left: 14px;
   color: #626675;
   pointer-events: none;
   display: flex;
+  align-items: center;
 }
 
+.search-field,
 .header-search-input {
   width: 100%;
   background: #15161e;
   border: 1px solid #232533;
-  border-radius: 8px;
-  padding: 9px 12px 9px 38px;
+  border-radius: 20px;
+  padding: 10px 18px 10px 42px;
   color: #ffffff;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
+.search-field:focus,
 .header-search-input:focus {
   border-color: #00A8E8;
+  background: #181a26;
+  box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.15);
 }
 
+.search-field::placeholder,
 .header-search-input::placeholder {
   color: #626675;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
-/* Header User Controls */
+/* Zone 3: Far-Right Header Actions (Trade-In, Profile, Cart Side-by-Side) */
+.header-action-controls,
 .header-user-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
+.icon-action-btn,
 .header-action-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: #15161e;
   border: 1px solid #232533;
   color: #8b8f9e;
@@ -383,35 +397,47 @@ body.legend-storefront-body {
   justify-content: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-  position: relative;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
+.icon-action-btn:hover,
 .header-action-btn:hover {
   background: #1c1e29;
   color: #ffffff;
+  border-color: #00A8E8;
 }
 
-.cart-nav-btn {
-  position: relative;
-}
-
-.cart-badge-dot {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #FF6B35;
+.header-cart-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #15161e;
+  border: 1px solid #232533;
+  border-radius: 20px;
+  padding: 8px 16px 8px 12px;
+  text-decoration: none;
   color: #ffffff;
-  font-size: 10px;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.header-cart-card:hover {
+  background: #1c1e29;
+  border-color: #00A8E8;
+}
+
+.cart-icon-cell {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  border: 2px solid #0f1015;
+  color: #00A8E8;
+}
+
+.cart-inline-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  letter-spacing: -0.01em;
 }
 
 /* =========================================================
@@ -1129,6 +1155,15 @@ body.legend-storefront-body {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+/* Desktop Viewport Rules (Hide Mobile Bottom Nav Bar on Screen >= 768px) */
+@media (min-width: 768px) {
+  .bottom-nav,
+  .bottom-nav-inner,
+  .mobile-bottom-bar {
+    display: none !important;
+  }
 }
 
 /* Flat Unobtrusive WhatsApp Floating Button */

@@ -396,9 +396,13 @@ img {
   border-color: var(--border-light);
 }
 
-/* ==========================================================================
-   STICKY BOTTOM NAVIGATION (Matching Reference Mockup)
-   ========================================================================== */
+/* STICKY BOTTOM NAVIGATION (Mobile-Only, Hidden on Desktop >= 768px) */
+@media (min-width: 768px) {
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
 .bottom-nav {
   position: fixed;
   bottom: 0;

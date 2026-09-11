@@ -168,11 +168,41 @@ const ServiceRequest = {
         confirmText: 'Yes, Send to WhatsApp',
         cancelText: 'Cancel & Edit',
         onConfirm: () => {
+          try {
+            const stored = JSON.parse(localStorage.getItem('legend_admin_services') || '[]');
+            stored.unshift({
+              ref: 'SRV-' + Date.now().toString().slice(-4),
+              type: (data.type || '').toUpperCase(),
+              model: data.model,
+              description: data.summary || data.desc,
+              location: data.location || 'Lagos',
+              phone: '+234...',
+              date: new Date().toISOString()
+            });
+            localStorage.setItem('legend_admin_services', JSON.stringify(stored.slice(0, 30)));
+          } catch (e) {
+            console.warn('Service save warn:', e);
+          }
           const msg = `*🛠️ SERVICE INQUIRY — Legend Games*\n*Type:* ${(data.type || '').toUpperCase()}\n*Model:* ${data.model}\n*Details:* ${data.summary}\n\nPlease let me know the cost / offer and when we can arrange a safe meetup in Lagos.`;
           openWhatsApp(msg);
         }
       });
     } else {
+      try {
+        const stored = JSON.parse(localStorage.getItem('legend_admin_services') || '[]');
+        stored.unshift({
+          ref: 'SRV-' + Date.now().toString().slice(-4),
+          type: (data.type || '').toUpperCase(),
+          model: data.model,
+          description: data.summary || data.desc,
+          location: data.location || 'Lagos',
+          phone: '+234...',
+          date: new Date().toISOString()
+        });
+        localStorage.setItem('legend_admin_services', JSON.stringify(stored.slice(0, 30)));
+      } catch (e) {
+        console.warn('Service save warn:', e);
+      }
       const msg = `*🛠️ SERVICE INQUIRY — Legend Games*\n*Type:* ${(data.type || '').toUpperCase()}\n*Model:* ${data.model}\n*Details:* ${data.summary}\n\nPlease let me know the cost / offer and when we can arrange a safe meetup in Lagos.`;
       openWhatsApp(msg);
     }

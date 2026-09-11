@@ -123,6 +123,10 @@ const server = http.createServer((req, res) => {
     urlPath = '/faq/faq.html';
   } else if (urlPath === '/price-list' || urlPath === '/price-list/') {
     urlPath = '/price-list/price-list.html';
+  } else if (urlPath === '/admin' || urlPath === '/admin/') {
+    urlPath = '/admin/index.html';
+  } else if (urlPath === '/admin/login' || urlPath === '/admin/login/') {
+    urlPath = '/admin/login.html';
   }
 
   let filePath = path.join(BASE_DIR, urlPath);

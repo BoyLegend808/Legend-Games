@@ -384,7 +384,20 @@ const CartController = {
         total: LegendCart.getNetTotal(),
         customer: { name, phone, location }
       });
-      localStorage.setItem('naijaplay_orders', JSON.stringify(pastOrders.slice(0, 10)));
+      localStorage.setItem('naijaplay_orders', JSON.stringify(pastOrders.slice(0, 20)));
+
+      // Sync with Supabase Postgres for Admin Command Center
+      if (window.LegendSupabase && typeof window.LegendSupabase.recordOrder === 'function') {
+        window.LegendSupabase.recordOrder({
+          order_id: orderRef,
+          customer_name: name,
+          whatsapp_number: phone,
+          meetup_location: location,
+          items_json: items,
+          total_price: LegendCart.getNetTotal(),
+          status: 'Pending WhatsApp Confirmation'
+        }).catch(err => console.warn('[Supabase] Order sync warn:', err));
+      }
     } catch (e) {
       console.error(e);
     }

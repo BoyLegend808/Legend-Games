@@ -117,6 +117,10 @@ try {
                 'how-it-works'  = 'how-it-works\how-it-works.html'
                 'faq'           = 'faq\faq.html'
                 'price-list'    = 'price-list\price-list.html'
+                'admin'         = 'admin\index.html'
+                'admin\'        = 'admin\index.html'
+                'admin\login'   = 'admin\login.html'
+                'admin\login\'  = 'admin\login.html'
             }
             if ($routeMap.ContainsKey($rawPath)) {
                 $rawPath = $routeMap[$rawPath]

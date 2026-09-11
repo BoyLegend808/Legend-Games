@@ -1,0 +1,55 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "destination": "/home/home.html" },
+    { "source": "/home", "destination": "/home/home.html" },
+    { "source": "/home.css", "destination": "/home/home.css" },
+    { "source": "/home.js", "destination": "/home/home.js" },
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/login", "destination": "/admin/login.html" },
+    { "source": "/admin.css", "destination": "/admin/admin.css" },
+    { "source": "/admin.js", "destination": "/admin/admin.js" },
+    { "source": "/cart", "destination": "/cart/cart.html" },
+    { "source": "/cart.css", "destination": "/cart/cart.css" },
+    { "source": "/cart.js", "destination": "/cart/cart.js" },
+    { "source": "/consoles/ps5", "destination": "/consoles/ps5/ps5.html" },
+    { "source": "/consoles/ps4", "destination": "/consoles/ps4/ps4.html" },
+    { "source": "/consoles/ps3", "destination": "/consoles/ps3/ps3.html" },
+    { "source": "/consoles/xbox", "destination": "/consoles/xbox/xbox.html" },
+    { "source": "/disk", "destination": "/disk/disk.html" },
+    { "source": "/discs-only", "destination": "/discs-only/discs-only.html" },
+    { "source": "/pc-games", "destination": "/pc-games/pc-games.html" },
+    { "source": "/accessories", "destination": "/accessories/accessories.html" },
+    { "source": "/wraps", "destination": "/wraps/wraps.html" },
+    { "source": "/trade-in", "destination": "/trade-in/trade-in.html" },
+    { "source": "/request-form", "destination": "/request-form/request-form.html" },
+    { "source": "/price-list", "destination": "/price-list/price-list.html" },
+    { "source": "/order-tracking", "destination": "/order-tracking/order-tracking.html" },
+    { "source": "/how-it-works", "destination": "/how-it-works/how-it-works.html" },
+    { "source": "/faq", "destination": "/faq/faq.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.css",
+      "headers": [
+        { "key": "Content-Type", "value": "text/css; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.js",
+      "headers": [
+        { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(png|jpg|jpeg|svg|webp|ico)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

@@ -352,8 +352,22 @@ const TradeInEngine = {
       msg += `• *Trade Discs (${summary.tradeGames.length}):* ${summary.tradeGames.join(', ')}\n`;
     }
     msg += `• *Estimated Value:* *${formatNaira(summary.estimatedValue)}*\n`;
-    msg += `------------------------------------\n`;
-    msg += `Hello Legend Games, I want to trade in my old hardware or swap it toward a new console. When and where can we meet for inspection in Lagos?`;
+    try {
+      const stored = JSON.parse(localStorage.getItem('legend_admin_tradeins') || '[]');
+      stored.unshift({
+        tradeInId: summary.tradeInId,
+        deviceName: summary.deviceName,
+        condition: summary.condition,
+        includedItems: summary.includedItems,
+        tradeGames: summary.tradeGames,
+        estimatedValue: summary.estimatedValue,
+        phone: '+234...',
+        date: new Date().toISOString()
+      });
+      localStorage.setItem('legend_admin_tradeins', JSON.stringify(stored.slice(0, 30)));
+    } catch (e) {
+      console.warn('Trade-in save warn:', e);
+    }
 
     openWhatsApp(msg);
   }

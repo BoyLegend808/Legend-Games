@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Admin Command Center — Legend Games</title>
+  <meta name="description" content="Central administrative suite for Legend Games: inventory management, WhatsApp order quotes, and Supabase synchronization.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="admin.css">
+  
+  <!-- Supabase & Data Assets -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../db/supabase.js"></script>
+  <script src="../shared/data/games.js"></script>
+  <script src="../shared/data/consoles.js"></script>
+  <script src="../shared/data/accessories.js"></script>
+  <script src="../shared/data/wraps.js"></script>
+</head>
+<body class="admin-body">
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- ── SIDEBAR NAVIGATION ── -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="admin-logo-mark">
+        <span>LEGEND</span> GAMES
+      </div>
+      <span class="admin-badge-pill">OPS PRO</span>
+    </div>
+
+    <div class="sidebar-scroll">
+      <div class="sidebar-section-title">Core Overview</div>
+      <button class="sidebar-nav-btn active" data-tab="overview" onclick="AdminApp.switchTab('overview')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Overview & KPIs</span>
+      </button>
+
+      <div class="sidebar-section-title">Inventory CRUD Suite</div>
+      <button class="sidebar-nav-btn" data-tab="games" onclick="AdminApp.switchTab('games')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg>
+        <span>Games Catalog</span>
+        <span class="nav-counter" id="badge-games-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="consoles" onclick="AdminApp.switchTab('consoles')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/></svg>
+        <span>Consoles & Devices</span>
+        <span class="nav-counter" id="badge-consoles-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="drives" onclick="AdminApp.switchTab('drives')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+        <span>Hard Drives</span>
+        <span class="nav-counter" id="badge-drives-count">4</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="accessories" onclick="AdminApp.switchTab('accessories')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+        <span>Accessories & Gear</span>
+        <span class="nav-counter" id="badge-accessories-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="wraps" onclick="AdminApp.switchTab('wraps')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+        <span>Console Wraps</span>
+        <span class="nav-counter" id="badge-wraps-count">0</span>
+      </button>
+
+      <div class="sidebar-section-title">Operational Power Tools</div>
+      <button class="sidebar-nav-btn" data-tab="batch-pricing" onclick="AdminApp.switchTab('batch-pricing')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Batch Pricing & FX</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="broadcast" onclick="AdminApp.switchTab('broadcast')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <span>WhatsApp Broadcast</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="hubs" onclick="AdminApp.switchTab('hubs')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Lagos Meetup Hubs</span>
+      </button>
+
+      <div class="sidebar-section-title">Customer Pipeline</div>
+      <button class="sidebar-nav-btn" data-tab="orders" onclick="AdminApp.switchTab('orders')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>Live Orders Feed</span>
+        <span class="nav-counter" id="badge-orders-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="tradeins" onclick="AdminApp.switchTab('tradeins')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+        <span>Trade-In Valuations</span>
+        <span class="nav-counter" id="badge-tradeins-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="services" onclick="AdminApp.switchTab('services')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <span>Repairs & Service Desk</span>
+        <span class="nav-counter" id="badge-services-count">0</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="customers" onclick="AdminApp.switchTab('customers')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Customer Directory</span>
+      </button>
+
+      <div class="sidebar-section-title">System & Diagnostics</div>
+      <button class="sidebar-nav-btn" data-tab="database" onclick="AdminApp.switchTab('database')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span>Supabase Sync & Backup</span>
+      </button>
+      <button class="sidebar-nav-btn" data-tab="activity" onclick="AdminApp.switchTab('activity')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Activity Audit Log</span>
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="admin-profile">
+        <div class="profile-avatar" id="admin-avatar">AD</div>
+        <div class="profile-info">
+          <span class="profile-name" id="admin-user-name">Shop Admin</span>
+          <span class="profile-role" id="admin-user-role">Operations Lead</span>
+        </div>
+      </div>
+      <button class="btn-sidebar-icon" title="Log Out" onclick="AdminApp.logout()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN COCKPIT VIEW ── -->
+  <main class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-toggle" onclick="AdminApp.toggleMobileSidebar()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="page-title-wrap">
+          <h1 class="topbar-page-title" id="page-current-title">Overview & KPIs</h1>
+          <p class="topbar-page-desc" id="page-current-desc">Store telemetry, inventory counts, and pending customer requests</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="db-status-pill" id="db-status-indicator" onclick="AdminApp.switchTab('database')" title="Check Supabase Connection Health">
+          <div class="status-dot" id="db-status-dot"></div>
+          <span id="db-status-text">Checking Supabase...</span>
+        </div>
+
+        <button class="topbar-action-btn" onclick="AdminApp.openAddGameModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Add Game</span>
+        </button>
+
+        <a href="../home/home.html" target="_blank" class="topbar-action-btn" title="Open Customer Storefront">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Live Store</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Content Views -->
+    <div class="admin-content">
+
+      <!-- ── TAB 1: OVERVIEW & TELEMETRY ── -->
+      <section class="admin-tab-view active" id="view-overview">
+        <div class="stats-grid">
+          <div class="stat-card" style="--stat-accent: #ccff00;">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Games in Catalog</span>
+              <svg class="stat-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="15" cy="11" r="1"/></svg>
+            </div>
+            <div class="stat-card-value" id="stat-total-games">0</div>
+            <div class="stat-card-sub">PS5, PS4, PC & Xbox Titles</div>
+          </div>
+
+          <div class="stat-card" style="--stat-accent: #00e5ff;">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Hardware Models</span>
+              <svg class="stat-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+            </div>
+            <div class="stat-card-value" id="stat-total-consoles">0</div>
+            <div class="stat-card-sub">PS5 Slim, PS4 Pro, Xbox, PS3</div>
+          </div>
+
+          <div class="stat-card" style="--stat-accent: #ffd600;">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Incoming Orders</span>
+              <svg class="stat-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/></svg>
+            </div>
+            <div class="stat-card-value" id="stat-total-orders">0</div>
+            <div class="stat-card-sub" id="stat-pending-orders-sub">0 Pending Confirmation</div>
+          </div>
+
+          <div class="stat-card" style="--stat-accent: #00ff66;">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Pipeline Value</span>
+              <svg class="stat-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="stat-card-value tabular-nums" id="stat-pipeline-value">₦0</div>
+            <div class="stat-card-sub">Active quotes & orders</div>
+          </div>
+        </div>
+
+        <!-- Quick Launch Action Bar -->
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Operational Command Shortcuts
+              </h2>
+            </div>
+          </div>
+          <div style="padding: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddGameModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add New Game to Catalog
+            </button>
+            <button class="btn-admin btn-admin-cyan" onclick="AdminApp.openAddConsoleModal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Console Variant
+            </button>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.switchTab('batch-pricing')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Batch Adjust Prices
+            </button>
+            <button class="btn-admin btn-admin-whatsapp" onclick="AdminApp.switchTab('broadcast')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              Draft WhatsApp Broadcast
+            </button>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.switchTab('database')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/></svg>
+              Sync to Supabase
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Orders Preview -->
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Latest Quote & Order Requests</h2>
+              <span class="panel-count-badge" id="overview-orders-badge">0 Live</span>
+            </div>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.switchTab('orders')" style="min-height: 36px; padding: 6px 14px;">
+              View All Orders Feed →
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Order Ref</th>
+                  <th>Customer</th>
+                  <th>WhatsApp</th>
+                  <th>Meetup Hub</th>
+                  <th>Items</th>
+                  <th>Total (₦)</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="overview-orders-tbody">
+                <tr><td colspan="8" style="text-align: center; color: #7c889b; padding: 24px;">No incoming orders yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 2: GAMES CATALOG CRUD ── -->
+      <section class="admin-tab-view" id="view-games">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Games Master Catalog</h2>
+              <span class="panel-count-badge" id="games-total-pill">0 Titles</span>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddGameModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add New Game
+              </button>
+            </div>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="toolbar-search-wrap">
+              <svg class="toolbar-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="games-search-input" class="toolbar-search-input" placeholder="Search by game title, genre or tag..." oninput="AdminApp.filterGames()">
+            </div>
+            <div class="toolbar-filters">
+              <select id="games-platform-filter" class="toolbar-select" onchange="AdminApp.filterGames()">
+                <option value="all">All Platforms</option>
+                <option value="PS5">PlayStation 5</option>
+                <option value="PS4">PlayStation 4</option>
+                <option value="PC">PC Games</option>
+                <option value="XBOX">Xbox Series / One</option>
+                <option value="PS3">PlayStation 3</option>
+              </select>
+              <select id="games-stock-filter" class="toolbar-select" onchange="AdminApp.filterGames()">
+                <option value="all">All Stock Statuses</option>
+                <option value="in">In Stock</option>
+                <option value="low">Low Stock</option>
+                <option value="out">Out of Stock</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Game Title & Cover</th>
+                  <th>Genre & Year</th>
+                  <th>Platforms</th>
+                  <th>Storage Footprint</th>
+                  <th>Disc Price</th>
+                  <th>Modded Price</th>
+                  <th>Stock State</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="games-tbody">
+                <!-- Dynamically Rendered -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 3: CONSOLES & HARDWARE CRUD ── -->
+      <section class="admin-tab-view" id="view-consoles">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Consoles & Hardware Variants</h2>
+              <span class="panel-count-badge" id="consoles-total-pill">0 Variants</span>
+            </div>
+            <button class="btn-admin btn-admin-cyan" onclick="AdminApp.openAddConsoleModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Console Variant
+            </button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="toolbar-search-wrap">
+              <svg class="toolbar-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="consoles-search-input" class="toolbar-search-input" placeholder="Search consoles (PS5, PS4 Slim, Xbox...)" oninput="AdminApp.filterConsoles()">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Console Model</th>
+                  <th>Storage Spec</th>
+                  <th>Base Price (₦)</th>
+                  <th>FC Edition Bundle</th>
+                  <th>Modded / Jailbreak Option</th>
+                  <th>Stock Status</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="consoles-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 4: EXTERNAL HARD DRIVES CRUD ── -->
+      <section class="admin-tab-view" id="view-drives">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">External Hard Drives & Storage Packages</h2>
+              <span class="panel-count-badge">Pre-loaded Disks</span>
+            </div>
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddDriveModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Drive Package
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Capacity / Package</th>
+                  <th>Estimated Game Load</th>
+                  <th>Price (₦)</th>
+                  <th>Description</th>
+                  <th>Stock State</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="drives-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 5: ACCESSORIES & GEAR CRUD ── -->
+      <section class="admin-tab-view" id="view-accessories">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Gaming Accessories & Gear</h2>
+              <span class="panel-count-badge" id="accessories-total-pill">0 Items</span>
+            </div>
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddAccessoryModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Accessory
+            </button>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="toolbar-search-wrap">
+              <svg class="toolbar-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="accessories-search-input" class="toolbar-search-input" placeholder="Search controllers, headsets, docks..." oninput="AdminApp.filterAccessories()">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Accessory</th>
+                  <th>Category</th>
+                  <th>Price (₦)</th>
+                  <th>Compatibility</th>
+                  <th>Stock State</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="accessories-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 6: CONSOLE WRAPS & SKINS CRUD ── -->
+      <section class="admin-tab-view" id="view-wraps">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Console Wraps & Custom Vinyl Skins</h2>
+              <span class="panel-count-badge" id="wraps-total-pill">0 Designs</span>
+            </div>
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddWrapModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Wrap Design
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Wrap Design</th>
+                  <th>Console Compatibility</th>
+                  <th>Price (₦)</th>
+                  <th>Stock Status</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="wraps-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 7: BATCH PRICING & FX INFLATION ADJUSTER ── -->
+      <section class="admin-tab-view" id="view-batch-pricing">
+        <div class="batch-pricing-box">
+          <h2 style="font-family: 'Russo One', sans-serif; margin-top: 0; color: #ccff00;">
+            Mass Price & FX Inflation Recalibrator
+          </h2>
+          <p style="color: #a3b1c6; font-size: 0.88rem; margin-bottom: 20px;">
+            Apply across-the-board percentage or fixed Naira adjustments to compensate for currency shifts, import tariffs, or seasonal promotions.
+          </p>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label class="form-label">Target Category</label>
+              <select id="batch-category-select" class="form-select" onchange="AdminApp.updateBatchPreview()">
+                <option value="games-disc">All Game Physical Discs (cd_price)</option>
+                <option value="games-modded">All Game Modded Installs (modded_price)</option>
+                <option value="consoles">All Console Variants (base_price)</option>
+                <option value="drives">All External Hard Drives (price)</option>
+                <option value="accessories">All Accessories & Controllers (price)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Adjustment Type</label>
+              <select id="batch-type-select" class="form-select" onchange="AdminApp.updateBatchPreview()">
+                <option value="percent-inc">Percentage Increase (+%)</option>
+                <option value="percent-dec">Percentage Decrease (-%)</option>
+                <option value="fixed-inc">Fixed Naira Addition (+₦)</option>
+                <option value="fixed-dec">Fixed Naira Reduction (-₦)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Value</label>
+              <input type="number" id="batch-value-input" class="form-input" value="10" placeholder="e.g. 10 for 10%" oninput="AdminApp.updateBatchPreview()">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 8px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #d1d7e2; cursor: pointer;">
+              <input type="checkbox" id="batch-round-chk" checked onchange="AdminApp.updateBatchPreview()">
+              <span>Auto-round adjusted prices to the nearest <strong>₦500</strong> for clean cash handover</span>
+            </label>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 20px;">
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.applyBatchPriceUpdate()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Apply Mass Recalibration
+            </button>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.resetBatchPriceDefaults()">
+              Reset Form
+            </button>
+          </div>
+
+          <!-- Preview Before Applying -->
+          <div style="margin-top: 28px;">
+            <h3 style="font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; color: #00e5ff; margin-bottom: 10px;">
+              Live Recalibration Preview (First 8 Samples)
+            </h3>
+            <table class="batch-preview-table">
+              <thead>
+                <tr>
+                  <th>Product Item</th>
+                  <th>Current Price</th>
+                  <th>Adjustment</th>
+                  <th>New Price</th>
+                </tr>
+              </thead>
+              <tbody id="batch-preview-tbody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 8: WHATSAPP BROADCAST COMPOSER ── -->
+      <section class="admin-tab-view" id="view-broadcast">
+        <div class="admin-panel" style="padding: 24px;">
+          <h2 style="font-family: 'Russo One', sans-serif; color: #25d366; margin-top: 0;">
+            WhatsApp Status & Broadcast Message Composer
+          </h2>
+          <p style="color: #a3b1c6; font-size: 0.88rem; margin-bottom: 20px;">
+            Craft high-impact promotional announcements with bold typography and emoji lists, formatted for WhatsApp customer groups.
+          </p>
+
+          <div class="broadcast-grid">
+            <div>
+              <div class="form-group">
+                <label class="form-label">Broadcast Preset Template</label>
+                <select id="broadcast-preset-select" class="form-select" onchange="AdminApp.loadBroadcastTemplate(this.value)">
+                  <option value="weekend-flash">🔥 Weekend Flash Sale (Consoles & Top Discs)</option>
+                  <option value="fc-drop">⚽ EA SPORTS FC 26 Stock Arrival Drop</option>
+                  <option value="jailbreak-deal">⚡ Jailbreak / Modded PS4 Complete Setup</option>
+                  <option value="tradein-promo">🔄 Console Swap & Trade-In Cashout Alert</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Message Content</label>
+                <textarea id="broadcast-content" class="form-textarea" style="height: 220px;" oninput="AdminApp.updateBroadcastPreview()"></textarea>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button class="btn-admin btn-admin-whatsapp" onclick="AdminApp.copyBroadcastText()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Copy Formatted Message
+                </button>
+                <button class="btn-admin btn-admin-secondary" onclick="AdminApp.openBroadcastInWhatsApp()">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                  Open WhatsApp Web
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label">WhatsApp Live Screen Preview</label>
+              <div class="broadcast-preview-box" id="broadcast-preview">
+                <!-- Live preview -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 9: LAGOS MEETUP HUBS MANAGER ── -->
+      <section class="admin-tab-view" id="view-hubs">
+        <div class="admin-panel" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2 style="font-family: 'Russo One', sans-serif; color: #fff; margin: 0 0 4px 0;">
+                Lagos Public Safe Handover Meetup Hubs
+              </h2>
+              <p style="color: #a3b1c6; font-size: 0.85rem; margin: 0;">
+                Manage public pickup centers for customer equipment inspection and cash/transfer settlement.
+              </p>
+            </div>
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.openAddHubPrompt()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add New Hub
+            </button>
+          </div>
+
+          <div class="hubs-cards-grid" id="hubs-container">
+            <!-- Rendered Dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 10: LIVE ORDERS FEED ── -->
+      <section class="admin-tab-view" id="view-orders">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Live Customer Quotes & Order Pipeline</h2>
+              <span class="panel-count-badge" id="orders-total-badge">0 Received</span>
+            </div>
+            <div class="panel-actions">
+              <button class="btn-admin btn-admin-secondary" onclick="AdminApp.refreshOrdersFromSupabase()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                Refresh Supabase
+              </button>
+            </div>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="toolbar-search-wrap">
+              <svg class="toolbar-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="orders-search-input" class="toolbar-search-input" placeholder="Search orders by customer name, phone, or Ref code..." oninput="AdminApp.filterOrders()">
+            </div>
+            <div class="toolbar-filters">
+              <select id="orders-status-filter" class="toolbar-select" onchange="AdminApp.filterOrders()">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending WhatsApp Confirmation</option>
+                <option value="Scheduled">Meetup Scheduled</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="padding: 20px;">
+            <div class="orders-pipeline-grid" id="orders-pipeline-container">
+              <!-- Rendered Dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 11: TRADE-IN VALUATION QUEUE ── -->
+      <section class="admin-tab-view" id="view-tradeins">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Trade-In Device Swap & Cashout Queue</h2>
+              <span class="panel-count-badge" id="tradeins-total-badge">0 Pending</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Submission ID</th>
+                  <th>Device Model</th>
+                  <th>Condition Grade</th>
+                  <th>Included Gear</th>
+                  <th>Trade Discs</th>
+                  <th>Algorithmic Value</th>
+                  <th>Customer WhatsApp</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tradeins-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 12: REPAIRS & SERVICE DESK ── -->
+      <section class="admin-tab-view" id="view-services">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Console Repairs & Modding Service Tickets</h2>
+              <span class="panel-count-badge" id="services-total-badge">0 Tickets</span>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ticket Ref</th>
+                  <th>Service Type</th>
+                  <th>Console Hardware</th>
+                  <th>Problem / Request Description</th>
+                  <th>Location Preference</th>
+                  <th>Ticket Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="services-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 13: CUSTOMER DIRECTORY ── -->
+      <section class="admin-tab-view" id="view-customers">
+        <div class="admin-panel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <h2 class="panel-title">Customer Phone & Order History Directory</h2>
+            </div>
+          </div>
+
+          <div class="table-toolbar">
+            <div class="toolbar-search-wrap">
+              <svg class="toolbar-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="customers-search-input" class="toolbar-search-input" placeholder="Type phone number (+234...) or customer name..." oninput="AdminApp.filterCustomers()">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Customer Name</th>
+                  <th>WhatsApp Phone</th>
+                  <th>Total Orders</th>
+                  <th>Lifetime Volume (₦)</th>
+                  <th>Preferred Meetup Hub</th>
+                  <th style="text-align: right;">Contact</th>
+                </tr>
+              </thead>
+              <tbody id="customers-tbody">
+                <!-- Rendered Dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 14: SUPABASE SYNC & BACKUP SUITE ── -->
+      <section class="admin-tab-view" id="view-database">
+        <div class="admin-panel" style="padding: 24px;">
+          <h2 style="font-family: 'Russo One', sans-serif; color: #00e5ff; margin-top: 0;">
+            Supabase Live Postgres Diagnostic & Backup Center
+          </h2>
+          <p style="color: #a3b1c6; font-size: 0.88rem; margin-bottom: 24px;">
+            Target URL: <code style="color: #ccff00;">https://xhhtosmggbtieicqozlm.supabase.co</code>
+          </p>
+
+          <div class="stats-grid" style="margin-bottom: 24px;">
+            <div class="stat-card" style="--stat-accent: #00ff66;">
+              <div class="stat-card-label">Database Connection</div>
+              <div class="stat-card-value" id="diag-conn-state" style="font-size: 1.3rem;">Testing...</div>
+              <div class="stat-card-sub" id="diag-conn-ping">Latency: -- ms</div>
+            </div>
+            <div class="stat-card" style="--stat-accent: #ffd600;">
+              <div class="stat-card-label">Live Supabase Games</div>
+              <div class="stat-card-value" id="diag-remote-games">--</div>
+              <div class="stat-card-sub">Synced from `games` table</div>
+            </div>
+            <div class="stat-card" style="--stat-accent: #ccff00;">
+              <div class="stat-card-label">Live Supabase Orders</div>
+              <div class="stat-card-value" id="diag-remote-orders">--</div>
+              <div class="stat-card-sub">Synced from `orders` table</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
+            <button class="btn-admin btn-admin-primary" onclick="AdminApp.pushLocalCatalogToSupabase()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Push Local Catalog to Supabase
+            </button>
+            <button class="btn-admin btn-admin-cyan" onclick="AdminApp.pullSupabaseCatalogToLocal()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Pull Supabase to Local
+            </button>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.exportCatalogJSON()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Export JSON Backup
+            </button>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.copySupabaseMigrationSQL()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Master SQL Migration
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TAB 15: ACTIVITY AUDIT LOG ── -->
+      <section class="admin-tab-view" id="view-activity">
+        <div class="admin-panel" style="padding: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-family: 'Russo One', sans-serif; color: #fff; margin: 0;">
+              Real-Time Admin Operations Audit Trail
+            </h2>
+            <button class="btn-admin btn-admin-secondary" onclick="AdminApp.clearActivityLog()" style="min-height: 36px; padding: 6px 14px;">
+              Clear Log
+            </button>
+          </div>
+          <div class="activity-list" id="activity-log-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ── MODAL DRAWER: ADD / EDIT GAME ── -->
+  <div class="modal-backdrop" id="modal-game-drawer">
+    <div class="drawer-container">
+      <div class="drawer-header">
+        <h3 class="drawer-title" id="game-drawer-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccff00" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/></svg>
+          Add Game to Catalog
+        </h3>
+        <button class="drawer-close-btn" onclick="AdminApp.closeModal('modal-game-drawer')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="form-game" class="drawer-body" onsubmit="AdminApp.saveGame(event)">
+        <input type="hidden" id="game-form-mode" value="add">
+        <input type="hidden" id="game-id-hidden" value="">
+
+        <!-- Basic Details -->
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="game-title">Game Title *</label>
+            <input type="text" id="game-title" class="form-input" placeholder="e.g. Marvel's Spider-Man 2" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-genre">Genre *</label>
+            <input type="text" id="game-genre" class="form-input" placeholder="e.g. Action / Open World" required>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label class="form-label" for="game-year">Release Year</label>
+            <input type="number" id="game-year" class="form-input" value="2024" min="2000" max="2030">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-rating">Star Rating (1.0 - 10.0)</label>
+            <input type="number" step="0.1" id="game-rating" class="form-input" value="9.0" min="1.0" max="10.0">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-badge">Badge Label</label>
+            <input type="text" id="game-badge" class="form-input" placeholder="e.g. Trending #1, GOTY">
+          </div>
+        </div>
+
+        <!-- Platform Checkboxes -->
+        <div class="form-group">
+          <label class="form-label">Platform Compatibility</label>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap; background: #080a10; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="checkbox" id="plat-ps5" value="PS5" checked> PS5
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="checkbox" id="plat-ps4" value="PS4" checked> PS4
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="checkbox" id="plat-pc" value="PC"> PC
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="checkbox" id="plat-xbox" value="XBOX"> Xbox
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="checkbox" id="plat-ps3" value="PS3"> PS3
+            </label>
+          </div>
+        </div>
+
+        <!-- ⭐ COVER ART STUDIO & GALLERY PICKER -->
+        <div class="cover-studio-container">
+          <div class="cover-studio-header">
+            <span class="cover-studio-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Cover Artwork Studio
+            </span>
+            <button type="button" class="btn-admin btn-admin-secondary" onclick="AdminApp.openCoverGalleryBrowser()" style="min-height: 32px; padding: 4px 10px; font-size: 0.74rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Browse 126+ Store Covers
+            </button>
+          </div>
+
+          <div class="cover-studio-grid">
+            <div class="cover-preview-card">
+              <img id="game-cover-preview" class="cover-preview-img" src="" alt="Cover Preview" style="display: none;">
+              <div id="game-cover-empty" class="cover-preview-empty">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>No Artwork Selected</span>
+              </div>
+            </div>
+
+            <div class="cover-picker-actions">
+              <!-- Upload from device gallery -->
+              <label class="file-dropzone-btn" for="game-cover-file-input">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span class="dropzone-title">Pick from My Device Gallery / Photos</span>
+                <span class="dropzone-desc">Click or drag an image from your device</span>
+                <input type="file" id="game-cover-file-input" accept="image/*" style="display: none;" onchange="AdminApp.handleCoverFileUpload(this.files)">
+              </label>
+
+              <!-- Or custom URL -->
+              <div class="input-with-icon">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <input type="text" id="game-cover-url" class="form-input" placeholder="Or enter image URL (../shared/assets/covers/...)" oninput="AdminApp.updateCoverPreview(this.value)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Matrix -->
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label class="form-label" for="game-cd-price">Physical Disc Price (₦)</label>
+            <input type="number" id="game-cd-price" class="form-input" value="18000" step="500" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-online-price">Digital Account Price (₦)</label>
+            <input type="number" id="game-online-price" class="form-input" value="5000" step="500" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-modded-price">Modded / Offline Install (₦)</label>
+            <input type="number" id="game-modded-price" class="form-input" value="2000" step="500" required>
+          </div>
+        </div>
+
+        <!-- Storage Calibration -->
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="game-ps4-size">PS4 / PS5 Install Size (GB)</label>
+            <input type="number" id="game-ps4-size" class="form-input" value="45">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="game-pc-size">PC Install Size (GB)</label>
+            <input type="number" id="game-pc-size" class="form-input" value="50">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="game-desc">Product Overview / Story Blurb</label>
+          <textarea id="game-desc" class="form-textarea" placeholder="Brief blurb for customer storefront..."></textarea>
+        </div>
+
+        <div class="drawer-footer">
+          <button type="button" class="btn-admin btn-admin-secondary" onclick="AdminApp.closeModal('modal-game-drawer')">
+            Cancel
+          </button>
+          <button type="submit" class="btn-admin btn-admin-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Save Game to Catalog
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── MODAL: STORE COVER GALLERY BROWSER (126+ COVERS) ── -->
+  <div class="modal-backdrop" id="modal-cover-gallery">
+    <div class="drawer-container gallery-modal-dialog">
+      <div class="drawer-header">
+        <h3 class="drawer-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Select Artwork from Store Gallery (126+ Covers)
+        </h3>
+        <button class="drawer-close-btn" onclick="AdminApp.closeModal('modal-cover-gallery')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="padding: 14px 24px; background: #090c14; border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <input type="text" id="gallery-search-input" class="toolbar-search-input" placeholder="Search covers (e.g. Spider-Man, GTA, FC, Naruto...)" oninput="AdminApp.filterGalleryCovers(this.value)">
+      </div>
+      <div class="drawer-body" style="padding: 16px;">
+        <div class="gallery-grid-scroll" id="gallery-grid-container">
+          <!-- 126+ Thumbnails dynamically populated -->
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <button type="button" class="btn-admin btn-admin-secondary" onclick="AdminApp.closeModal('modal-cover-gallery')">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODAL DRAWER: ADD / EDIT CONSOLE ── -->
+  <div class="modal-backdrop" id="modal-console-drawer">
+    <div class="drawer-container">
+      <div class="drawer-header">
+        <h3 class="drawer-title" id="console-drawer-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+          Add Console Variant
+        </h3>
+        <button class="drawer-close-btn" onclick="AdminApp.closeModal('modal-console-drawer')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="form-console" class="drawer-body" onsubmit="AdminApp.saveConsole(event)">
+        <input type="hidden" id="console-form-mode" value="add">
+        <input type="hidden" id="console-id-hidden" value="">
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="console-family">Console Family *</label>
+            <select id="console-family" class="form-select">
+              <option value="ps5">PlayStation 5</option>
+              <option value="ps4">PlayStation 4</option>
+              <option value="xbox">Xbox Series / One</option>
+              <option value="ps3">PlayStation 3</option>
+              <option value="switch">Nintendo Switch</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="console-variant-name">Variant Name *</label>
+            <input type="text" id="console-variant-name" class="form-input" placeholder="e.g. PS5 Slim 1TB Disc Edition" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="console-storage">Storage Capacity</label>
+            <input type="text" id="console-storage" class="form-input" placeholder="e.g. 1TB Custom SSD / 500GB HDD">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="console-base-price">Base Price (₦) *</label>
+            <input type="number" id="console-base-price" class="form-input" placeholder="e.g. 540000" step="1000" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="console-spec-blurb">Specification Blurb</label>
+          <input type="text" id="console-spec-blurb" class="form-input" placeholder="e.g. Includes 1 DualSense Wireless Pad & Power Cable">
+        </div>
+
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #fff; cursor: pointer; margin-bottom: 8px;">
+            <input type="checkbox" id="console-fc-bundle" checked>
+            <span>Automatically include annual FC Edition Football Game</span>
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: #fff; cursor: pointer;">
+            <input type="checkbox" id="console-modded-eligible" checked>
+            <span>Eligible for Jailbreak / Offline Games Pre-Installation</span>
+          </label>
+        </div>
+
+        <div class="drawer-footer">
+          <button type="button" class="btn-admin btn-admin-secondary" onclick="AdminApp.closeModal('modal-console-drawer')">
+            Cancel
+          </button>
+          <button type="submit" class="btn-admin btn-admin-cyan">
+            Save Console Variant
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── MODAL: GENERIC CONFIRMATION / DELETE ── -->
+  <div class="modal-backdrop" id="modal-confirm">
+    <div class="drawer-container" style="max-width: 440px;">
+      <div class="drawer-header">
+        <h3 class="drawer-title" style="color: #ff2a55;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Confirm Action
+        </h3>
+      </div>
+      <div class="drawer-body">
+        <p id="confirm-modal-message" style="margin: 0; font-size: 0.92rem; color: #d1d7e2; line-height: 1.5;">
+          Are you sure you want to proceed?
+        </p>
+      </div>
+      <div class="drawer-footer">
+        <button type="button" class="btn-admin btn-admin-secondary" onclick="AdminApp.closeModal('modal-confirm')">
+          Cancel
+        </button>
+        <button type="button" id="btn-confirm-action" class="btn-admin btn-admin-danger">
+          Yes, Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOAST CONTAINER ── -->
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <!-- Main Administrative Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -2,14 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=home/home.html">
+  <meta http-equiv="refresh" content="0; url=/home/home.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NaijaPlay / Legend Games — Consoles &amp; Games Lagos</title>
+  <title>Legend Games — Nigeria's Premier Gaming Vault &amp; Console Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Russo+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #06070a;
+      color: #ffffff;
+      font-family: 'Chakra Petch', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .loader-brand {
+      font-family: 'Russo One', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .loader-brand span {
+      color: #ccff00;
+      text-shadow: 0 0 16px rgba(204, 255, 0, 0.4);
+    }
+    .loader-ring {
+      width: 44px;
+      height: 44px;
+      border: 3px solid rgba(255, 255, 255, 0.08);
+      border-top-color: #00e5ff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 14px;
+    }
+    .loader-text {
+      font-size: 0.85rem;
+      color: #7c889b;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
   <script>
-    window.location.href = "home/home.html";
+    // Instant redirect to home
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      window.location.replace('home/home.html');
+    }
   </script>
 </head>
-<body style="background:#090a10; color:#fff; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;">
-  <p>Loading NaijaPlay / Legend Games...</p>
+<body>
+  <div class="loader-brand"><span>LEGEND</span> GAMES</div>
+  <div class="loader-ring"></div>
+  <div class="loader-text">Initializing Gaming Vault...</div>
 </body>
 </html>

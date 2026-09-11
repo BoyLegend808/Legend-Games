@@ -9,253 +9,308 @@
   <!-- Brand Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2306070a'/><polygon points='30,20 80,50 30,80' fill='%23ccff00'/></svg>">
 
-  <!-- Google Fonts: Russo One (Massive Display), Chakra Petch (High-Octane Headings) & Plus Jakarta Sans (Clean UI Body) -->
+  <!-- Clean, Modern, Geometric Sans-Serif: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Russo+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../shared/shared.css?v=9">
-  <link rel="stylesheet" href="home.css?v=10">
+  <link rel="stylesheet" href="../shared/shared.css?v=20">
+  <link rel="stylesheet" href="home.css?v=20">
 </head>
 <body class="legend-storefront-body">
 
   <!-- =========================================================
-       1. LUXURY SLIM MARQUEE TICKER BAR
+       1. STATIC CENTERED TOP TRUST BANNER
        ========================================================= -->
-  <aside class="legend-marquee-bar" aria-label="Live Store Announcements">
-    <div class="marquee-track" id="marquee-track">
-      <div class="marquee-content">
-        <span class="m-item"><strong>FREE FC26 INCLUDED</strong> ON ALL PS4 &amp; PS5 CONSOLES</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>SAFE PUBLIC MEETUPS</strong> ACROSS IKEJA, LEKKI, SURULERE &amp; FESTAC</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>₦0 ADVANCE PAYMENT</strong>: INSPECT &amp; TEST BEFORE PAYING</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>WE BUY &amp; SWAP CONSOLES</strong>: INSTANT CASH VALUATION</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>HARD DISK LOADING</strong>: 50+ FULL GAMES ON 1TB/2TB DRIVES</span>
-        <span class="m-sep">·</span>
-      </div>
-      <!-- Duplicate content for seamless infinite looping -->
-      <div class="marquee-content" aria-hidden="true">
-        <span class="m-item"><strong>FREE FC26 INCLUDED</strong> ON ALL PS4 &amp; PS5 CONSOLES</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>SAFE PUBLIC MEETUPS</strong> ACROSS IKEJA, LEKKI, SURULERE &amp; FESTAC</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>₦0 ADVANCE PAYMENT</strong>: INSPECT &amp; TEST BEFORE PAYING</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>WE BUY &amp; SWAP CONSOLES</strong>: INSTANT CASH VALUATION</span>
-        <span class="m-sep">·</span>
-        <span class="m-item"><strong>HARD DISK LOADING</strong>: 50+ FULL GAMES ON 1TB/2TB DRIVES</span>
-        <span class="m-sep">·</span>
-      </div>
+  <aside class="legend-trust-banner" aria-label="Trust and Verification Banner">
+    <div class="trust-banner-inner">
+      <span class="trust-badge">LEGEND PROMISE</span>
+      <span class="trust-text">No Advance Payment: Inspect &amp; Test Before Paying · Safe Public Meetups Across Lagos (Ikeja, Lekki, Surulere &amp; Festac)</span>
     </div>
   </aside>
 
   <!-- =========================================================
-       2. MASTER COMMAND HEADER & LIVE SEARCH
+       2. STICKY TOP NAVIGATION BAR (STEAM / PLAYSTATION STORE)
        ========================================================= -->
   <header class="legend-master-header">
-    <div class="site-container">
-      <div class="header-main-row">
-        <!-- Brand Logo -->
-        <a href="home.html" class="legend-brand" aria-label="Legend Games Home">
-          <div class="brand-badge-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          </div>
-          <div class="brand-text-block">
-            <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
-            <span class="brand-subtitle">LAGOS VAULT</span>
-          </div>
-        </a>
-
-        <!-- Header Action Controls -->
-        <div class="header-action-controls">
-          <!-- Trade-In & Swap Quick Action -->
-          <a href="../trade-in/trade-in.html" class="header-tradein-btn" title="Trade-In Old Consoles &amp; Game Discs">
-            <svg class="tradein-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"></path></svg>
-            <span class="tradein-btn-text">Trade-In</span>
-          </a>
-
-          <!-- Saved Wishlist -->
-          <a href="../discs-only/discs-only.html?view=wishlist" class="icon-action-btn" title="Saved Wishlist">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          </a>
-
-          <!-- Theme Toggle (Dark / Light) -->
-          <button type="button" class="icon-action-btn" onclick="LegendTheme.toggle()" title="Toggle Dark/Light Mode">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          </button>
-
-          <!-- Quote Request Cart Pill Card -->
-          <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Basket">
-            <div class="cart-icon-cell">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-              <span class="cart-badge-count" id="g2a-cart-count" style="display:none;">0</span>
-            </div>
-            <div class="cart-text-cell">
-              <span class="cart-text-lbl">BASKET</span>
-              <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
-            </div>
-          </a>
+    <div class="top-nav-inner">
+      <!-- Brand Logo -->
+      <a href="home.html" class="legend-brand" aria-label="Legend Games Home">
+        <div class="brand-badge-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
+        <div class="brand-text-block">
+          <span class="brand-title">LEGEND<span class="brand-accent">GAMES</span></span>
+          <span class="brand-subtitle">LAGOS VAULT</span>
+        </div>
+      </a>
+
+      <!-- Centered Search Bar (max-width: 400px, muted background, no harsh outlines) -->
+      <div class="header-search-center">
+        <div class="search-input-wrapper">
+          <div class="search-icon-prefix">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <input type="text" id="g2a-search-input" class="search-field" 
+                 placeholder="Search 130+ games &amp; consoles..." 
+                 oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Catalog">
+          <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearchInput()" style="display:none;" title="Clear search">✕</button>
+        </div>
+        <!-- Live Instant Search Dropdown -->
+        <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
       </div>
 
-      <!-- Universal Search with Dynamic Autocomplete -->
-      <div class="header-search-row">
-        <div class="legend-search-hub">
-          <div class="search-input-wrapper">
-            <div class="search-icon-prefix">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
-            <input type="text" id="g2a-search-input" class="search-field" 
-                   placeholder="Search 130+ games & consoles (GTA, FC26, COD, Spider-Man)..." 
-                   oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Game Catalog">
-            <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearchInput()" style="display:none;" title="Clear search">✕</button>
+      <!-- Action Controls: Trade-In, Profile, Cart -->
+      <div class="header-action-controls">
+        <a href="../trade-in/trade-in.html" class="nav-secondary-btn" title="Trade-In Old Consoles">
+          Trade-In
+        </a>
+        <a href="../admin/login.html" class="icon-action-btn" title="Staff Management Terminal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
+        <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Basket">
+          <div class="cart-icon-cell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span class="cart-badge-count" id="g2a-cart-count" style="display:none;">0</span>
           </div>
-          <!-- Live Instant Search Dropdown -->
-          <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
-        </div>
+          <div class="cart-text-cell">
+            <span class="cart-text-lbl">BASKET</span>
+            <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
+          </div>
+        </a>
       </div>
     </div>
   </header>
 
   <!-- =========================================================
-       3. CATEGORY QUICK-ACCESS BAR (LUXURY CONSOLE TABS)
+       3. DESKTOP DASHBOARD LAYOUT (PERMANENT SIDEBAR + MAIN)
        ========================================================= -->
-  <nav class="legend-category-strip" aria-label="Quick Category Access">
-    <div class="site-container cat-strip-inner">
-      <a href="../consoles/ps5/ps5.html" class="cat-pill active">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><line x1="16" y1="10" x2="16" y2="10.01"></line><line x1="14" y1="12" x2="14" y2="12.01"></line><line x1="18" y1="12" x2="18" y2="12.01"></line><line x1="16" y1="14" x2="16" y2="14.01"></line></svg>
-        <span class="cat-label">PS5 Studio</span>
-      </a>
-      <a href="../consoles/ps4/ps4.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><line x1="16" y1="10" x2="16" y2="10.01"></line><line x1="14" y1="12" x2="14" y2="12.01"></line><line x1="18" y1="12" x2="18" y2="12.01"></line><line x1="16" y1="14" x2="16" y2="14.01"></line></svg>
-        <span class="cat-label">PS4 Studio</span>
-      </a>
-      <a href="../discs-only/discs-only.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
-        <span class="cat-label">Physical Discs</span>
-        <span class="cat-count-tag">130+</span>
-      </a>
-      <a href="../disk/disk.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-        <span class="cat-label">Hard Drive Loading</span>
-        <span class="cat-hot-tag">HOT</span>
-      </a>
-      <a href="../pc-games/pc-games.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        <span class="cat-label">PC Master Library</span>
-      </a>
-      <a href="../accessories/accessories.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-        <span class="cat-label">Controllers &amp; Gear</span>
-      </a>
-      <a href="../wraps/wraps.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-        <span class="cat-label">Custom Wraps</span>
-      </a>
-      <a href="../trade-in/trade-in.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"></path></svg>
-        <span class="cat-label">Trade-In &amp; Swap</span>
-        <span class="cat-hot-tag" style="background:var(--accent-green); color:#080c14;">UPGRADE</span>
-      </a>
-      <a href="../price-list/price-list.html" class="cat-pill">
-        <svg class="cat-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-        <span class="cat-label">Price List</span>
-      </a>
-    </div>
-  </nav>
+  <div class="desktop-dashboard-layout">
+    
+    <!-- Permanent Left Sidebar Navigation -->
+    <aside class="dashboard-sidebar" aria-label="Store Navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-group-title">STORE</div>
+        <nav class="sidebar-nav-list">
+          <a href="#catalog-section" class="sidebar-nav-item active" onclick="filterGamesByTab('featured', this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Trending &amp; Featured</span>
+          </a>
+          <a href="../consoles/ps5/ps5.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><line x1="16" y1="10" x2="16" y2="10.01"></line><line x1="14" y1="12" x2="14" y2="12.01"></line><line x1="18" y1="12" x2="18" y2="12.01"></line><line x1="16" y1="14" x2="16" y2="14.01"></line></svg>
+            <span>PS5 Systems &amp; Games</span>
+          </a>
+          <a href="../consoles/ps4/ps4.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><circle cx="16" cy="12" r="2"></circle></svg>
+            <span>PS4 Systems &amp; Games</span>
+          </a>
+          <a href="../discs-only/discs-only.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+            <span>Physical Discs (130+)</span>
+          </a>
+          <a href="../pc-games/pc-games.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>PC Master Library</span>
+          </a>
+          <a href="../accessories/accessories.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+            <span>Controllers &amp; Gear</span>
+          </a>
+        </nav>
+      </div>
 
-  <!-- =========================================================
-       4. MAIN STOREFRONT VIEWPORT
-       ========================================================= -->
-  <main class="legend-main-viewport">
-    <div class="site-container">
+      <div class="sidebar-section">
+        <div class="sidebar-group-title">SERVICES</div>
+        <nav class="sidebar-nav-list">
+          <a href="../disk/disk.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            <span>Game Loading (HDD)</span>
+          </a>
+          <a href="../trade-in/trade-in.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"></path></svg>
+            <span>Trade-In &amp; Swap</span>
+          </a>
+          <a href="../how-it-works/how-it-works.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Lagos Meetup Hubs</span>
+          </a>
+          <a href="../price-list/price-list.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Full Price List</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-group-title">CUSTOMER ASSIST</div>
+        <nav class="sidebar-nav-list">
+          <a href="../order-tracking/order-tracking.html" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Track Quote Status</span>
+          </a>
+          <a href="https://wa.me/2348000000000" target="_blank" rel="noopener noreferrer" class="sidebar-nav-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Direct WhatsApp Desk</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Dashboard Viewport -->
+    <main class="dashboard-main-content">
+      
+      <!-- =======================================================
+           4. HERO GAME CARD (WIDE SPLIT-LAYOUT: 50% LEFT / 50% RIGHT)
+           ======================================================= -->
+      <section class="hero-split-card" id="hero-spotlight-card">
+        
+        <!-- Left 50% Content -->
+        <div class="hero-split-left">
+          <!-- Live Stock Indicator -->
+          <div class="hero-live-stock">
+            <span class="live-stock-dot"></span>
+            <span class="live-stock-text">In Stock at Lagos Vault</span>
+          </div>
+
+          <h1 class="hero-card-title" id="hero-game-title">The Last of Us Part I</h1>
+          
+          <div class="hero-platform-pills">
+            <span class="platform-tag">PS5</span>
+            <span class="platform-tag">PS4</span>
+            <span class="platform-tag subtle">Action / Story</span>
+          </div>
+
+          <p class="hero-card-desc" id="hero-game-desc">
+            Experience the emotional storytelling and unforgettable characters in Joel and Ellie's journey. Rebuilt with enhanced visuals, full DualSense haptic feedback, and modernized mechanics.
+          </p>
+
+          <!-- 3-Column Clean Pricing Grid -->
+          <div class="hero-pricing-grid">
+            <div class="pricing-col highlight">
+              <span class="pricing-label">Physical Disc</span>
+              <span class="pricing-amount brand-teal" id="hero-disc-price">₦38,000</span>
+              <span class="pricing-sub">Verified Boxed Case</span>
+            </div>
+            <div class="pricing-col">
+              <span class="pricing-label">HEN / Mod Install</span>
+              <span class="pricing-amount" id="hero-mod-price">₦2,500</span>
+              <span class="pricing-sub">Offline Load</span>
+            </div>
+            <div class="pricing-col">
+              <span class="pricing-label">Storage Footprint</span>
+              <span class="pricing-amount" id="hero-game-size">79 GB</span>
+              <span class="pricing-sub">Full Game Cache</span>
+            </div>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="hero-actions-row">
+            <button type="button" class="btn-primary-teal" onclick="addHeroGameToCart()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Add to Loadout</span>
+            </button>
+            <a href="../discs-only/discs-only.html" class="btn-ghost-secondary">
+              Browse All 130 Discs →
+            </a>
+          </div>
+
+          <!-- Thumbnail Carousel Bar -->
+          <div class="hero-thumbnail-bar" id="hero-nav-thumbs"></div>
+        </div>
+
+        <!-- Right 50% High-Quality Cover Art & Frosted Play Button -->
+        <div class="hero-split-right">
+          <div class="hero-cover-wrapper">
+            <img id="hero-cover-img" src="../shared/assets/covers/tlou-1.jpg" alt="Featured Game Artwork" class="hero-cover-visual" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+            <div class="hero-image-overlay"></div>
+            
+            <!-- Frosted Glass Play Button Overlay -->
+            <button type="button" class="frosted-play-btn" onclick="openTrailerModal()" aria-label="Watch Game Trailer" title="Watch Game Trailer">
+              <div class="frosted-play-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+              <span class="frosted-play-label">Preview Trailer</span>
+            </button>
+          </div>
+        </div>
+
+      </section>
 
       <!-- =======================================================
-           MODULE 1: HERO SPOTLIGHT ARENA
+           5. ADVANCED E-COMMERCE UX FEATURES (TRADE-IN & HDD UPSELL)
            ======================================================= -->
-      <section class="legend-hero-arena">
-        <!-- Spotlight Carousel Card -->
-        <div class="hero-spotlight-card" id="hero-spotlight-card">
-          <div class="hero-backdrop-layer"></div>
-
-          <!-- Free FC26 Included Promo Pill -->
-          <div class="hero-promo-badge">
-            <span class="promo-dot"></span>
-            <span>FREE FC26 INCLUDED WITH ALL CONSOLES</span>
-          </div>
-
-          <div class="hero-content-layer">
-            <div class="hero-tagline-strip">
-              <span class="hero-status-pill hot">TOP TRENDING IN NIGERIA</span>
-              <span class="hero-status-pill platform">PS5 · PS4 · XBOX · PC</span>
+      <section class="advanced-ux-grid">
+        
+        <!-- Smart Trade-In Widget Card -->
+        <div class="ux-card tradein-widget-card">
+          <div class="ux-card-header">
+            <div class="ux-header-icon orange-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"></path></svg>
             </div>
-            <h1 class="hero-headline" id="hero-game-title">EA SPORTS FC 26</h1>
-            <p class="hero-synopsis" id="hero-game-desc">
-              HyperMotion realism, updated Nigerian and international squads, Career Mode &amp; Ultimate Team. Available as verified boxed discs and direct offline HEN installs.
-            </p>
-
-            <!-- Refined Telemetry Pricing Deck -->
-            <div class="hero-pricing-telemetry">
-              <div class="telemetry-cell">
-                <span class="telemetry-lbl">Physical Disc</span>
-                <span class="telemetry-val disc-val" id="hero-disc-price">₦38,000</span>
-              </div>
-              <div class="telemetry-sep"></div>
-              <div class="telemetry-cell">
-                <span class="telemetry-lbl">HEN Offline Install</span>
-                <span class="telemetry-val mod-val" id="hero-mod-price">₦3,000</span>
-              </div>
-              <div class="telemetry-sep"></div>
-              <div class="telemetry-cell">
-                <span class="telemetry-lbl">Storage Size</span>
-                <span class="telemetry-val spec-val">48 GB</span>
-              </div>
-            </div>
-
-            <div class="hero-cta-group">
-              <button class="btn-hero-primary" onclick="addHeroGameToCart()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Add to Request Loadout</span>
-              </button>
-              <a href="../discs-only/discs-only.html" class="studio-link">
-                <span>Browse All 130 Discs →</span>
-              </a>
+            <div>
+              <h3 class="ux-card-title">Smart Console Trade-In</h3>
+              <p class="ux-card-subtitle">Instant swap quote or cash value for your old PlayStation or Xbox.</p>
             </div>
           </div>
 
-          <!-- Thumbnail Carousel Indicators -->
-          <div class="hero-thumbnail-nav" id="hero-nav-thumbs"></div>
+          <div class="tradein-selector-block">
+            <label class="ux-form-label" for="tradein-console-select">Select Your Current Console</label>
+            <div class="select-wrapper">
+              <select id="tradein-console-select" class="ux-select" onchange="updateTradeInEstimate(this.value)">
+                <option value="ps4-pro">PlayStation 4 Pro (1TB) — ~₦160,000</option>
+                <option value="ps4-slim-1tb">PlayStation 4 Slim (1TB) — ~₦135,000</option>
+                <option value="ps4-slim-500gb">PlayStation 4 Slim (500GB) — ~₦120,000</option>
+                <option value="ps4-fat">PlayStation 4 Fat (500GB) — ~₦95,000</option>
+                <option value="ps5-disc">PlayStation 5 Disc Edition — ~₦420,000</option>
+                <option value="ps5-digital">PlayStation 5 Digital Edition — ~₦360,000</option>
+                <option value="xbox-series-x">Xbox Series X (1TB) — ~₦380,000</option>
+                <option value="xbox-series-s">Xbox Series S (512GB) — ~₦190,000</option>
+                <option value="switch-oled">Nintendo Switch OLED — ~₦180,000</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tradein-valuation-preview" id="tradein-val-preview">
+            <div class="val-label">Estimated Swap Value:</div>
+            <div class="val-amount" id="tradein-val-display">₦160,000</div>
+          </div>
+
+          <button type="button" class="btn-action-orange" onclick="executeTradeInEstimate()">
+            <span>Get Instant Estimate</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
         </div>
 
-        <!-- 2 Side Hardware & Drive Loading Studio Tiles -->
-        <div class="hero-side-studios">
-          <!-- Studio Tile 1: Consoles -->
-          <div class="studio-tile console-studio">
-            <div class="studio-tile-bg" style="background-image: url('https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=600&q=80');"></div>
-            <div class="studio-tile-content">
-              <span class="studio-tag">HARDWARE STUDIO</span>
-              <h2 class="studio-title">PS5 &amp; PS4 Systems</h2>
-              <p class="studio-desc">Original and HEN modded packages. <strong>Free annual FC edition included</strong> on all systems.</p>
-              <div class="studio-price-row">Starting from <strong>₦240,000</strong></div>
-              <a href="../consoles/ps5/ps5.html" class="studio-action-link">Configure Console →</a>
+        <!-- Hard Drive Game Loading Upsell Card -->
+        <div class="ux-card hdd-upsell-card">
+          <div class="ux-card-header">
+            <div class="ux-header-icon teal-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"></rect><rect x="2" y="14" width="20" height="8" rx="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            </div>
+            <div>
+              <h3 class="ux-card-title">Hard Drive Game Loading</h3>
+              <p class="ux-card-subtitle">Mass storage pre-loaded with verified titles. Ready to plug and play.</p>
             </div>
           </div>
 
-          <!-- Studio Tile 2: Hard Drive Loading -->
-          <div class="studio-tile disk-studio">
-            <div class="studio-tile-bg" style="background-image: url('https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80');"></div>
-            <div class="studio-tile-content">
-              <span class="studio-tag hot">TOP SERVICE</span>
-              <h2 class="studio-title">Hard Disk Game Loading</h2>
-              <p class="studio-desc">Fill 1TB, 2TB, or 3TB external hard drives with 50+ full games. Real-time storage meter.</p>
-              <div class="studio-price-row">From <strong>₦25,000</strong> <small>(Per 1TB Fill)</small></div>
-              <a href="../disk/disk.html" class="studio-action-link">Load Your Drive →</a>
-            </div>
+          <!-- Visually separated starting price -->
+          <div class="hdd-price-callout-block">
+            <div class="hdd-callout-amount">₦25,000</div>
+            <div class="hdd-callout-unit">Starting / 1TB Full Pack (30+ Titles)</div>
+          </div>
+
+          <p class="hdd-card-desc">
+            Fill your 1TB, 2TB, or 4TB external hard drive with up to 60+ blockbuster titles. Zero internet data downloads required. Includes verified patches and saves.
+          </p>
+
+          <div class="hdd-action-row">
+            <a href="../disk/disk.html" class="btn-secondary-surface">
+              <span>Configure Drive</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
           </div>
         </div>
+
       </section>
 
       <!-- =======================================================
@@ -688,8 +743,8 @@
         </div>
       </section>
 
-    </div>
-  </main>
+    </main>
+  </div>
 
   <!-- =========================================================
        MASTER STOREFRONT FOOTER
@@ -899,6 +954,31 @@
       </div>
     </div>
   </div>
+
+  <!-- =========================================================
+       9. TRAILER PREVIEW MODAL
+       ========================================================= -->
+  <div class="trailer-modal-backdrop" id="modal-trailer-player" onclick="closeTrailerModal(event)">
+    <div class="trailer-modal-dialog" onclick="event.stopPropagation()">
+      <div class="trailer-modal-header">
+        <div class="trailer-title-wrap">
+          <span class="trailer-badge">OFFICIAL TRAILER</span>
+          <h3 class="trailer-game-title" id="trailer-title-text">The Last of Us Part I — Official Trailer</h3>
+        </div>
+        <button type="button" class="trailer-close-btn" onclick="closeTrailerModal()" aria-label="Close Trailer">✕</button>
+      </div>
+      <div class="trailer-video-frame">
+        <iframe id="trailer-iframe" src="" title="Game Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       10. FLAT PROFESSIONAL WHATSAPP DESK (BOTTOM-RIGHT)
+       ========================================================= -->
+  <a href="https://wa.me/2348000000000?text=Hello%20Legend%20Games,%20I%20have%20an%20inquiry." class="flat-whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Direct WhatsApp Support" title="Chat with Legend Games on WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.961.948 2.896.948h.005c3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.768-5.768-5.768zm3.385 8.167c-.145.407-.745.748-1.026.793-.27.043-.615.074-1.785-.41-.998-.414-1.636-1.425-1.685-1.49-.05-.066-.407-.541-.407-1.033 0-.491.258-.733.35-.833.092-.1.2-.125.267-.125.067 0 .133.001.192.004.062.003.146-.024.229.175.083.2.283.691.308.741.025.05.042.108.008.175-.033.067-.05.108-.1.167-.05.058-.105.13-.15.175-.05.05-.102.105-.044.205.058.1.258.426.554.69.382.341.704.446.804.496.1.05.158.042.217-.025.058-.067.25-.291.317-.391.067-.1.133-.083.225-.05.092.033.583.275.683.325.1.05.167.075.192.117.025.042.025.241-.12.648z"/></svg>
+  </a>
 
   <!-- Scripts -->
   <script src="../shared/data/consoles.js"></script>

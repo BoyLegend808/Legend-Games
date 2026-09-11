@@ -158,7 +158,7 @@ function initHeroCarousel() {
   const thumbsContainer = document.getElementById('hero-nav-thumbs');
   if (thumbsContainer) {
     thumbsContainer.innerHTML = StoreState.heroGames.map((g, idx) => `
-      <div class="hero-thumb-btn ${idx === 0 ? 'active' : ''}" onclick="setHeroSlide(${idx})">
+      <div class="hero-thumb-item ${idx === 0 ? 'active' : ''}" onclick="setHeroSlide(${idx})">
         <img src="${getGameCoverPath(g)}" alt="${g.title}" loading="lazy" onerror="handleGameCoverError(this, '${escapeQuotes(g.title)}', '${escapeQuotes(g.genre || '')}', 'PS4 · PS5')">
       </div>
     `).join('');
@@ -199,20 +199,27 @@ function renderHeroSlide(index) {
   const descEl = document.getElementById('hero-game-desc');
   const discPriceEl = document.getElementById('hero-disc-price');
   const modPriceEl = document.getElementById('hero-mod-price');
+  const sizeEl = document.getElementById('hero-game-size');
+  const coverImg = document.getElementById('hero-cover-img');
   const backdropEl = document.querySelector('.hero-backdrop-layer');
 
   if (titleEl) titleEl.textContent = game.title;
-  if (descEl) descEl.textContent = game.description || `${game.genre || 'Action'} blockbuster with verified disc and digital packages.`;
+  if (descEl) descEl.textContent = game.description || `${game.genre || 'Action'} blockbuster with verified physical disc and digital packages.`;
   if (discPriceEl) discPriceEl.textContent = formatNaira(game.price || 18000);
   if (modPriceEl) modPriceEl.textContent = formatNaira(game.moddedPrice || 2000);
+  if (sizeEl) sizeEl.textContent = `${game.ps4Size || 50} GB`;
 
+  const coverUrl = getGameCoverPath(game);
+  if (coverImg) {
+    coverImg.src = coverUrl;
+    coverImg.alt = game.title;
+  }
   if (backdropEl) {
-    const coverUrl = getGameCoverPath(game);
     backdropEl.style.backgroundImage = `url('${coverUrl}')`;
   }
 
   // Update active thumbnail
-  const thumbBtns = document.querySelectorAll('.hero-thumb-btn');
+  const thumbBtns = document.querySelectorAll('.hero-thumb-item, .hero-thumb-btn');
   thumbBtns.forEach((btn, idx) => {
     btn.classList.toggle('active', idx === index);
   });
@@ -222,16 +229,92 @@ function addHeroGameToCart() {
   const game = StoreState.heroGames[StoreState.currentHeroIndex];
   if (!game) return;
 
-  LegendCart.addItem({
-    id: game.id,
-    title: game.title,
-    price: game.price || 18000,
-    totalPrice: game.price || 18000,
-    variant: 'Physical Boxed Disc',
-    type: 'game_disc',
-    ps4Size: game.ps4Size || 45,
-    coverImage: getGameCoverPath(game)
-  });
+  if (window.LegendCart) {
+    LegendCart.addItem({
+      id: game.id,
+      title: game.title,
+      price: game.price || 18000,
+      totalPrice: game.price || 18000,
+      variant: 'Physical Boxed Disc',
+      type: 'game_disc',
+      ps4Size: game.ps4Size || 45,
+      coverImage: getGameCoverPath(game)
+    });
+  }
+}
+
+// Trade-In Estimator
+const TRADE_IN_VALUATIONS = {
+  'ps4-pro': 160000,
+  'ps4-slim-1tb': 135000,
+  'ps4-slim-500gb': 120000,
+  'ps4-fat': 95000,
+  'ps5-disc': 420000,
+  'ps5-digital': 360000,
+  'xbox-series-x': 380000,
+  'xbox-series-s': 190000,
+  'switch-oled': 180000
+};
+
+function updateTradeInEstimate(consoleKey) {
+  const valDisplay = document.getElementById('tradein-val-display');
+  const amount = TRADE_IN_VALUATIONS[consoleKey] || 160000;
+  if (valDisplay) {
+    valDisplay.textContent = formatNaira(amount);
+  }
+}
+
+function executeTradeInEstimate() {
+  const select = document.getElementById('tradein-console-select');
+  const consoleName = select ? select.options[select.selectedIndex].text : 'Console';
+  const valDisplay = document.getElementById('tradein-val-display');
+  const estimate = valDisplay ? valDisplay.textContent : '₦160,000';
+  
+  const msg = encodeURIComponent(`Hello Legend Games, I want to trade in my ${consoleName}. The estimated swap value is ${estimate}. How do we proceed with physical inspection in Lagos?`);
+  window.open(`https://wa.me/2348012345678?text=${msg}`, '_blank');
+}
+
+// Trailer Modal
+const GAME_TRAILERS = {
+  'tlou-1': 'https://www.youtube.com/embed/W01L70IGBgE?autoplay=1',
+  'gow-ragnarok': 'https://www.youtube.com/embed/hfJ4Km46A-0?autoplay=1',
+  'spiderman-ps4': 'https://www.youtube.com/embed/q4GoY46ctMg?autoplay=1',
+  'ea-sports-fc-26': 'https://www.youtube.com/embed/pBm2URpnh-s?autoplay=1',
+  'gta-v': 'https://www.youtube.com/embed/QkkoHAzjnUs?autoplay=1',
+  'ghost-of-tsushima': 'https://www.youtube.com/embed/iqysmI3-Gk8?autoplay=1',
+  'elden-ring': 'https://www.youtube.com/embed/E3Huy2cdih0?autoplay=1'
+};
+
+function openTrailerModal() {
+  const game = StoreState.heroGames[StoreState.currentHeroIndex];
+  const modal = document.getElementById('modal-trailer-player');
+  const iframe = document.getElementById('trailer-iframe');
+  const titleEl = document.getElementById('trailer-title-text');
+
+  if (game && titleEl) {
+    titleEl.textContent = `${game.title} — Official Gameplay Trailer`;
+  }
+  if (iframe) {
+    const trailerUrl = (game && GAME_TRAILERS[game.id]) || 'https://www.youtube.com/embed/W01L70IGBgE?autoplay=1';
+    iframe.src = trailerUrl;
+  }
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
+
+function closeTrailerModal(e) {
+  if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('trailer-close-btn')) {
+    return;
+  }
+  const modal = document.getElementById('modal-trailer-player');
+  const iframe = document.getElementById('trailer-iframe');
+  if (iframe) {
+    iframe.src = '';
+  }
+  if (modal) {
+    modal.classList.remove('active');
+  }
 }
 
 // =========================================================================
@@ -315,8 +398,13 @@ function filterGamesByTab(tabKey, btnElement) {
 
   // Update active tab button style
   if (btnElement) {
-    document.querySelectorAll('.v-tab-btn').forEach(b => b.classList.remove('active'));
-    btnElement.classList.add('active');
+    if (btnElement.classList.contains('sidebar-nav-item')) {
+      document.querySelectorAll('.sidebar-nav-item').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+    } else {
+      document.querySelectorAll('.v-tab-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+    }
   }
 
   applyCatalogFilters();

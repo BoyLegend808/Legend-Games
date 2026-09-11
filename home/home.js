@@ -312,23 +312,8 @@ function closeTrailerModal(e) {
   if (iframe) {
     iframe.src = '';
   }
-}
-
-// Mobile Slide-Out Drawer Navigation Engine
-function toggleMobileNav() {
-  const drawer = document.getElementById('mobile-nav-drawer');
-  if (drawer) {
-    drawer.classList.toggle('active');
-  }
-}
-
-function closeMobileNav(e) {
-  if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('drawer-close-btn')) {
-    return;
-  }
-  const drawer = document.getElementById('mobile-nav-drawer');
-  if (drawer) {
-    drawer.classList.remove('active');
+  if (modal) {
+    modal.classList.remove('active');
   }
 }
 
@@ -1126,6 +1111,26 @@ function selectConditionGrade(condition, btnElement) {
 
   if (btnEl && textMap[condition]) {
     btnEl.href = `https://wa.me/2348012345678?text=${encodeURIComponent(`Hello Legend Games, I want to sell/trade-in my console. Condition: ${textMap[condition]}`)}`;
+  }
+}
+
+// =========================================================================
+// 13. MOBILE SLIDE-OUT NAVIGATION DRAWER CONTROLLER
+// =========================================================================
+function toggleMobileNav() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.toggle('active');
+  }
+}
+
+function closeMobileNav(e) {
+  if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('drawer-close-btn')) {
+    return;
+  }
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.remove('active');
   }
 }
 

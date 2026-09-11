@@ -20,27 +20,27 @@
 <body class="legend-storefront-body">
 
   <!-- =========================================================
-       1. STATIC CENTERED TOP TRUST BANNER (ROW 1)
+       1. STATIC CENTERED TOP TRUST BANNER
        ========================================================= -->
-  <aside class="legend-trust-banner" aria-label="Trust Banner">
+  <aside class="legend-trust-banner" aria-label="Trust and Verification Banner">
     <div class="trust-banner-inner">
-      <span class="trust-text">No Advance Payment: Inspect &amp; Test Before Paying</span>
+      <span class="trust-badge">LEGEND PROMISE</span>
+      <span class="trust-text">No Advance Payment: Inspect &amp; Test Before Paying · Safe Public Meetups Across Lagos (Ikeja, Lekki, Surulere &amp; Festac)</span>
     </div>
   </aside>
 
   <!-- =========================================================
-       2. MASTER HEADER & MOBILE RESPONSIVE NAVIGATION
+       2. STICKY TOP NAVIGATION BAR (STEAM / PLAYSTATION STORE)
        ========================================================= -->
   <header class="legend-master-header">
-    <div class="header-content-wrap">
-      <!-- Main Row (Row 2): Hamburger | Brand | Cart -->
-      <div class="header-main-row">
-        <!-- Left: Mobile Hamburger Button -->
-        <button type="button" class="mobile-hamburger-btn" onclick="toggleMobileNav()" aria-label="Toggle Menu" title="Toggle Menu">
+    <div class="top-nav-inner">
+      <div class="header-left-cluster">
+        <!-- Mobile Hamburger Toggle Button -->
+        <button type="button" class="mobile-hamburger-btn" onclick="toggleMobileNav()" aria-label="Toggle Navigation Menu" title="Toggle Navigation Menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
 
-        <!-- Center: Brand Logo -->
+        <!-- Brand Logo -->
         <a href="home.html" class="legend-brand" aria-label="Legend Games Home">
           <div class="brand-badge-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -50,43 +50,41 @@
             <span class="brand-subtitle desktop-only">LAGOS VAULT</span>
           </div>
         </a>
-
-        <!-- Desktop Nav Controls & Cart -->
-        <div class="header-action-controls">
-          <a href="../trade-in/trade-in.html" class="nav-secondary-btn desktop-only" title="Trade-In Old Consoles">
-            Trade-In
-          </a>
-          <a href="../admin/login.html" class="icon-action-btn desktop-only" title="Staff Management Terminal">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          </a>
-          <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Basket">
-            <div class="cart-icon-cell">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-              <span class="cart-badge-count" id="g2a-cart-count" style="display:none;">0</span>
-            </div>
-            <div class="cart-text-cell desktop-only">
-              <span class="cart-text-lbl">BASKET</span>
-              <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
-            </div>
-          </a>
-        </div>
       </div>
 
-      <!-- Search Row (Row 3): Full Width Search Bar -->
-      <div class="header-search-row">
-        <div class="header-search-center">
-          <div class="search-input-wrapper">
-            <div class="search-icon-prefix">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
-            <input type="text" id="g2a-search-input" class="search-field" 
-                   placeholder="Search 130+ games &amp; consoles..." 
-                   oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Catalog">
-            <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearchInput()" style="display:none;" title="Clear search">✕</button>
+      <!-- Centered Search Bar (max-width: 400px, muted background, no harsh outlines) -->
+      <div class="header-search-center">
+        <div class="search-input-wrapper">
+          <div class="search-icon-prefix">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </div>
-          <!-- Live Instant Search Dropdown -->
-          <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
+          <input type="text" id="g2a-search-input" class="search-field" 
+                 placeholder="Search 130+ games &amp; consoles..." 
+                 oninput="handleG2ASearch(this.value)" autocomplete="off" aria-label="Search Catalog">
+          <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearchInput()" style="display:none;" title="Clear search">✕</button>
         </div>
+        <!-- Live Instant Search Dropdown -->
+        <div id="g2a-autocomplete-results" class="search-autocomplete-drawer" style="display:none;"></div>
+      </div>
+
+      <!-- Action Controls: Trade-In, Profile, Cart -->
+      <div class="header-action-controls">
+        <a href="../trade-in/trade-in.html" class="nav-secondary-btn desktop-only" title="Trade-In Old Consoles">
+          Trade-In
+        </a>
+        <a href="../admin/login.html" class="icon-action-btn" title="Staff Management Terminal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </a>
+        <a href="../cart/cart.html" class="header-cart-card" title="View Quote Request Basket">
+          <div class="cart-icon-cell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span class="cart-badge-count" id="g2a-cart-count" style="display:none;">0</span>
+          </div>
+          <div class="cart-text-cell desktop-only">
+            <span class="cart-text-lbl">BASKET</span>
+            <span class="cart-text-price" id="g2a-cart-total-price">₦0</span>
+          </div>
+        </a>
       </div>
     </div>
   </header>
@@ -297,7 +295,7 @@
 
           <!-- Hero Action Buttons -->
           <div class="hero-actions-row">
-            <button type="button" class="btn-primary-orange" onclick="addHeroGameToCart()">
+            <button type="button" class="btn-primary-teal" onclick="addHeroGameToCart()">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
               <span>Add to Loadout</span>
             </button>

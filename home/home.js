@@ -312,8 +312,23 @@ function closeTrailerModal(e) {
   if (iframe) {
     iframe.src = '';
   }
-  if (modal) {
-    modal.classList.remove('active');
+}
+
+// Mobile Slide-Out Drawer Navigation Engine
+function toggleMobileNav() {
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.toggle('active');
+  }
+}
+
+function closeMobileNav(e) {
+  if (e && e.target && e.target !== e.currentTarget && !e.target.classList.contains('drawer-close-btn')) {
+    return;
+  }
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (drawer) {
+    drawer.classList.remove('active');
   }
 }
 

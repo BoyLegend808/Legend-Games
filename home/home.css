@@ -183,18 +183,25 @@ body.legend-storefront-body {
 .top-nav-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 12px 24px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
+}
+
+.top-nav-main-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .top-nav-left,
 .header-left-cluster {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
@@ -1153,7 +1160,7 @@ body.legend-storefront-body {
 }
 
 /* Responsive Overrides */
-@media (max-width: 1023px) {
+@media (max-width: 899px) {
   .desktop-only {
     display: none !important;
   }
@@ -1168,34 +1175,103 @@ body.legend-storefront-body {
 
   .desktop-dashboard-layout {
     flex-direction: column;
-    padding: 14px 12px;
-    gap: 20px;
+    padding: 12px 10px;
+    gap: 16px;
   }
 
   .top-nav-inner {
-    padding: 10px 14px;
-    gap: 10px;
+    flex-direction: column;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .top-nav-main-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .header-search-center {
-    max-width: 240px;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .hero-split-card {
     flex-direction: column-reverse;
+    padding: 18px 14px;
+    gap: 14px;
+  }
+
+  .hero-split-left {
+    padding: 0;
+    gap: 12px;
   }
 
   .hero-split-right {
     min-height: auto;
-    padding: 20px 16px 0 16px;
+    padding: 0;
     background: transparent;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .hero-cover-wrapper {
-    max-width: 170px;
-    max-height: 225px;
+    width: 135px;
+    max-width: 135px;
+    aspect-ratio: 3 / 4;
+    max-height: 180px;
     margin: 0 auto;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-card-title {
+    font-size: 22px;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .hero-live-stock {
+    justify-content: center;
+  }
+
+  .hero-platform-pills {
+    justify-content: center;
+  }
+
+  .hero-card-desc {
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .hero-pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 10px 8px;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .pricing-amount {
+    font-size: 15px;
+  }
+
+  .pricing-label {
+    font-size: 10px;
+  }
+
+  .hero-actions-row {
+    justify-content: center;
+  }
+
+  .btn-primary-teal {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-ghost-secondary {
+    display: none;
   }
 }
 
